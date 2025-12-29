@@ -58,6 +58,27 @@
             text-align: left;
         }
 
+        .header-filter-btn {
+            background: rgba(255,255,255,0.2);
+            border: 2px solid rgba(255,255,255,0.4);
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1.5rem;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .header-filter-btn:hover {
+            background: rgba(255,255,255,0.3);
+            transform: scale(1.1);
+        }
+
         .header h1 {
             font-size: 1.8rem;
             margin-bottom: 5px;
@@ -184,6 +205,17 @@
             border-bottom: 3px solid #8B2F87;
         }
 
+        /* Célula de data vazia (linha noite) */
+        .data-cell-empty {
+            background: linear-gradient(135deg, #5D1A54 0%, #8B2F87 100%);
+            color: transparent;
+            border-right: 3px solid #fff;
+        }
+
+        .row-noite .data-cell-empty {
+            font-size: 0;
+        }
+
         /* ==================== RESUMO ==================== */
         .resumo-container {
             margin-top: 30px;
@@ -246,6 +278,169 @@
             border-radius: 10px;
             font-size: 0.8rem;
             flex-shrink: 0;
+        }
+
+        /* ==================== BOTÃO IMPRIMIR ==================== */
+        .print-container {
+            text-align: center;
+            margin: 30px 0;
+        }
+
+        .btn-print {
+            background: linear-gradient(135deg, #2C3E50 0%, #1a252f 100%);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            border-radius: 50px;
+            cursor: pointer;
+            font-size: 1.1rem;
+            font-weight: 600;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            transition: all 0.3s;
+        }
+
+        .btn-print:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.4);
+        }
+
+        /* Opções de impressão */
+        .print-options {
+            margin: 20px 0;
+        }
+
+        .print-preview {
+            background: #f8f9fa;
+            border: 2px dashed #ddd;
+            border-radius: 10px;
+            padding: 15px;
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .print-preview h4 {
+            color: #666;
+            margin-bottom: 10px;
+            font-size: 0.9rem;
+        }
+
+        .print-preview p {
+            color: #333;
+            font-weight: 600;
+            font-size: 1rem;
+        }
+
+        /* ==================== ESTILOS DE IMPRESSÃO ==================== */
+        @media print {
+            * {
+                margin: 0;
+                padding: 0;
+            }
+
+            body {
+                background: white !important;
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
+            }
+
+            .admin-access,
+            .admin-panel,
+            .btn-print,
+            .print-container,
+            .modal,
+            .header-filter-btn {
+                display: none !important;
+            }
+
+            .header {
+                background: linear-gradient(135deg, #8B2F87 0%, #5D1A54 100%) !important;
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
+                padding: 15px !important;
+                page-break-after: avoid !important;
+                break-after: avoid !important;
+            }
+
+            .container {
+                max-width: 100% !important;
+                padding: 5px !important;
+                page-break-before: avoid !important;
+                break-before: avoid !important;
+            }
+
+            .table-container {
+                box-shadow: none !important;
+                border: 1px solid #ddd;
+                margin-top: 10px !important;
+                margin-bottom: 15px;
+                page-break-before: avoid !important;
+                break-before: avoid !important;
+            }
+
+            table {
+                page-break-inside: auto;
+            }
+
+            tr {
+                page-break-inside: avoid;
+                page-break-after: auto;
+            }
+
+            thead {
+                display: table-header-group;
+            }
+
+            .row-manha td {
+                background: #C76BBF !important;
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
+            }
+
+            .data-cell {
+                background: #5D1A54 !important;
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
+            }
+
+            .data-cell-empty {
+                background: #5D1A54 !important;
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
+            }
+
+            .resumo-container {
+                margin-top: 20px;
+            }
+
+            .resumo-table th {
+                background: #1E5128 !important;
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
+            }
+
+            .resumo-table .row-resumo:nth-child(odd) td {
+                background: #D8E9A8 !important;
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
+            }
+
+            .periodo-manha {
+                background: #FFD700 !important;
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
+            }
+
+            .periodo-noite {
+                background: #4A4A8A !important;
+                color: white !important;
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
+            }
+
+            .resumo-titulo {
+                color: #1E5128 !important;
+                margin-top: 15px !important;
+            }
         }
 
         .resumo-table .datas-list {
@@ -620,6 +815,9 @@
                 <h1>Escala de Ministração - IDAC</h1>
                 <p>Igreja de Deus Águas Claras</p>
             </div>
+            <button class="header-filter-btn" onclick="openModal('modalFiltroView')" title="Filtrar Escala">
+                🔍
+            </button>
         </div>
     </div>
 
@@ -691,12 +889,86 @@
                 </table>
             </div>
         </div>
+
+        <!-- Botão Imprimir PDF -->
+        <div class="print-container">
+            <button class="btn-print" onclick="openModal('modalImprimir')">
+                🖨️ Imprimir / Salvar PDF
+            </button>
+        </div>
+    </div>
+
+    <!-- Modal Opções de Impressão -->
+    <div class="modal" id="modalImprimir">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeModal('modalImprimir')">&times;</button>
+            <h2>🖨️ Opções de Impressão</h2>
+            
+            <div class="print-options">
+                <div class="form-group">
+                    <label>Filtrar por:</label>
+                    <select id="tipoFiltro" onchange="atualizarOpcoesFiltro()">
+                        <option value="todos">📋 Imprimir Tudo</option>
+                        <option value="ministrante">👤 Por Ministrante</option>
+                        <option value="mes">📅 Por Mês</option>
+                    </select>
+                </div>
+
+                <div class="form-group" id="filtroDetalhe" style="display: none;">
+                    <label id="labelFiltroDetalhe">Selecione:</label>
+                    <select id="valorFiltro">
+                        <!-- Opções serão preenchidas via JavaScript -->
+                    </select>
+                </div>
+
+                <div class="print-preview">
+                    <h4>📄 Prévia do que será impresso:</h4>
+                    <p id="previewTexto">Escala completa + Resumo por Ministrante</p>
+                </div>
+            </div>
+            
+            <div style="text-align: center; margin-top: 20px;">
+                <button class="btn" onclick="executarImpressao()">🖨️ Gerar PDF</button>
+                <button class="btn btn-secondary" onclick="closeModal('modalImprimir')">Cancelar</button>
+            </div>
+        </div>
     </div>
 
     <!-- Botão de acesso admin -->
     <button class="admin-access" id="adminAccessBtn" onclick="openModal('modalLogin')">
         🔐 Admin
     </button>
+
+    <!-- Modal de Filtro para Visualização -->
+    <div class="modal" id="modalFiltroView">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeModal('modalFiltroView')">&times;</button>
+            <h2>🔍 Filtrar Escala</h2>
+            
+            <div class="filter-options">
+                <div class="form-group">
+                    <label>Filtrar por:</label>
+                    <select id="tipoFiltroView" onchange="atualizarOpcoesFiltroView()">
+                        <option value="todos">📋 Mostrar Tudo</option>
+                        <option value="ministrante">👤 Por Ministrante</option>
+                        <option value="mes">📅 Por Mês</option>
+                    </select>
+                </div>
+
+                <div class="form-group" id="filtroDetalheView" style="display: none;">
+                    <label id="labelFiltroDetalheView">Selecione:</label>
+                    <select id="valorFiltroView">
+                        <!-- Opções serão preenchidas via JavaScript -->
+                    </select>
+                </div>
+            </div>
+            
+            <div style="text-align: center; margin-top: 20px;">
+                <button class="btn" onclick="aplicarFiltroView()">✅ Aplicar Filtro</button>
+                <button class="btn btn-secondary" onclick="limparFiltroView()">🔄 Limpar Filtro</button>
+            </div>
+        </div>
+    </div>
 
     <!-- Modal de Login -->
     <div class="modal" id="modalLogin">
@@ -934,7 +1206,7 @@
             const tbody = document.getElementById('escalaBody');
             tbody.innerHTML = dados.escala.map(item => `
                 <tr class="row-manha">
-                    <td class="data-cell" rowspan="2">${item.data}</td>
+                    <td class="data-cell">${item.data}</td>
                     <td>
                         <span class="turno-label">☀️ Manhã</span>
                         ${item.manha || '-'}
@@ -942,6 +1214,7 @@
                     <td>${item.tema || '-'}</td>
                 </tr>
                 <tr class="row-noite">
+                    <td class="data-cell data-cell-empty"></td>
                     <td>
                         <span class="turno-label">🌙 Noite</span>
                         ${item.noite || '-'}
@@ -1255,6 +1528,335 @@
         document.getElementById('senhaAdmin').addEventListener('keypress', (e) => {
             if (e.key === 'Enter') login();
         });
+
+        // Função para imprimir / salvar PDF
+        function imprimirPDF() {
+            window.print();
+        }
+
+        // ==================== FILTRO DE VISUALIZAÇÃO ====================
+
+        // Guardar dados originais para restaurar
+        let dadosOriginaisBackup = null;
+        let filtroAtivo = false;
+
+        // Atualizar opções do filtro de visualização
+        function atualizarOpcoesFiltroView() {
+            const tipoFiltro = document.getElementById('tipoFiltroView').value;
+            const filtroDetalhe = document.getElementById('filtroDetalheView');
+            const valorFiltro = document.getElementById('valorFiltroView');
+            const labelFiltro = document.getElementById('labelFiltroDetalheView');
+
+            // Usar dados originais para popular as opções
+            const dadosParaFiltro = dadosOriginaisBackup || dados.escala;
+
+            if (tipoFiltro === 'todos') {
+                filtroDetalhe.style.display = 'none';
+            } else if (tipoFiltro === 'ministrante') {
+                filtroDetalhe.style.display = 'block';
+                labelFiltro.textContent = 'Selecione o Ministrante:';
+                
+                const ministrantes = new Set();
+                dadosParaFiltro.forEach(item => {
+                    if (item.manha) ministrantes.add(item.manha);
+                    if (item.noite) ministrantes.add(item.noite);
+                });
+                
+                const ministrantesOrdenados = sortAlphabetically([...ministrantes]);
+                valorFiltro.innerHTML = ministrantesOrdenados.map(m => `<option value="${m}">${m}</option>`).join('');
+                
+            } else if (tipoFiltro === 'mes') {
+                filtroDetalhe.style.display = 'block';
+                labelFiltro.textContent = 'Selecione o Mês:';
+                
+                const meses = new Set();
+                dadosParaFiltro.forEach(item => {
+                    if (item.data) {
+                        const mes = item.data.split('/')[1];
+                        if (mes) meses.add(mes);
+                    }
+                });
+                
+                const mesesNomes = {
+                    'jan': 'Janeiro', 'fev': 'Fevereiro', 'mar': 'Março', 'abr': 'Abril',
+                    'mai': 'Maio', 'jun': 'Junho', 'jul': 'Julho', 'ago': 'Agosto',
+                    'set': 'Setembro', 'out': 'Outubro', 'nov': 'Novembro', 'dez': 'Dezembro'
+                };
+                
+                valorFiltro.innerHTML = [...meses].map(m => `<option value="${m}">${mesesNomes[m] || m}</option>`).join('');
+            }
+        }
+
+        // Aplicar filtro na visualização
+        function aplicarFiltroView() {
+            const tipoFiltro = document.getElementById('tipoFiltroView').value;
+            const valorFiltro = document.getElementById('valorFiltroView').value;
+            
+            // Fazer backup dos dados originais se ainda não foi feito
+            if (!dadosOriginaisBackup) {
+                dadosOriginaisBackup = JSON.parse(JSON.stringify(dados.escala));
+            }
+            
+            if (tipoFiltro === 'todos') {
+                // Restaurar dados originais
+                dados.escala = JSON.parse(JSON.stringify(dadosOriginaisBackup));
+                renderEscala();
+                filtroAtivo = false;
+            } else if (tipoFiltro === 'ministrante') {
+                // Renderizar apenas o ministrante selecionado
+                dados.escala = JSON.parse(JSON.stringify(dadosOriginaisBackup));
+                renderEscalaFiltradaMinistrante(valorFiltro);
+                renderResumoFiltrado(valorFiltro);
+                filtroAtivo = true;
+            } else if (tipoFiltro === 'mes') {
+                // Filtrar por mês
+                dados.escala = dadosOriginaisBackup.filter(item => {
+                    if (item.data) {
+                        const mes = item.data.split('/')[1];
+                        return mes === valorFiltro;
+                    }
+                    return false;
+                });
+                renderEscala();
+                filtroAtivo = true;
+            }
+            
+            closeModal('modalFiltroView');
+            
+            // Mostrar indicador de filtro ativo
+            atualizarIndicadorFiltro(tipoFiltro, valorFiltro);
+        }
+
+        // Limpar filtro e mostrar tudo
+        function limparFiltroView() {
+            if (dadosOriginaisBackup) {
+                dados.escala = JSON.parse(JSON.stringify(dadosOriginaisBackup));
+            }
+            renderEscala();
+            filtroAtivo = false;
+            document.getElementById('tipoFiltroView').value = 'todos';
+            document.getElementById('filtroDetalheView').style.display = 'none';
+            closeModal('modalFiltroView');
+            atualizarIndicadorFiltro('todos', '');
+        }
+
+        // Atualizar indicador visual de filtro
+        function atualizarIndicadorFiltro(tipo, valor) {
+            const btn = document.querySelector('.header-filter-btn');
+            if (tipo !== 'todos' && valor) {
+                btn.innerHTML = '🔍✓';
+                btn.style.background = 'rgba(40, 167, 69, 0.5)';
+                btn.title = `Filtro ativo: ${valor}`;
+            } else {
+                btn.innerHTML = '🔍';
+                btn.style.background = 'rgba(255,255,255,0.2)';
+                btn.title = 'Filtrar Escala';
+            }
+        }
+
+        // Atualizar opções do filtro de impressão
+        function atualizarOpcoesFiltro() {
+            const tipoFiltro = document.getElementById('tipoFiltro').value;
+            const filtroDetalhe = document.getElementById('filtroDetalhe');
+            const valorFiltro = document.getElementById('valorFiltro');
+            const labelFiltro = document.getElementById('labelFiltroDetalhe');
+            const previewTexto = document.getElementById('previewTexto');
+
+            if (tipoFiltro === 'todos') {
+                filtroDetalhe.style.display = 'none';
+                previewTexto.textContent = 'Escala completa + Resumo por Ministrante';
+            } else if (tipoFiltro === 'ministrante') {
+                filtroDetalhe.style.display = 'block';
+                labelFiltro.textContent = 'Selecione o Ministrante:';
+                
+                // Preencher com ministrantes únicos
+                const ministrantes = new Set();
+                dados.escala.forEach(item => {
+                    if (item.manha) ministrantes.add(item.manha);
+                    if (item.noite) ministrantes.add(item.noite);
+                });
+                
+                const ministrantesOrdenados = sortAlphabetically([...ministrantes]);
+                valorFiltro.innerHTML = '<option value="todos">👥 Todos os Ministrantes</option>' +
+                    ministrantesOrdenados.map(m => `<option value="${m}">${m}</option>`).join('');
+                
+                previewTexto.textContent = 'Escala filtrada por ministrante selecionado';
+            } else if (tipoFiltro === 'mes') {
+                filtroDetalhe.style.display = 'block';
+                labelFiltro.textContent = 'Selecione o Mês:';
+                
+                // Preencher com meses únicos
+                const meses = new Set();
+                dados.escala.forEach(item => {
+                    if (item.data) {
+                        const mes = item.data.split('/')[1];
+                        if (mes) meses.add(mes);
+                    }
+                });
+                
+                const mesesNomes = {
+                    'jan': 'Janeiro', 'fev': 'Fevereiro', 'mar': 'Março', 'abr': 'Abril',
+                    'mai': 'Maio', 'jun': 'Junho', 'jul': 'Julho', 'ago': 'Agosto',
+                    'set': 'Setembro', 'out': 'Outubro', 'nov': 'Novembro', 'dez': 'Dezembro'
+                };
+                
+                valorFiltro.innerHTML = '<option value="todos">📅 Todos os Meses</option>' +
+                    [...meses].map(m => `<option value="${m}">${mesesNomes[m] || m}</option>`).join('');
+                
+                previewTexto.textContent = 'Escala filtrada por mês selecionado';
+            }
+        }
+
+        // Atualizar preview quando mudar o valor do filtro
+        document.getElementById('valorFiltro')?.addEventListener('change', function() {
+            const tipoFiltro = document.getElementById('tipoFiltro').value;
+            const valor = this.value;
+            const previewTexto = document.getElementById('previewTexto');
+            
+            if (valor === 'todos') {
+                if (tipoFiltro === 'ministrante') {
+                    previewTexto.textContent = 'Escala de todos os ministrantes';
+                } else {
+                    previewTexto.textContent = 'Escala de todos os meses';
+                }
+            } else {
+                previewTexto.textContent = `Escala filtrada: ${valor}`;
+            }
+        });
+
+        // Executar impressão com filtro
+        function executarImpressao() {
+            const tipoFiltro = document.getElementById('tipoFiltro').value;
+            const valorFiltro = document.getElementById('valorFiltro').value;
+            
+            // Guardar dados originais
+            const dadosOriginais = JSON.parse(JSON.stringify(dados.escala));
+            
+            // Aplicar filtro se necessário
+            if (tipoFiltro !== 'todos' && valorFiltro !== 'todos') {
+                if (tipoFiltro === 'ministrante') {
+                    // Criar nova escala apenas com o ministrante selecionado
+                    const escalaFiltrada = [];
+                    dadosOriginais.forEach(item => {
+                        if (item.manha === valorFiltro) {
+                            escalaFiltrada.push({
+                                data: item.data,
+                                manha: item.manha,
+                                tema: item.tema,
+                                noite: '',
+                                tema2: ''
+                            });
+                        }
+                        if (item.noite === valorFiltro) {
+                            escalaFiltrada.push({
+                                data: item.data,
+                                manha: '',
+                                tema: '',
+                                noite: item.noite,
+                                tema2: item.tema2
+                            });
+                        }
+                    });
+                    dados.escala = escalaFiltrada;
+                    
+                    // Renderizar versão simplificada para ministrante único
+                    renderEscalaFiltradaMinistrante(valorFiltro);
+                    
+                } else if (tipoFiltro === 'mes') {
+                    dados.escala = dadosOriginais.filter(item => {
+                        if (item.data) {
+                            const mes = item.data.split('/')[1];
+                            return mes === valorFiltro;
+                        }
+                        return false;
+                    });
+                    renderEscala();
+                }
+            } else {
+                renderEscala();
+            }
+            
+            // Fechar modal
+            closeModal('modalImprimir');
+            
+            // Imprimir
+            setTimeout(() => {
+                window.print();
+                
+                // Restaurar dados originais após impressão
+                dados.escala = dadosOriginais;
+                renderEscala();
+            }, 100);
+        }
+
+        // Renderizar escala filtrada por ministrante (formato simplificado)
+        function renderEscalaFiltradaMinistrante(ministrante) {
+            const tbody = document.getElementById('escalaBody');
+            
+            // Coletar todas as datas do ministrante
+            const datasDoMinistrante = [];
+            dados.escala.forEach(item => {
+                if (item.manha === ministrante) {
+                    datasDoMinistrante.push({ data: item.data, periodo: 'Manhã', tema: item.tema });
+                }
+                if (item.noite === ministrante) {
+                    datasDoMinistrante.push({ data: item.data, periodo: 'Noite', tema: item.tema2 });
+                }
+            });
+            
+            tbody.innerHTML = datasDoMinistrante.map(item => `
+                <tr class="${item.periodo === 'Manhã' ? 'row-manha' : 'row-noite'}">
+                    <td class="data-cell">${item.data}</td>
+                    <td>
+                        <span class="turno-label">${item.periodo === 'Manhã' ? '☀️ Manhã' : '🌙 Noite'}</span>
+                        ${ministrante}
+                    </td>
+                    <td>${item.tema || '-'}</td>
+                </tr>
+            `).join('');
+            
+            // Atualizar resumo apenas com o ministrante filtrado
+            renderResumoFiltrado(ministrante);
+        }
+
+        // Renderizar resumo filtrado por ministrante
+        function renderResumoFiltrado(ministrante) {
+            const tbody = document.getElementById('resumoBody');
+            
+            // Coletar dados do ministrante
+            const manha = [];
+            const noite = [];
+            
+            dados.escala.forEach(item => {
+                if (item.manha === ministrante) manha.push(item.data);
+                if (item.noite === ministrante) noite.push(item.data);
+            });
+            
+            const total = manha.length + noite.length;
+            
+            // Formatar datas
+            const datasFormatadas = [];
+            manha.forEach(d => datasFormatadas.push(`<span class="periodo-badge periodo-manha">☀️ ${d}</span>`));
+            noite.forEach(d => datasFormatadas.push(`<span class="periodo-badge periodo-noite">🌙 ${d}</span>`));
+            
+            // Formatar períodos
+            const periodos = [];
+            if (manha.length > 0) periodos.push(`<span class="periodo-badge periodo-manha">☀️ Manhã (${manha.length})</span>`);
+            if (noite.length > 0) periodos.push(`<span class="periodo-badge periodo-noite">🌙 Noite (${noite.length})</span>`);
+            
+            tbody.innerHTML = `
+                <tr class="row-resumo">
+                    <td>
+                        <div class="ministrante-cell">
+                            <span class="ministrante-nome">${ministrante}</span>
+                            <span class="qtd-badge">${total}x</span>
+                        </div>
+                    </td>
+                    <td class="datas-list">${datasFormatadas.join(' ')}</td>
+                    <td>${periodos.join(' ')}</td>
+                </tr>
+            `;
+        }
 
         // Inicializar
         init();
