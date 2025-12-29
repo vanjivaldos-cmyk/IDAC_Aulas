@@ -153,6 +153,95 @@
             border-bottom: 3px solid #8B2F87;
         }
 
+        /* ==================== RESUMO ==================== */
+        .resumo-container {
+            margin-top: 30px;
+        }
+
+        .resumo-titulo {
+            color: #FFD700;
+            text-align: center;
+            margin-bottom: 15px;
+            font-size: 1.4rem;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.3);
+        }
+
+        .resumo-table th {
+            background: linear-gradient(135deg, #1E5128 0%, #4E9F3D 100%);
+        }
+
+        .resumo-table .row-resumo:nth-child(odd) td {
+            background: linear-gradient(135deg, #D8E9A8 0%, #C1E1C1 100%);
+            color: #1E5128;
+        }
+
+        .resumo-table .row-resumo:nth-child(even) td {
+            background: #F5F5DC;
+            color: #2D5016;
+        }
+
+        .resumo-table td {
+            font-size: 1rem;
+            padding: 12px 10px;
+            vertical-align: top;
+        }
+
+        .resumo-table td:first-child,
+        .resumo-table td:nth-child(2) {
+            text-align: left;
+        }
+
+        .resumo-table td:nth-child(3) {
+            text-align: center;
+        }
+
+        .resumo-table .ministrante-cell {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+        }
+
+        .resumo-table .ministrante-nome {
+            font-weight: 600;
+            font-size: 1.05rem;
+        }
+
+        .qtd-badge {
+            display: inline-block;
+            background: #1E5128;
+            color: white;
+            padding: 2px 8px;
+            border-radius: 10px;
+            font-size: 0.8rem;
+            flex-shrink: 0;
+        }
+
+        .resumo-table .datas-list {
+            font-size: 0.95rem;
+        }
+
+        .resumo-table .periodo-badge {
+            display: inline-block;
+            padding: 3px 8px;
+            border-radius: 12px;
+            font-size: 0.8rem;
+            margin: 2px;
+            font-weight: 500;
+        }
+
+        .periodo-manha {
+            background: #FFD700;
+            color: #333;
+        }
+
+        .periodo-noite {
+            background: #4A4A8A;
+            color: white;
+        }
+
+
+
         /* Modal */
         .modal {
             display: none;
@@ -545,6 +634,25 @@
                 </tbody>
             </table>
         </div>
+
+        <!-- Tabela de Resumo -->
+        <div class="resumo-container">
+            <h2 class="resumo-titulo">📊 Resumo por Ministrante</h2>
+            <div class="table-container resumo-table">
+                <table id="resumoTable">
+                    <thead>
+                        <tr>
+                            <th>Ministrante</th>
+                            <th>Datas</th>
+                            <th>Período</th>
+                        </tr>
+                    </thead>
+                    <tbody id="resumoBody">
+                        <!-- Resumo será inserido via JavaScript -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
     </div>
 
     <!-- Botão de acesso admin -->
@@ -699,7 +807,8 @@
                 'Pra. Miguelina',
                 'Pra. Kélia',
                 'Pra. Maria Pereira',
-                'Pra. Neucy'
+                'Pra. Neucy',
+                'Dc. Júnio'
             ],
             tipos: ['EBD', 'Celebração'],
             temas: ['Esgotamento Espiritual'],
@@ -709,7 +818,7 @@
                 { data: '18/jan', manha: 'Pr. Tadeu', tema: 'Esgotamento Espiritual', noite: 'Pra. Kélia', tema2: '' },
                 { data: '25/jan', manha: 'Pra. Jaqueline', tema: 'Esgotamento Espiritual', noite: 'Pra. Maria Pereira', tema2: '' },
                 { data: '01/fev', manha: 'Bp. Vanjivaldo', tema: 'Esgotamento Espiritual', noite: 'Pra. Miguelina', tema2: '' },
-                { data: '08/fev', manha: 'Pb. José Dias', tema: 'Esgotamento Espiritual', noite: 'Pra. Maria Pereira', tema2: '' },
+                { data: '08/fev', manha: 'Dc. Júnio', tema: 'Esgotamento Espiritual', noite: 'Pra. Maria Pereira', tema2: '' },
                 { data: '15/fev', manha: 'Prof. Paulo', tema: 'Esgotamento Espiritual', noite: 'Pra. Neucy', tema2: '' },
                 { data: '22/fev', manha: 'Pb. José Dias', tema: 'Esgotamento Espiritual', noite: 'Bp. Vanjivaldo', tema2: '' }
             ]
@@ -802,6 +911,77 @@
                     <td>${item.tema2 || '-'}</td>
                 </tr>
             `).join('');
+            
+            // Atualizar também o resumo
+            renderResumo();
+        }
+
+        function renderResumo() {
+            // Coletar dados por ministrante
+            const resumoMap = new Map();
+
+            dados.escala.forEach(item => {
+                // Manhã
+                if (item.manha && item.manha !== '-') {
+                    if (!resumoMap.has(item.manha)) {
+                        resumoMap.set(item.manha, { manha: [], noite: [] });
+                    }
+                    resumoMap.get(item.manha).manha.push(item.data);
+                }
+                // Noite
+                if (item.noite && item.noite !== '-') {
+                    if (!resumoMap.has(item.noite)) {
+                        resumoMap.set(item.noite, { manha: [], noite: [] });
+                    }
+                    resumoMap.get(item.noite).noite.push(item.data);
+                }
+            });
+
+            // Converter para array e ordenar alfabeticamente
+            const resumoArray = Array.from(resumoMap.entries())
+                .map(([nome, periodos]) => ({
+                    nome,
+                    manha: periodos.manha,
+                    noite: periodos.noite,
+                    total: periodos.manha.length + periodos.noite.length
+                }))
+                .sort((a, b) => a.nome.localeCompare(b.nome, 'pt-BR', { sensitivity: 'base' }));
+
+            // Renderizar tabela de resumo
+            const tbody = document.getElementById('resumoBody');
+            tbody.innerHTML = resumoArray.map(item => {
+                // Formatar datas
+                const datasFormatadas = [];
+                
+                if (item.manha.length > 0) {
+                    datasFormatadas.push(...item.manha.map(d => `<span class="periodo-badge periodo-manha">☀️ ${d}</span>`));
+                }
+                if (item.noite.length > 0) {
+                    datasFormatadas.push(...item.noite.map(d => `<span class="periodo-badge periodo-noite">🌙 ${d}</span>`));
+                }
+
+                // Formatar períodos
+                const periodos = [];
+                if (item.manha.length > 0) {
+                    periodos.push(`<span class="periodo-badge periodo-manha">☀️ Manhã (${item.manha.length})</span>`);
+                }
+                if (item.noite.length > 0) {
+                    periodos.push(`<span class="periodo-badge periodo-noite">🌙 Noite (${item.noite.length})</span>`);
+                }
+
+                return `
+                    <tr class="row-resumo">
+                        <td>
+                            <div class="ministrante-cell">
+                                <span class="ministrante-nome">${item.nome}</span>
+                                <span class="qtd-badge">${item.total}x</span>
+                            </div>
+                        </td>
+                        <td class="datas-list">${datasFormatadas.join(' ')}</td>
+                        <td>${periodos.join(' ')}</td>
+                    </tr>
+                `;
+            }).join('');
         }
 
         function renderListas() {
