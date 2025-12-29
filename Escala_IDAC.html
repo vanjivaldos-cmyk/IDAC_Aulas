@@ -84,28 +84,68 @@
             background: linear-gradient(135deg, #8B2F87 0%, #5D1A54 100%);
             color: white;
             padding: 15px 12px;
-            text-align: left;
+            text-align: center;
             font-weight: 600;
             font-size: 0.95rem;
         }
 
         td {
             padding: 12px;
-            border-bottom: 1px solid #eee;
+            border-bottom: 1px solid #ddd;
+            text-align: center;
         }
 
-        tr:nth-child(odd) td {
+        /* Célula de data mesclada */
+        .data-cell {
+            background: linear-gradient(135deg, #5D1A54 0%, #8B2F87 100%);
+            color: white;
+            font-weight: 700;
+            font-size: 1.1rem;
+            vertical-align: middle;
+            border-right: 3px solid #fff;
+        }
+
+        /* Linha da manhã */
+        .row-manha td {
             background: linear-gradient(135deg, #C76BBF 0%, #A855A0 100%);
             color: white;
         }
 
-        tr:nth-child(even) td {
+        /* Linha da noite */
+        .row-noite td {
             background: #f8f4f8;
             color: #333;
         }
 
+        .row-noite td.data-cell {
+            background: linear-gradient(135deg, #5D1A54 0%, #8B2F87 100%);
+            color: white;
+        }
+
+        /* Turno label */
+        .turno-label {
+            font-weight: 600;
+            font-size: 0.8rem;
+            opacity: 0.9;
+            display: block;
+            margin-bottom: 3px;
+        }
+
+        .row-manha .turno-label {
+            color: #FFD700;
+        }
+
+        .row-noite .turno-label {
+            color: #8B2F87;
+        }
+
         tr:hover td {
             filter: brightness(1.05);
+        }
+
+        /* Separador entre blocos de data */
+        .row-noite td {
+            border-bottom: 3px solid #8B2F87;
         }
 
         /* Modal */
@@ -326,16 +366,60 @@
         /* Responsivo */
         @media (max-width: 768px) {
             .header h1 {
-                font-size: 1.4rem;
+                font-size: 1.3rem;
+            }
+
+            .header p {
+                font-size: 0.85rem;
             }
 
             th, td {
                 padding: 10px 8px;
-                font-size: 0.85rem;
+                font-size: 0.9rem;
+            }
+
+            .data-cell {
+                font-size: 1rem;
+                padding: 8px;
+            }
+
+            .turno-label {
+                font-size: 0.75rem;
             }
 
             .admin-menu {
                 grid-template-columns: repeat(2, 1fr);
+            }
+
+            .admin-access {
+                bottom: 15px;
+                right: 15px;
+                padding: 10px 16px;
+                font-size: 0.85rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 10px;
+            }
+
+            th, td {
+                padding: 8px 5px;
+                font-size: 0.85rem;
+            }
+
+            .data-cell {
+                font-size: 0.95rem;
+                min-width: 60px;
+            }
+
+            .turno-label {
+                font-size: 0.7rem;
+            }
+
+            .header h1 {
+                font-size: 1.1rem;
             }
         }
 
@@ -429,10 +513,8 @@
                 <thead>
                     <tr>
                         <th>Data</th>
-                        <th>Manhã</th>
+                        <th>Ministrador</th>
                         <th>Tema</th>
-                        <th>Noite</th>
-                        <th>Tema 2</th>
                     </tr>
                 </thead>
                 <tbody id="escalaBody">
@@ -681,12 +763,20 @@
         function renderEscala() {
             const tbody = document.getElementById('escalaBody');
             tbody.innerHTML = dados.escala.map(item => `
-                <tr>
-                    <td>${item.data}</td>
-                    <td>${item.manha}</td>
-                    <td>${item.tema}</td>
-                    <td>${item.noite}</td>
-                    <td>${item.tema2}</td>
+                <tr class="row-manha">
+                    <td class="data-cell" rowspan="2">${item.data}</td>
+                    <td>
+                        <span class="turno-label">☀️ Manhã</span>
+                        ${item.manha || '-'}
+                    </td>
+                    <td>${item.tema || '-'}</td>
+                </tr>
+                <tr class="row-noite">
+                    <td>
+                        <span class="turno-label">🌙 Noite</span>
+                        ${item.noite || '-'}
+                    </td>
+                    <td>${item.tema2 || '-'}</td>
                 </tr>
             `).join('');
         }
