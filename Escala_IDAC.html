@@ -205,17 +205,6 @@
             border-bottom: 3px solid #8B2F87;
         }
 
-        /* Célula de data vazia (linha noite) */
-        .data-cell-empty {
-            background: linear-gradient(135deg, #5D1A54 0%, #8B2F87 100%);
-            color: transparent;
-            border-right: 3px solid #fff;
-        }
-
-        .row-noite .data-cell-empty {
-            font-size: 0;
-        }
-
         /* ==================== RESUMO ==================== */
         .resumo-container {
             margin-top: 30px;
@@ -911,6 +900,7 @@
                         <option value="todos">📋 Imprimir Tudo</option>
                         <option value="ministrante">👤 Por Ministrante</option>
                         <option value="mes">📅 Por Mês</option>
+                        <option value="periodo">🌗 Por Período</option>
                     </select>
                 </div>
 
@@ -952,6 +942,7 @@
                         <option value="todos">📋 Mostrar Tudo</option>
                         <option value="ministrante">👤 Por Ministrante</option>
                         <option value="mes">📅 Por Mês</option>
+                        <option value="periodo">🌗 Por Período</option>
                     </select>
                 </div>
 
@@ -1206,7 +1197,7 @@
             const tbody = document.getElementById('escalaBody');
             tbody.innerHTML = dados.escala.map(item => `
                 <tr class="row-manha">
-                    <td class="data-cell">${item.data}</td>
+                    <td class="data-cell" rowspan="2">${item.data}</td>
                     <td>
                         <span class="turno-label">☀️ Manhã</span>
                         ${item.manha || '-'}
@@ -1214,7 +1205,6 @@
                     <td>${item.tema || '-'}</td>
                 </tr>
                 <tr class="row-noite">
-                    <td class="data-cell data-cell-empty"></td>
                     <td>
                         <span class="turno-label">🌙 Noite</span>
                         ${item.noite || '-'}
@@ -1252,8 +1242,8 @@
             const resumoArray = Array.from(resumoMap.entries())
                 .map(([nome, periodos]) => ({
                     nome,
-                    manha: periodos.manha,
-                    noite: periodos.noite,
+                    manha: sortDatas(periodos.manha),
+                    noite: sortDatas(periodos.noite),
                     total: periodos.manha.length + periodos.noite.length
                 }))
                 .sort((a, b) => a.nome.localeCompare(b.nome, 'pt-BR', { sensitivity: 'base' }));
@@ -1261,15 +1251,26 @@
             // Renderizar tabela de resumo
             const tbody = document.getElementById('resumoBody');
             tbody.innerHTML = resumoArray.map(item => {
-                // Formatar datas
+                // Formatar datas (já ordenadas cronologicamente)
                 const datasFormatadas = [];
                 
-                if (item.manha.length > 0) {
-                    datasFormatadas.push(...item.manha.map(d => `<span class="periodo-badge periodo-manha">☀️ ${d}</span>`));
-                }
-                if (item.noite.length > 0) {
-                    datasFormatadas.push(...item.noite.map(d => `<span class="periodo-badge periodo-noite">🌙 ${d}</span>`));
-                }
+                item.manha.forEach(d => datasFormatadas.push({ data: d, tipo: 'manha' }));
+                item.noite.forEach(d => datasFormatadas.push({ data: d, tipo: 'noite' }));
+                
+                // Ordenar todas as datas juntas cronologicamente
+                datasFormatadas.sort((a, b) => {
+                    const meses = { 'jan': 1, 'fev': 2, 'mar': 3, 'abr': 4, 'mai': 5, 'jun': 6, 'jul': 7, 'ago': 8, 'set': 9, 'out': 10, 'nov': 11, 'dez': 12 };
+                    const [diaA, mesA] = a.data.split('/');
+                    const [diaB, mesB] = b.data.split('/');
+                    const mesNumA = meses[mesA.toLowerCase()] || 0;
+                    const mesNumB = meses[mesB.toLowerCase()] || 0;
+                    if (mesNumA !== mesNumB) return mesNumA - mesNumB;
+                    return parseInt(diaA) - parseInt(diaB);
+                });
+
+                const datasHtml = datasFormatadas.map(d => 
+                    `<span class="periodo-badge periodo-${d.tipo === 'manha' ? 'manha' : 'noite'}">${d.tipo === 'manha' ? '☀️' : '🌙'} ${d.data}</span>`
+                ).join(' ');
 
                 // Formatar períodos
                 const periodos = [];
@@ -1288,7 +1289,7 @@
                                 <span class="qtd-badge">${item.total}x</span>
                             </div>
                         </td>
-                        <td class="datas-list">${datasFormatadas.join(' ')}</td>
+                        <td class="datas-list">${datasHtml}</td>
                         <td>${periodos.join(' ')}</td>
                     </tr>
                 `;
@@ -1584,6 +1585,13 @@
                 };
                 
                 valorFiltro.innerHTML = [...meses].map(m => `<option value="${m}">${mesesNomes[m] || m}</option>`).join('');
+            } else if (tipoFiltro === 'periodo') {
+                filtroDetalhe.style.display = 'block';
+                labelFiltro.textContent = 'Selecione o Período:';
+                valorFiltro.innerHTML = `
+                    <option value="manha">☀️ Manhã</option>
+                    <option value="noite">🌙 Noite</option>
+                `;
             }
         }
 
@@ -1597,16 +1605,14 @@
                 dadosOriginaisBackup = JSON.parse(JSON.stringify(dados.escala));
             }
             
+            // Restaurar dados originais antes de aplicar novo filtro
+            dados.escala = JSON.parse(JSON.stringify(dadosOriginaisBackup));
+            
             if (tipoFiltro === 'todos') {
-                // Restaurar dados originais
-                dados.escala = JSON.parse(JSON.stringify(dadosOriginaisBackup));
                 renderEscala();
                 filtroAtivo = false;
             } else if (tipoFiltro === 'ministrante') {
-                // Renderizar apenas o ministrante selecionado
-                dados.escala = JSON.parse(JSON.stringify(dadosOriginaisBackup));
                 renderEscalaFiltradaMinistrante(valorFiltro);
-                renderResumoFiltrado(valorFiltro);
                 filtroAtivo = true;
             } else if (tipoFiltro === 'mes') {
                 // Filtrar por mês
@@ -1619,12 +1625,16 @@
                 });
                 renderEscala();
                 filtroAtivo = true;
+            } else if (tipoFiltro === 'periodo') {
+                renderEscalaFiltradaPeriodo(valorFiltro);
+                filtroAtivo = true;
             }
             
             closeModal('modalFiltroView');
             
             // Mostrar indicador de filtro ativo
-            atualizarIndicadorFiltro(tipoFiltro, valorFiltro);
+            const valorExibicao = tipoFiltro === 'periodo' ? (valorFiltro === 'manha' ? '☀️ Manhã' : '🌙 Noite') : valorFiltro;
+            atualizarIndicadorFiltro(tipoFiltro, valorExibicao);
         }
 
         // Limpar filtro e mostrar tudo
@@ -1704,6 +1714,15 @@
                     [...meses].map(m => `<option value="${m}">${mesesNomes[m] || m}</option>`).join('');
                 
                 previewTexto.textContent = 'Escala filtrada por mês selecionado';
+            } else if (tipoFiltro === 'periodo') {
+                filtroDetalhe.style.display = 'block';
+                labelFiltro.textContent = 'Selecione o Período:';
+                valorFiltro.innerHTML = `
+                    <option value="todos">🌗 Todos os Períodos</option>
+                    <option value="manha">☀️ Manhã</option>
+                    <option value="noite">🌙 Noite</option>
+                `;
+                previewTexto.textContent = 'Escala filtrada por período selecionado';
             }
         }
 
@@ -1771,6 +1790,9 @@
                         return false;
                     });
                     renderEscala();
+                } else if (tipoFiltro === 'periodo') {
+                    dados.escala = JSON.parse(JSON.stringify(dadosOriginais));
+                    renderEscalaFiltradaPeriodo(valorFiltro);
                 }
             } else {
                 renderEscala();
@@ -1793,15 +1815,29 @@
         function renderEscalaFiltradaMinistrante(ministrante) {
             const tbody = document.getElementById('escalaBody');
             
+            // Usar dados originais para buscar
+            const dadosParaBusca = dadosOriginaisBackup || dados.escala;
+            
             // Coletar todas as datas do ministrante
             const datasDoMinistrante = [];
-            dados.escala.forEach(item => {
+            dadosParaBusca.forEach(item => {
                 if (item.manha === ministrante) {
                     datasDoMinistrante.push({ data: item.data, periodo: 'Manhã', tema: item.tema });
                 }
                 if (item.noite === ministrante) {
                     datasDoMinistrante.push({ data: item.data, periodo: 'Noite', tema: item.tema2 });
                 }
+            });
+            
+            // Ordenar por data
+            datasDoMinistrante.sort((a, b) => {
+                const meses = { 'jan': 1, 'fev': 2, 'mar': 3, 'abr': 4, 'mai': 5, 'jun': 6, 'jul': 7, 'ago': 8, 'set': 9, 'out': 10, 'nov': 11, 'dez': 12 };
+                const [diaA, mesA] = a.data.split('/');
+                const [diaB, mesB] = b.data.split('/');
+                const mesNumA = meses[mesA.toLowerCase()] || 0;
+                const mesNumB = meses[mesB.toLowerCase()] || 0;
+                if (mesNumA !== mesNumB) return mesNumA - mesNumB;
+                return parseInt(diaA) - parseInt(diaB);
             });
             
             tbody.innerHTML = datasDoMinistrante.map(item => `
@@ -1819,25 +1855,155 @@
             renderResumoFiltrado(ministrante);
         }
 
+        // Renderizar escala filtrada por período (manhã ou noite)
+        function renderEscalaFiltradaPeriodo(periodo) {
+            const tbody = document.getElementById('escalaBody');
+            
+            // Usar dados originais para buscar
+            const dadosParaBusca = dadosOriginaisBackup || dados.escala;
+            
+            // Coletar todas as entradas do período
+            const entradasDoPeriodo = [];
+            dadosParaBusca.forEach(item => {
+                if (periodo === 'manha' && item.manha) {
+                    entradasDoPeriodo.push({ 
+                        data: item.data, 
+                        ministrante: item.manha, 
+                        tema: item.tema 
+                    });
+                }
+                if (periodo === 'noite' && item.noite) {
+                    entradasDoPeriodo.push({ 
+                        data: item.data, 
+                        ministrante: item.noite, 
+                        tema: item.tema2 
+                    });
+                }
+            });
+            
+            // Ordenar por data
+            entradasDoPeriodo.sort((a, b) => {
+                const meses = { 'jan': 1, 'fev': 2, 'mar': 3, 'abr': 4, 'mai': 5, 'jun': 6, 'jul': 7, 'ago': 8, 'set': 9, 'out': 10, 'nov': 11, 'dez': 12 };
+                const [diaA, mesA] = a.data.split('/');
+                const [diaB, mesB] = b.data.split('/');
+                const mesNumA = meses[mesA.toLowerCase()] || 0;
+                const mesNumB = meses[mesB.toLowerCase()] || 0;
+                if (mesNumA !== mesNumB) return mesNumA - mesNumB;
+                return parseInt(diaA) - parseInt(diaB);
+            });
+            
+            const isManha = periodo === 'manha';
+            
+            tbody.innerHTML = entradasDoPeriodo.map(item => `
+                <tr class="${isManha ? 'row-manha' : 'row-noite'}">
+                    <td class="data-cell">${item.data}</td>
+                    <td>
+                        <span class="turno-label">${isManha ? '☀️ Manhã' : '🌙 Noite'}</span>
+                        ${item.ministrante}
+                    </td>
+                    <td>${item.tema || '-'}</td>
+                </tr>
+            `).join('');
+            
+            // Atualizar resumo apenas com ministrantes do período
+            renderResumoFiltradoPeriodo(periodo);
+        }
+
+        // Renderizar resumo filtrado por período
+        function renderResumoFiltradoPeriodo(periodo) {
+            const tbody = document.getElementById('resumoBody');
+            
+            // Usar dados originais para buscar
+            const dadosParaBusca = dadosOriginaisBackup || dados.escala;
+            
+            // Coletar dados por ministrante do período
+            const resumoMap = new Map();
+            
+            dadosParaBusca.forEach(item => {
+                if (periodo === 'manha' && item.manha) {
+                    if (!resumoMap.has(item.manha)) {
+                        resumoMap.set(item.manha, []);
+                    }
+                    resumoMap.get(item.manha).push(item.data);
+                }
+                if (periodo === 'noite' && item.noite) {
+                    if (!resumoMap.has(item.noite)) {
+                        resumoMap.set(item.noite, []);
+                    }
+                    resumoMap.get(item.noite).push(item.data);
+                }
+            });
+            
+            // Converter para array e ordenar
+            const resumoArray = Array.from(resumoMap.entries())
+                .map(([nome, datas]) => ({
+                    nome,
+                    datas: sortDatas(datas),
+                    total: datas.length
+                }))
+                .sort((a, b) => a.nome.localeCompare(b.nome, 'pt-BR', { sensitivity: 'base' }));
+            
+            const isManha = periodo === 'manha';
+            const periodoLabel = isManha ? '☀️ Manhã' : '🌙 Noite';
+            const periodoClass = isManha ? 'periodo-manha' : 'periodo-noite';
+            
+            tbody.innerHTML = resumoArray.map(item => {
+                const datasHtml = item.datas.map(d => 
+                    `<span class="periodo-badge ${periodoClass}">${isManha ? '☀️' : '🌙'} ${d}</span>`
+                ).join(' ');
+                
+                return `
+                    <tr class="row-resumo">
+                        <td>
+                            <div class="ministrante-cell">
+                                <span class="ministrante-nome">${item.nome}</span>
+                                <span class="qtd-badge">${item.total}x</span>
+                            </div>
+                        </td>
+                        <td class="datas-list">${datasHtml}</td>
+                        <td><span class="periodo-badge ${periodoClass}">${periodoLabel} (${item.total})</span></td>
+                    </tr>
+                `;
+            }).join('');
+        }
+
         // Renderizar resumo filtrado por ministrante
         function renderResumoFiltrado(ministrante) {
             const tbody = document.getElementById('resumoBody');
+            
+            // Usar dados originais para buscar
+            const dadosParaBusca = dadosOriginaisBackup || dados.escala;
             
             // Coletar dados do ministrante
             const manha = [];
             const noite = [];
             
-            dados.escala.forEach(item => {
+            dadosParaBusca.forEach(item => {
                 if (item.manha === ministrante) manha.push(item.data);
                 if (item.noite === ministrante) noite.push(item.data);
             });
             
             const total = manha.length + noite.length;
             
+            // Juntar todas as datas com tipo e ordenar cronologicamente
+            const todasDatas = [];
+            manha.forEach(d => todasDatas.push({ data: d, tipo: 'manha' }));
+            noite.forEach(d => todasDatas.push({ data: d, tipo: 'noite' }));
+            
+            todasDatas.sort((a, b) => {
+                const meses = { 'jan': 1, 'fev': 2, 'mar': 3, 'abr': 4, 'mai': 5, 'jun': 6, 'jul': 7, 'ago': 8, 'set': 9, 'out': 10, 'nov': 11, 'dez': 12 };
+                const [diaA, mesA] = a.data.split('/');
+                const [diaB, mesB] = b.data.split('/');
+                const mesNumA = meses[mesA.toLowerCase()] || 0;
+                const mesNumB = meses[mesB.toLowerCase()] || 0;
+                if (mesNumA !== mesNumB) return mesNumA - mesNumB;
+                return parseInt(diaA) - parseInt(diaB);
+            });
+            
             // Formatar datas
-            const datasFormatadas = [];
-            manha.forEach(d => datasFormatadas.push(`<span class="periodo-badge periodo-manha">☀️ ${d}</span>`));
-            noite.forEach(d => datasFormatadas.push(`<span class="periodo-badge periodo-noite">🌙 ${d}</span>`));
+            const datasFormatadas = todasDatas.map(d => 
+                `<span class="periodo-badge periodo-${d.tipo === 'manha' ? 'manha' : 'noite'}">${d.tipo === 'manha' ? '☀️' : '🌙'} ${d.data}</span>`
+            );
             
             // Formatar períodos
             const periodos = [];
