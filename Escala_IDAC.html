@@ -23,8 +23,39 @@
             background: linear-gradient(135deg, #8B2F87 0%, #5D1A54 100%);
             color: white;
             padding: 20px;
-            text-align: center;
             box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+        }
+
+        .header-content {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .header-logo-container {
+            width: 90px;
+            height: 90px;
+            border-radius: 50%;
+            background: white;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .header-logo {
+            width: 72px;
+            height: 72px;
+            object-fit: contain;
+        }
+
+        .header-text {
+            text-align: left;
         }
 
         .header h1 {
@@ -581,8 +612,15 @@
 </head>
 <body>
     <div class="header">
-        <h1>📅 Escala de Ministração - IDAC</h1>
-        <p>Igreja de Deus Águas Claras</p>
+        <div class="header-content">
+            <div class="header-logo-container">
+                <img src="https://raw.githubusercontent.com/vanjivaldos-cmyk/games-idac/main/images/LogoGame.png" alt="Logo IDAC" class="header-logo">
+            </div>
+            <div class="header-text">
+                <h1>Escala de Ministração - IDAC</h1>
+                <p>Igreja de Deus Águas Claras</p>
+            </div>
+        </div>
     </div>
 
     <div class="container">
