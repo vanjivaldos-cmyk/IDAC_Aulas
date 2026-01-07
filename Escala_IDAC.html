@@ -118,6 +118,28 @@
             transform: translateY(-2px);
         }
 
+        .admin-access .badge {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background: #ff4444;
+            color: white;
+            border-radius: 50%;
+            width: 24px;
+            height: 24px;
+            font-size: 0.75rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
         /* Tabela */
         .table-container {
             background: white;
@@ -148,7 +170,6 @@
             font-size: 1.05rem;
         }
 
-        /* Célula de data mesclada */
         .data-cell {
             background: linear-gradient(135deg, #5D1A54 0%, #8B2F87 100%);
             color: white;
@@ -158,7 +179,6 @@
             border-right: 3px solid #fff;
         }
 
-        /* Linha da manhã */
         .row-manha td {
             background: linear-gradient(135deg, #C76BBF 0%, #A855A0 100%);
             color: white;
@@ -166,7 +186,6 @@
             font-weight: 500;
         }
 
-        /* Linha da noite */
         .row-noite td {
             background: #f8f4f8;
             color: #333;
@@ -179,7 +198,6 @@
             color: white;
         }
 
-        /* Turno label */
         .turno-label {
             font-weight: 600;
             font-size: 0.8rem;
@@ -188,27 +206,14 @@
             margin-bottom: 3px;
         }
 
-        .row-manha .turno-label {
-            color: #FFD700;
-        }
+        .row-manha .turno-label { color: #FFD700; }
+        .row-noite .turno-label { color: #8B2F87; }
 
-        .row-noite .turno-label {
-            color: #8B2F87;
-        }
+        tr:hover td { filter: brightness(1.05); }
+        .row-noite td { border-bottom: 3px solid #8B2F87; }
 
-        tr:hover td {
-            filter: brightness(1.05);
-        }
-
-        /* Separador entre blocos de data */
-        .row-noite td {
-            border-bottom: 3px solid #8B2F87;
-        }
-
-        /* ==================== RESUMO ==================== */
-        .resumo-container {
-            margin-top: 30px;
-        }
+        /* Resumo */
+        .resumo-container { margin-top: 30px; }
 
         .resumo-titulo {
             color: #FFD700;
@@ -222,221 +227,32 @@
             background: linear-gradient(135deg, #1E5128 0%, #4E9F3D 100%);
         }
 
-        .resumo-table .row-resumo:nth-child(odd) td {
-            background: linear-gradient(135deg, #D8E9A8 0%, #C1E1C1 100%);
-            color: #1E5128;
-        }
-
-        .resumo-table .row-resumo:nth-child(even) td {
-            background: #F5F5DC;
-            color: #2D5016;
-        }
-
-        .resumo-table td {
-            font-size: 1rem;
-            padding: 12px 10px;
-            vertical-align: top;
-        }
-
-        .resumo-table td:first-child,
-        .resumo-table td:nth-child(2) {
+        .resumo-table .row-resumo td {
+            background: #f8f9fa;
             text-align: left;
+            vertical-align: middle;
         }
 
-        .resumo-table td:nth-child(3) {
-            text-align: center;
-        }
+        .resumo-table .row-resumo:nth-child(odd) td { background: #D8E9A8; }
 
-        .resumo-table .ministrante-cell {
+        .ministrante-cell {
             display: flex;
-            justify-content: space-between;
             align-items: center;
-            width: 100%;
+            gap: 10px;
         }
 
-        .resumo-table .ministrante-nome {
-            font-weight: 600;
-            font-size: 1.05rem;
-        }
+        .ministrante-nome { font-weight: 600; color: #1E5128; }
 
         .qtd-badge {
-            display: inline-block;
-            background: #1E5128;
+            background: #4E9F3D;
             color: white;
-            padding: 2px 8px;
-            border-radius: 10px;
-            font-size: 0.8rem;
-            flex-shrink: 0;
-        }
-
-        /* ==================== BOTÃO IMPRIMIR ==================== */
-        .print-container {
-            text-align: center;
-            margin: 30px 0;
-        }
-
-        .btn-print {
-            background: linear-gradient(135deg, #2C3E50 0%, #1a252f 100%);
-            color: white;
-            border: none;
-            padding: 15px 40px;
-            border-radius: 50px;
-            cursor: pointer;
-            font-size: 1.1rem;
+            padding: 3px 10px;
+            border-radius: 20px;
+            font-size: 0.85rem;
             font-weight: 600;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
-            transition: all 0.3s;
         }
 
-        .btn-print:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 6px 20px rgba(0,0,0,0.4);
-        }
-
-        /* Opções de impressão */
-        .print-options {
-            margin: 20px 0;
-        }
-
-        .print-preview {
-            background: #f8f9fa;
-            border: 2px dashed #ddd;
-            border-radius: 10px;
-            padding: 15px;
-            margin-top: 20px;
-            text-align: center;
-        }
-
-        .print-preview h4 {
-            color: #666;
-            margin-bottom: 10px;
-            font-size: 0.9rem;
-        }
-
-        .print-preview p {
-            color: #333;
-            font-weight: 600;
-            font-size: 1rem;
-        }
-
-        /* ==================== ESTILOS DE IMPRESSÃO ==================== */
-        @media print {
-            * {
-                margin: 0;
-                padding: 0;
-            }
-
-            body {
-                background: white !important;
-                -webkit-print-color-adjust: exact !important;
-                print-color-adjust: exact !important;
-            }
-
-            .admin-access,
-            .admin-panel,
-            .btn-print,
-            .print-container,
-            .modal,
-            .header-filter-btn {
-                display: none !important;
-            }
-
-            .header {
-                background: linear-gradient(135deg, #8B2F87 0%, #5D1A54 100%) !important;
-                -webkit-print-color-adjust: exact !important;
-                print-color-adjust: exact !important;
-                padding: 15px !important;
-                page-break-after: avoid !important;
-                break-after: avoid !important;
-            }
-
-            .container {
-                max-width: 100% !important;
-                padding: 5px !important;
-                page-break-before: avoid !important;
-                break-before: avoid !important;
-            }
-
-            .table-container {
-                box-shadow: none !important;
-                border: 1px solid #ddd;
-                margin-top: 10px !important;
-                margin-bottom: 15px;
-                page-break-before: avoid !important;
-                break-before: avoid !important;
-            }
-
-            table {
-                page-break-inside: auto;
-            }
-
-            tr {
-                page-break-inside: avoid;
-                page-break-after: auto;
-            }
-
-            thead {
-                display: table-header-group;
-            }
-
-            .row-manha td {
-                background: #C76BBF !important;
-                -webkit-print-color-adjust: exact !important;
-                print-color-adjust: exact !important;
-            }
-
-            .data-cell {
-                background: #5D1A54 !important;
-                -webkit-print-color-adjust: exact !important;
-                print-color-adjust: exact !important;
-            }
-
-            .data-cell-empty {
-                background: #5D1A54 !important;
-                -webkit-print-color-adjust: exact !important;
-                print-color-adjust: exact !important;
-            }
-
-            .resumo-container {
-                margin-top: 20px;
-            }
-
-            .resumo-table th {
-                background: #1E5128 !important;
-                -webkit-print-color-adjust: exact !important;
-                print-color-adjust: exact !important;
-            }
-
-            .resumo-table .row-resumo:nth-child(odd) td {
-                background: #D8E9A8 !important;
-                -webkit-print-color-adjust: exact !important;
-                print-color-adjust: exact !important;
-            }
-
-            .periodo-manha {
-                background: #FFD700 !important;
-                -webkit-print-color-adjust: exact !important;
-                print-color-adjust: exact !important;
-            }
-
-            .periodo-noite {
-                background: #4A4A8A !important;
-                color: white !important;
-                -webkit-print-color-adjust: exact !important;
-                print-color-adjust: exact !important;
-            }
-
-            .resumo-titulo {
-                color: #1E5128 !important;
-                margin-top: 15px !important;
-            }
-        }
-
-        .resumo-table .datas-list {
-            font-size: 0.95rem;
-        }
-
-        .resumo-table .periodo-badge {
+        .periodo-badge {
             display: inline-block;
             padding: 3px 8px;
             border-radius: 12px;
@@ -445,17 +261,8 @@
             font-weight: 500;
         }
 
-        .periodo-manha {
-            background: #FFD700;
-            color: #333;
-        }
-
-        .periodo-noite {
-            background: #4A4A8A;
-            color: white;
-        }
-
-
+        .periodo-manha { background: #FFD700; color: #333; }
+        .periodo-noite { background: #4A4A8A; color: white; }
 
         /* Modal */
         .modal {
@@ -471,9 +278,7 @@
             align-items: center;
         }
 
-        .modal.active {
-            display: flex;
-        }
+        .modal.active { display: flex; }
 
         .modal-content {
             background: white;
@@ -504,9 +309,7 @@
         }
 
         /* Formulários */
-        .form-group {
-            margin-bottom: 15px;
-        }
+        .form-group { margin-bottom: 15px; }
 
         .form-group label {
             display: block;
@@ -516,7 +319,8 @@
         }
 
         .form-group input,
-        .form-group select {
+        .form-group select,
+        .form-group textarea {
             width: 100%;
             padding: 12px;
             border: 2px solid #ddd;
@@ -526,7 +330,8 @@
         }
 
         .form-group input:focus,
-        .form-group select:focus {
+        .form-group select:focus,
+        .form-group textarea:focus {
             outline: none;
             border-color: #8B2F87;
         }
@@ -549,17 +354,13 @@
             box-shadow: 0 5px 15px rgba(139, 47, 135, 0.4);
         }
 
-        .btn-secondary {
-            background: #6c757d;
-        }
-
-        .btn-danger {
-            background: #dc3545;
-        }
-
-        .btn-success {
-            background: #28a745;
-        }
+        .btn-secondary { background: #6c757d; }
+        .btn-danger { background: #dc3545; }
+        .btn-success { background: #28a745; }
+        .btn-whatsapp { background: linear-gradient(135deg, #25D366 0%, #128C7E 100%); }
+        .btn-whatsapp:hover { box-shadow: 0 5px 15px rgba(37, 211, 102, 0.4); }
+        .btn-todo { background: linear-gradient(135deg, #0078D4 0%, #005A9E 100%); }
+        .btn-todo:hover { box-shadow: 0 5px 15px rgba(0, 120, 212, 0.4); }
 
         /* Admin Panel */
         .admin-panel {
@@ -571,9 +372,7 @@
             box-shadow: 0 10px 40px rgba(0,0,0,0.2);
         }
 
-        .admin-panel.active {
-            display: block;
-        }
+        .admin-panel.active { display: block; }
 
         .admin-panel h2 {
             color: #8B2F87;
@@ -583,9 +382,93 @@
             gap: 10px;
         }
 
+        /* Alerta de Lembretes */
+        .alert-lembretes {
+            background: linear-gradient(135deg, #fff3cd 0%, #ffeeba 100%);
+            border: 2px solid #ffc107;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 20px;
+            display: none;
+        }
+
+        .alert-lembretes.active { display: block; }
+
+        .alert-lembretes h3 {
+            color: #856404;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .alert-lembretes .badge-count {
+            background: #dc3545;
+            color: white;
+            padding: 2px 10px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+        }
+
+        .lembrete-item {
+            background: white;
+            border-radius: 8px;
+            padding: 12px;
+            margin-bottom: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-left: 4px solid #ffc107;
+        }
+
+        .lembrete-item.enviado {
+            opacity: 0.6;
+            border-left-color: #28a745;
+        }
+
+        .lembrete-item-info .data {
+            font-weight: 700;
+            color: #856404;
+        }
+
+        .lembrete-item-info .dias {
+            font-size: 0.85rem;
+            color: #666;
+        }
+
+        .lembrete-item-info .nome {
+            font-size: 0.95rem;
+            color: #333;
+            margin-top: 3px;
+        }
+
+        .lembrete-item-actions {
+            display: flex;
+            gap: 8px;
+        }
+
+        .lembrete-item-actions button {
+            padding: 8px 12px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            transition: all 0.3s;
+        }
+
+        .btn-lembrete-enviar {
+            background: #25D366;
+            color: white;
+        }
+
+        .btn-lembrete-check {
+            background: #28a745;
+            color: white;
+        }
+
         .admin-menu {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
             gap: 15px;
             margin-bottom: 20px;
         }
@@ -606,6 +489,26 @@
             box-shadow: 0 5px 20px rgba(139, 47, 135, 0.2);
         }
 
+        .admin-menu-item.whatsapp {
+            background: linear-gradient(135deg, #dcf8c6 0%, #c5f0b0 100%);
+            border-color: #25D366;
+        }
+
+        .admin-menu-item.whatsapp:hover {
+            border-color: #128C7E;
+            box-shadow: 0 5px 20px rgba(37, 211, 102, 0.3);
+        }
+
+        .admin-menu-item.todo {
+            background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%);
+            border-color: #0078D4;
+        }
+
+        .admin-menu-item.todo:hover {
+            border-color: #005A9E;
+            box-shadow: 0 5px 20px rgba(0, 120, 212, 0.3);
+        }
+
         .admin-menu-item .icon {
             font-size: 2rem;
             margin-bottom: 10px;
@@ -613,10 +516,13 @@
 
         .admin-menu-item h3 {
             color: #5D1A54;
-            font-size: 1rem;
+            font-size: 0.95rem;
         }
 
-        /* Lista de itens cadastrados */
+        .admin-menu-item.whatsapp h3 { color: #128C7E; }
+        .admin-menu-item.todo h3 { color: #0078D4; }
+
+        /* Lista de itens */
         .item-list {
             background: #f8f9fa;
             border-radius: 8px;
@@ -647,6 +553,125 @@
             font-size: 0.8rem;
         }
 
+        /* WhatsApp List */
+        .whatsapp-list {
+            max-height: 400px;
+            overflow-y: auto;
+        }
+
+        .whatsapp-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 10px;
+            margin-bottom: 10px;
+            border-left: 4px solid #25D366;
+        }
+
+        .whatsapp-item:hover { background: #e8f5e9; }
+
+        .whatsapp-item-info { flex: 1; }
+
+        .whatsapp-item-info .data {
+            font-weight: 700;
+            color: #8B2F87;
+            font-size: 1.1rem;
+        }
+
+        .whatsapp-item-info .periodo {
+            display: inline-block;
+            padding: 2px 8px;
+            border-radius: 10px;
+            font-size: 0.8rem;
+            margin-left: 10px;
+        }
+
+        .whatsapp-item-info .periodo.manha { background: #FFD700; color: #333; }
+        .whatsapp-item-info .periodo.noite { background: #4A4A8A; color: white; }
+
+        .whatsapp-item-info .nome {
+            font-size: 1rem;
+            color: #333;
+            margin-top: 5px;
+        }
+
+        .whatsapp-item-info .tema {
+            font-size: 0.85rem;
+            color: #666;
+            margin-top: 3px;
+        }
+
+        .whatsapp-item-info .telefone {
+            font-size: 0.8rem;
+            color: #25D366;
+            margin-top: 3px;
+        }
+
+        .whatsapp-item button {
+            background: linear-gradient(135deg, #25D366 0%, #128C7E 100%);
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: all 0.3s;
+        }
+
+        .whatsapp-item button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 3px 10px rgba(37, 211, 102, 0.4);
+        }
+
+        .whatsapp-item button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        /* Preview mensagem */
+        .message-preview {
+            background: #dcf8c6;
+            border-radius: 10px;
+            padding: 15px;
+            margin-top: 15px;
+            font-size: 0.9rem;
+            white-space: pre-wrap;
+            border-left: 4px solid #25D366;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+
+        /* Tipo de mensagem selector */
+        .tipo-mensagem-selector {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        .tipo-mensagem-btn {
+            flex: 1;
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            background: white;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-align: center;
+        }
+
+        .tipo-mensagem-btn:hover { border-color: #8B2F87; }
+
+        .tipo-mensagem-btn.active {
+            border-color: #25D366;
+            background: #dcf8c6;
+        }
+
+        .tipo-mensagem-btn .icon { font-size: 1.5rem; }
+        .tipo-mensagem-btn .label { font-size: 0.85rem; margin-top: 5px; }
+
         /* Tabela editável */
         .editable-table select {
             width: 100%;
@@ -657,9 +682,7 @@
             font-size: 0.9rem;
         }
 
-        .editable-table td {
-            padding: 8px;
-        }
+        .editable-table td { padding: 8px; }
 
         /* Logout */
         .logout-btn {
@@ -672,125 +695,84 @@
             float: right;
         }
 
-        /* Responsivo */
-        @media (max-width: 768px) {
-            .header h1 {
-                font-size: 1.3rem;
-            }
-
-            .header p {
-                font-size: 0.85rem;
-            }
-
-            th {
-                padding: 12px 8px;
-                font-size: 1rem;
-            }
-            
-            td {
-                padding: 12px 8px;
-                font-size: 1.05rem;
-            }
-
-            .row-manha td, .row-noite td {
-                font-size: 1.05rem;
-            }
-
-            .data-cell {
-                font-size: 1.15rem;
-                padding: 10px 8px;
-            }
-
-            .turno-label {
-                font-size: 0.8rem;
-            }
-
-            .admin-menu {
-                grid-template-columns: repeat(2, 1fr);
-            }
-
-            .admin-access {
-                bottom: 15px;
-                right: 15px;
-                padding: 10px 16px;
-                font-size: 0.85rem;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .container {
-                padding: 10px;
-            }
-
-            th {
-                padding: 10px 6px;
-                font-size: 0.95rem;
-            }
-
-            td {
-                padding: 10px 6px;
-                font-size: 1rem;
-            }
-
-            .row-manha td, .row-noite td {
-                font-size: 1rem;
-            }
-
-            .data-cell {
-                font-size: 1.1rem;
-                min-width: 65px;
-            }
-
-            .turno-label {
-                font-size: 0.75rem;
-            }
-
-            .header h1 {
-                font-size: 1.1rem;
-            }
-        }
-
-        /* Mensagens */
+        /* Message */
         .message {
-            padding: 15px;
+            padding: 10px 15px;
             border-radius: 8px;
             margin-bottom: 15px;
             display: none;
         }
 
-        .message.success {
-            background: #d4edda;
-            color: #155724;
-            border: 1px solid #c3e6cb;
+        .message.active { display: block; }
+        .message.success { background: #d4edda; color: #155724; border: 1px solid #c3e6cb; }
+        .message.error { background: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; }
+
+        /* Print */
+        .print-container {
+            text-align: center;
+            margin-top: 30px;
         }
 
-        .message.error {
-            background: #f8d7da;
-            color: #721c24;
-            border: 1px solid #f5c6cb;
-        }
-
-        .message.active {
-            display: block;
-        }
-
-        /* Tipo badge */
-        .tipo-badge {
-            display: inline-block;
-            padding: 4px 12px;
-            border-radius: 20px;
-            font-size: 0.8rem;
-            font-weight: 600;
-        }
-
-        .tipo-ebd {
-            background: #ffc107;
-            color: #333;
-        }
-
-        .tipo-celebracao {
-            background: #17a2b8;
+        .btn-print {
+            background: linear-gradient(135deg, #2196F3 0%, #1565C0 100%);
             color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 50px;
+            cursor: pointer;
+            font-size: 1.1rem;
+            box-shadow: 0 4px 15px rgba(33, 150, 243, 0.4);
+            transition: all 0.3s;
+        }
+
+        .btn-print:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(33, 150, 243, 0.5);
+        }
+
+        /* Export info */
+        .export-info {
+            background: #e3f2fd;
+            border-radius: 10px;
+            padding: 15px;
+            margin-top: 15px;
+            border-left: 4px solid #0078D4;
+        }
+
+        .export-info h4 {
+            color: #0078D4;
+            margin-bottom: 10px;
+        }
+
+        .export-info ul {
+            margin-left: 20px;
+            color: #555;
+        }
+
+        .export-info li { margin-bottom: 5px; }
+
+        /* Responsivo */
+        @media (max-width: 768px) {
+            .header h1 { font-size: 1.3rem; }
+            .header p { font-size: 0.85rem; }
+            th { padding: 12px 8px; font-size: 1rem; }
+            td { padding: 12px 8px; font-size: 1.05rem; }
+            .admin-menu { grid-template-columns: repeat(2, 1fr); }
+            .modal-content { padding: 20px; max-width: 95%; }
+            .lembrete-item { flex-direction: column; gap: 10px; }
+            .lembrete-item-actions { width: 100%; justify-content: flex-end; }
+        }
+
+        /* Print styles */
+        @media print {
+            body { background: white !important; }
+            .admin-access, .admin-panel, .print-container, .header-filter-btn { display: none !important; }
+            .header {
+                background: linear-gradient(135deg, #8B2F87 0%, #5D1A54 100%) !important;
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
+            }
+            .table-container { box-shadow: none; break-inside: avoid; }
         }
     </style>
 </head>
@@ -811,7 +793,7 @@
     </div>
 
     <div class="container">
-        <!-- Painel Admin (oculto por padrão) -->
+        <!-- Painel Admin -->
         <div class="admin-panel" id="adminPanel">
             <h2>
                 ⚙️ Painel Administrativo
@@ -819,6 +801,15 @@
             </h2>
             
             <div class="message" id="adminMessage"></div>
+
+            <!-- Alerta de Lembretes -->
+            <div class="alert-lembretes" id="alertLembretes">
+                <h3>
+                    🔔 Lembretes Pendentes (5 dias)
+                    <span class="badge-count" id="badgeLembretes">0</span>
+                </h3>
+                <div id="listaLembretes"></div>
+            </div>
 
             <div class="admin-menu">
                 <div class="admin-menu-item" onclick="openModal('modalDatas')">
@@ -841,6 +832,14 @@
                     <div class="icon">✏️</div>
                     <h3>Editar Tabela</h3>
                 </div>
+                <div class="admin-menu-item whatsapp" onclick="openModal('modalWhatsApp')">
+                    <div class="icon">📲</div>
+                    <h3>Enviar WhatsApp</h3>
+                </div>
+                <div class="admin-menu-item todo" onclick="openModal('modalExportTodo')">
+                    <div class="icon">📤</div>
+                    <h3>Exportar To-Do</h3>
+                </div>
             </div>
         </div>
 
@@ -854,9 +853,7 @@
                         <th>Tema</th>
                     </tr>
                 </thead>
-                <tbody id="escalaBody">
-                    <!-- Dados serão inseridos via JavaScript -->
-                </tbody>
+                <tbody id="escalaBody"></tbody>
             </table>
         </div>
 
@@ -872,94 +869,24 @@
                             <th>Período</th>
                         </tr>
                     </thead>
-                    <tbody id="resumoBody">
-                        <!-- Resumo será inserido via JavaScript -->
-                    </tbody>
+                    <tbody id="resumoBody"></tbody>
                 </table>
             </div>
         </div>
 
         <!-- Botão Imprimir PDF -->
         <div class="print-container">
-            <button class="btn-print" onclick="openModal('modalImprimir')">
+            <button class="btn-print" onclick="window.print()">
                 🖨️ Imprimir / Salvar PDF
             </button>
-        </div>
-    </div>
-
-    <!-- Modal Opções de Impressão -->
-    <div class="modal" id="modalImprimir">
-        <div class="modal-content">
-            <button class="modal-close" onclick="closeModal('modalImprimir')">&times;</button>
-            <h2>🖨️ Opções de Impressão</h2>
-            
-            <div class="print-options">
-                <div class="form-group">
-                    <label>Filtrar por:</label>
-                    <select id="tipoFiltro" onchange="atualizarOpcoesFiltro()">
-                        <option value="todos">📋 Imprimir Tudo</option>
-                        <option value="ministrante">👤 Por Ministrante</option>
-                        <option value="mes">📅 Por Mês</option>
-                        <option value="periodo">🌗 Por Período</option>
-                    </select>
-                </div>
-
-                <div class="form-group" id="filtroDetalhe" style="display: none;">
-                    <label id="labelFiltroDetalhe">Selecione:</label>
-                    <select id="valorFiltro">
-                        <!-- Opções serão preenchidas via JavaScript -->
-                    </select>
-                </div>
-
-                <div class="print-preview">
-                    <h4>📄 Prévia do que será impresso:</h4>
-                    <p id="previewTexto">Escala completa + Resumo por Ministrante</p>
-                </div>
-            </div>
-            
-            <div style="text-align: center; margin-top: 20px;">
-                <button class="btn" onclick="executarImpressao()">🖨️ Gerar PDF</button>
-                <button class="btn btn-secondary" onclick="closeModal('modalImprimir')">Cancelar</button>
-            </div>
         </div>
     </div>
 
     <!-- Botão de acesso admin -->
     <button class="admin-access" id="adminAccessBtn" onclick="openModal('modalLogin')">
         🔐 Admin
+        <span class="badge" id="badgeAdmin" style="display:none;">0</span>
     </button>
-
-    <!-- Modal de Filtro para Visualização -->
-    <div class="modal" id="modalFiltroView">
-        <div class="modal-content">
-            <button class="modal-close" onclick="closeModal('modalFiltroView')">&times;</button>
-            <h2>🔍 Filtrar Escala</h2>
-            
-            <div class="filter-options">
-                <div class="form-group">
-                    <label>Filtrar por:</label>
-                    <select id="tipoFiltroView" onchange="atualizarOpcoesFiltroView()">
-                        <option value="todos">📋 Mostrar Tudo</option>
-                        <option value="ministrante">👤 Por Ministrante</option>
-                        <option value="mes">📅 Por Mês</option>
-                        <option value="periodo">🌗 Por Período</option>
-                    </select>
-                </div>
-
-                <div class="form-group" id="filtroDetalheView" style="display: none;">
-                    <label id="labelFiltroDetalheView">Selecione:</label>
-                    <select id="valorFiltroView">
-                        <!-- Opções serão preenchidas via JavaScript -->
-                    </select>
-                </div>
-            </div>
-            
-            <div style="text-align: center; margin-top: 20px;">
-                <button class="btn" onclick="aplicarFiltroView()">✅ Aplicar Filtro</button>
-                <button class="btn btn-secondary" onclick="limparFiltroView()">🔄 Limpar Filtro</button>
-            </div>
-        </div>
-    </div>
 
     <!-- Modal de Login -->
     <div class="modal" id="modalLogin">
@@ -974,6 +901,31 @@
         </div>
     </div>
 
+    <!-- Modal de Filtro -->
+    <div class="modal" id="modalFiltroView">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeModal('modalFiltroView')">&times;</button>
+            <h2>🔍 Filtrar Escala</h2>
+            <div class="form-group">
+                <label>Filtrar por:</label>
+                <select id="tipoFiltroView" onchange="atualizarOpcoesFiltroView()">
+                    <option value="todos">📋 Mostrar Tudo</option>
+                    <option value="ministrante">👤 Por Ministrante</option>
+                    <option value="mes">📅 Por Mês</option>
+                    <option value="periodo">🌗 Por Período</option>
+                </select>
+            </div>
+            <div class="form-group" id="filtroDetalheView" style="display: none;">
+                <label id="labelFiltroDetalheView">Selecione:</label>
+                <select id="valorFiltroView"></select>
+            </div>
+            <div style="text-align: center; margin-top: 20px;">
+                <button class="btn" onclick="aplicarFiltroView()">✅ Aplicar Filtro</button>
+                <button class="btn btn-secondary" onclick="limparFiltroView()">🔄 Limpar Filtro</button>
+            </div>
+        </div>
+    </div>
+
     <!-- Modal Cadastrar Datas -->
     <div class="modal" id="modalDatas">
         <div class="modal-content">
@@ -984,10 +936,7 @@
                 <input type="date" id="novaData">
             </div>
             <button class="btn" onclick="addData()">Adicionar Data</button>
-            
-            <div class="item-list" id="listaDatas">
-                <!-- Datas cadastradas -->
-            </div>
+            <div class="item-list" id="listaDatas"></div>
         </div>
     </div>
 
@@ -1014,11 +963,12 @@
                 <label>Nome:</label>
                 <input type="text" id="nomePessoa" placeholder="Nome da pessoa">
             </div>
-            <button class="btn" onclick="addPessoa()">Adicionar Pessoa</button>
-            
-            <div class="item-list" id="listaPessoas">
-                <!-- Pessoas cadastradas -->
+            <div class="form-group">
+                <label>Telefone (WhatsApp):</label>
+                <input type="tel" id="telefonePessoa" placeholder="Ex: 61999998888">
             </div>
+            <button class="btn" onclick="addPessoa()">Adicionar Pessoa</button>
+            <div class="item-list" id="listaPessoas"></div>
         </div>
     </div>
 
@@ -1026,16 +976,13 @@
     <div class="modal" id="modalTipos">
         <div class="modal-content">
             <button class="modal-close" onclick="closeModal('modalTipos')">&times;</button>
-            <h2>🏷️ Cadastrar Tipo (EBD/Celebração)</h2>
+            <h2>🏷️ Cadastrar Tipo</h2>
             <div class="form-group">
                 <label>Novo Tipo:</label>
-                <input type="text" id="novoTipo" placeholder="Ex: EBD, Celebração, Culto...">
+                <input type="text" id="novoTipo" placeholder="Ex: EBD, Celebração...">
             </div>
             <button class="btn" onclick="addTipo()">Adicionar Tipo</button>
-            
-            <div class="item-list" id="listaTipos">
-                <!-- Tipos cadastrados -->
-            </div>
+            <div class="item-list" id="listaTipos"></div>
         </div>
     </div>
 
@@ -1049,10 +996,7 @@
                 <input type="text" id="novoTema" placeholder="Ex: Esgotamento Espiritual">
             </div>
             <button class="btn" onclick="addTema()">Adicionar Tema</button>
-            
-            <div class="item-list" id="listaTemas">
-                <!-- Temas cadastrados -->
-            </div>
+            <div class="item-list" id="listaTemas"></div>
         </div>
     </div>
 
@@ -1061,11 +1005,9 @@
         <div class="modal-content" style="max-width: 900px;">
             <button class="modal-close" onclick="closeModal('modalEditar')">&times;</button>
             <h2>✏️ Editar Escala</h2>
-            
             <div style="margin-bottom: 15px;">
                 <button class="btn btn-success" onclick="addNovaLinha()">+ Nova Linha</button>
             </div>
-
             <div style="overflow-x: auto;">
                 <table class="editable-table" id="editableTable">
                     <thead>
@@ -1078,68 +1020,171 @@
                             <th>Ações</th>
                         </tr>
                     </thead>
-                    <tbody id="editableBody">
-                        <!-- Linhas editáveis -->
-                    </tbody>
+                    <tbody id="editableBody"></tbody>
                 </table>
             </div>
-            
             <div style="margin-top: 20px;">
                 <button class="btn" onclick="salvarEscala()">💾 Salvar Alterações</button>
             </div>
         </div>
     </div>
 
+    <!-- Modal WhatsApp -->
+    <div class="modal" id="modalWhatsApp">
+        <div class="modal-content" style="max-width: 700px;">
+            <button class="modal-close" onclick="closeModal('modalWhatsApp')">&times;</button>
+            <h2>📲 Enviar Convite via WhatsApp</h2>
+            <div class="form-group">
+                <label>Filtrar por período:</label>
+                <select id="filtroWhatsApp" onchange="renderWhatsAppList()">
+                    <option value="todos">📋 Todos</option>
+                    <option value="manha">☀️ Manhã (EBD)</option>
+                    <option value="noite">🌙 Noite (Celebração)</option>
+                </select>
+            </div>
+            <div class="whatsapp-list" id="whatsappList"></div>
+        </div>
+    </div>
+
+    <!-- Modal Preview WhatsApp -->
+    <div class="modal" id="modalPreviewWhatsApp">
+        <div class="modal-content" style="max-width: 600px;">
+            <button class="modal-close" onclick="closeModal('modalPreviewWhatsApp')">&times;</button>
+            <h2>📱 Prévia da Mensagem</h2>
+            
+            <div class="form-group">
+                <label>Destinatário:</label>
+                <p id="previewDestinatario" style="font-weight: bold; color: #8B2F87;"></p>
+            </div>
+
+            <div class="form-group">
+                <label>Telefone:</label>
+                <p id="previewTelefone" style="color: #25D366;"></p>
+            </div>
+
+            <!-- Seletor de tipo de mensagem -->
+            <div class="form-group">
+                <label>Tipo de Mensagem:</label>
+                <div class="tipo-mensagem-selector">
+                    <div class="tipo-mensagem-btn active" id="btnConvite" onclick="selecionarTipoMensagem('convite')">
+                        <div class="icon">📨</div>
+                        <div class="label">Convite Inicial</div>
+                    </div>
+                    <div class="tipo-mensagem-btn" id="btnLembrete" onclick="selecionarTipoMensagem('lembrete')">
+                        <div class="icon">🔔</div>
+                        <div class="label">Lembrete (5 dias)</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>Mensagem:</label>
+                <div class="message-preview" id="previewMensagem"></div>
+            </div>
+
+            <div style="text-align: center; margin-top: 20px;">
+                <button class="btn btn-whatsapp" onclick="enviarWhatsApp()">📲 Abrir WhatsApp</button>
+                <button class="btn btn-secondary" onclick="closeModal('modalPreviewWhatsApp')">Cancelar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Exportar To-Do -->
+    <div class="modal" id="modalExportTodo">
+        <div class="modal-content" style="max-width: 600px;">
+            <button class="modal-close" onclick="closeModal('modalExportTodo')">&times;</button>
+            <h2>📤 Exportar para Microsoft To-Do</h2>
+            
+            <div class="export-info">
+                <h4>ℹ️ Como funciona:</h4>
+                <ul>
+                    <li>Gera um arquivo JSON com todas as tarefas de lembrete</li>
+                    <li>Cada tarefa vence <strong>5 dias antes</strong> da ministração</li>
+                    <li>Lista no To-Do: <strong>"IDAC - Lembretes"</strong></li>
+                    <li>Salve o arquivo no OneDrive para o Power Automate processar</li>
+                </ul>
+            </div>
+
+            <div class="form-group" style="margin-top: 20px;">
+                <label>Filtrar exportação:</label>
+                <select id="filtroExport">
+                    <option value="todos">📋 Todas as escalas</option>
+                    <option value="pendentes">⏳ Apenas pendentes (não enviados)</option>
+                    <option value="proximos">📅 Próximos 30 dias</option>
+                </select>
+            </div>
+
+            <div id="exportPreview" style="margin-top: 15px;"></div>
+
+            <div style="text-align: center; margin-top: 20px;">
+                <button class="btn btn-todo" onclick="exportarParaTodo()">📥 Baixar JSON</button>
+                <button class="btn btn-secondary" onclick="closeModal('modalExportTodo')">Cancelar</button>
+            </div>
+        </div>
+    </div>
+
     <script>
         // ==================== DADOS ====================
-        // Dados armazenados em localStorage para persistência
-        
         const SENHA_ADMIN = 'idac2026';
+        const DIAS_LEMBRETE = 5;
         
-        // Dados iniciais (serão carregados do localStorage se existirem)
         let dados = {
             datas: [],
             pessoas: [
-                'Pb. José Dias',
-                'Prof. Paulo',
-                'Pr. Tadeu',
-                'Pra. Jaqueline',
-                'Bp. Vanjivaldo',
-                'Pra. Miguelina',
-                'Pra. Kélia',
-                'Pra. Maria Pereira',
-                'Pra. Neucy',
-                'Dc. Júnio'
+                { nome: 'Pb. José Dias', telefone: '' },
+                { nome: 'Prof. Paulo', telefone: '' },
+                { nome: 'Pr. Tadeu', telefone: '' },
+                { nome: 'Pra. Jaqueline', telefone: '' },
+                { nome: 'Bp. Vanjivaldo', telefone: '' },
+                { nome: 'Pra. Miguelina', telefone: '' },
+                { nome: 'Pra. Kélia', telefone: '' },
+                { nome: 'Pra. Maria Pereira', telefone: '' },
+                { nome: 'Pra. Neucy', telefone: '' },
+                { nome: 'Dc. Júnio', telefone: '' }
             ],
             tipos: ['EBD', 'Celebração'],
-            temas: ['Esgotamento Espiritual'],
+            temas: ['Esgotamento Espiritual', 'Livre'],
             escala: [
-                { data: '04/jan', manha: 'Pb. José Dias', tema: 'Esgotamento Espiritual', noite: 'Bp. Vanjivaldo', tema2: '' },
-                { data: '11/jan', manha: 'Prof. Paulo', tema: 'Esgotamento Espiritual', noite: 'Pra. Miguelina', tema2: '' },
-                { data: '18/jan', manha: 'Pr. Tadeu', tema: 'Esgotamento Espiritual', noite: 'Pra. Kélia', tema2: '' },
-                { data: '25/jan', manha: 'Pra. Jaqueline', tema: 'Esgotamento Espiritual', noite: 'Pra. Maria Pereira', tema2: '' },
-                { data: '01/fev', manha: 'Bp. Vanjivaldo', tema: 'Esgotamento Espiritual', noite: 'Pra. Miguelina', tema2: '' },
-                { data: '08/fev', manha: 'Dc. Júnio', tema: 'Esgotamento Espiritual', noite: 'Pra. Maria Pereira', tema2: '' },
-                { data: '15/fev', manha: 'Prof. Paulo', tema: 'Esgotamento Espiritual', noite: 'Pra. Neucy', tema2: '' },
-                { data: '22/fev', manha: 'Pb. José Dias', tema: 'Esgotamento Espiritual', noite: 'Bp. Vanjivaldo', tema2: '' }
-            ]
+                { data: '05/jan', manha: 'Pb. José Dias', tema: 'Esgotamento Espiritual', noite: 'Bp. Vanjivaldo', tema2: 'Livre' },
+                { data: '12/jan', manha: 'Prof. Paulo', tema: 'Esgotamento Espiritual', noite: 'Pra. Miguelina', tema2: 'Livre' },
+                { data: '19/jan', manha: 'Pr. Tadeu', tema: 'Esgotamento Espiritual', noite: 'Pra. Kélia', tema2: 'Livre' },
+                { data: '26/jan', manha: 'Pra. Jaqueline', tema: 'Esgotamento Espiritual', noite: 'Pra. Maria Pereira', tema2: 'Livre' },
+                { data: '02/fev', manha: 'Bp. Vanjivaldo', tema: 'Esgotamento Espiritual', noite: 'Pra. Miguelina', tema2: 'Livre' },
+                { data: '09/fev', manha: 'Dc. Júnio', tema: 'Esgotamento Espiritual', noite: 'Pra. Maria Pereira', tema2: 'Livre' },
+                { data: '16/fev', manha: 'Prof. Paulo', tema: 'Esgotamento Espiritual', noite: 'Pra. Neucy', tema2: 'Livre' },
+                { data: '23/fev', manha: 'Pb. José Dias', tema: 'Esgotamento Espiritual', noite: 'Bp. Vanjivaldo', tema2: 'Livre' }
+            ],
+            enviados: [] // Controle de mensagens já enviadas
         };
 
         let isAdmin = false;
+        let mensagemAtual = null;
+        let tipoMensagemAtual = 'convite';
 
         // ==================== INICIALIZAÇÃO ====================
         
         function init() {
             loadFromStorage();
+            migratePessoasIfNeeded();
             renderEscala();
             renderListas();
+            verificarLembretes();
+        }
+
+        function migratePessoasIfNeeded() {
+            if (dados.pessoas.length > 0 && typeof dados.pessoas[0] === 'string') {
+                dados.pessoas = dados.pessoas.map(p => ({ nome: p, telefone: '' }));
+                saveToStorage();
+            }
+            if (!dados.enviados) {
+                dados.enviados = [];
+                saveToStorage();
+            }
         }
 
         function loadFromStorage() {
             const saved = localStorage.getItem('escalaIDAC');
-            if (saved) {
-                dados = JSON.parse(saved);
-            }
+            if (saved) dados = JSON.parse(saved);
         }
 
         function saveToStorage() {
@@ -1157,6 +1202,7 @@
                 closeModal('modalLogin');
                 document.getElementById('senhaAdmin').value = '';
                 showMessage('adminMessage', 'Login realizado com sucesso!', 'success');
+                verificarLembretes();
             } else {
                 alert('Senha incorreta!');
             }
@@ -1168,13 +1214,133 @@
             document.getElementById('adminAccessBtn').style.display = 'block';
         }
 
+        // ==================== LEMBRETES ====================
+
+        function verificarLembretes() {
+            const hoje = new Date();
+            hoje.setHours(0, 0, 0, 0);
+            
+            const lembretes = [];
+            const mesesNum = { 'jan': 0, 'fev': 1, 'mar': 2, 'abr': 3, 'mai': 4, 'jun': 5, 'jul': 6, 'ago': 7, 'set': 8, 'out': 9, 'nov': 10, 'dez': 11 };
+            
+            dados.escala.forEach(item => {
+                const [dia, mes] = item.data.split('/');
+                const dataEvento = new Date(2026, mesesNum[mes.toLowerCase()], parseInt(dia));
+                const diffDias = Math.ceil((dataEvento - hoje) / (1000 * 60 * 60 * 24));
+                
+                if (diffDias > 0 && diffDias <= DIAS_LEMBRETE) {
+                    if (item.manha) {
+                        const id = `${item.data}-manha-lembrete`;
+                        lembretes.push({
+                            id,
+                            data: item.data,
+                            dataEvento,
+                            diffDias,
+                            periodo: 'manha',
+                            nome: item.manha,
+                            tema: item.tema,
+                            telefone: getTelefonePessoa(item.manha),
+                            enviado: dados.enviados.includes(id)
+                        });
+                    }
+                    if (item.noite) {
+                        const id = `${item.data}-noite-lembrete`;
+                        lembretes.push({
+                            id,
+                            data: item.data,
+                            dataEvento,
+                            diffDias,
+                            periodo: 'noite',
+                            nome: item.noite,
+                            tema: item.tema2,
+                            telefone: getTelefonePessoa(item.noite),
+                            enviado: dados.enviados.includes(id)
+                        });
+                    }
+                }
+            });
+
+            // Ordenar por dias restantes
+            lembretes.sort((a, b) => a.diffDias - b.diffDias);
+
+            const pendentes = lembretes.filter(l => !l.enviado);
+            
+            // Atualizar badge no botão admin
+            const badgeAdmin = document.getElementById('badgeAdmin');
+            if (pendentes.length > 0) {
+                badgeAdmin.textContent = pendentes.length;
+                badgeAdmin.style.display = 'flex';
+            } else {
+                badgeAdmin.style.display = 'none';
+            }
+
+            // Atualizar alerta no painel
+            const alertEl = document.getElementById('alertLembretes');
+            const badgeLembretes = document.getElementById('badgeLembretes');
+            const listaEl = document.getElementById('listaLembretes');
+
+            if (lembretes.length > 0) {
+                alertEl.classList.add('active');
+                badgeLembretes.textContent = pendentes.length;
+
+                listaEl.innerHTML = lembretes.map(l => `
+                    <div class="lembrete-item ${l.enviado ? 'enviado' : ''}">
+                        <div class="lembrete-item-info">
+                            <span class="data">${l.data}</span>
+                            <span class="periodo ${l.periodo}">${l.periodo === 'manha' ? '☀️ EBD' : '🌙 Celebração'}</span>
+                            <span class="dias">(${l.diffDias} dia${l.diffDias > 1 ? 's' : ''})</span>
+                            <div class="nome">👤 ${l.nome}</div>
+                        </div>
+                        <div class="lembrete-item-actions">
+                            ${l.enviado ? 
+                                '<span style="color:#28a745;">✅ Enviado</span>' : 
+                                `<button class="btn-lembrete-enviar" onclick="enviarLembrete('${l.nome}', '${l.data}', '${l.periodo}', '${l.tema}', '${l.telefone}')" ${!l.telefone ? 'disabled title="Sem telefone"' : ''}>📲</button>
+                                 <button class="btn-lembrete-check" onclick="marcarEnviado('${l.id}')">✓</button>`
+                            }
+                        </div>
+                    </div>
+                `).join('');
+            } else {
+                alertEl.classList.remove('active');
+            }
+        }
+
+        function marcarEnviado(id) {
+            if (!dados.enviados.includes(id)) {
+                dados.enviados.push(id);
+                saveToStorage();
+                verificarLembretes();
+                showMessage('adminMessage', 'Marcado como enviado!', 'success');
+            }
+        }
+
+        function enviarLembrete(nome, data, periodo, tema, telefone) {
+            mensagemAtual = {
+                nome,
+                data,
+                periodo,
+                tema,
+                telefone,
+                tipo: 'lembrete'
+            };
+            tipoMensagemAtual = 'lembrete';
+            
+            document.getElementById('previewDestinatario').textContent = nome;
+            document.getElementById('previewTelefone').textContent = telefone || 'Não cadastrado';
+            document.getElementById('btnConvite').classList.remove('active');
+            document.getElementById('btnLembrete').classList.add('active');
+            
+            atualizarPreviewMensagem();
+            openModal('modalPreviewWhatsApp');
+        }
+
         // ==================== MODAIS ====================
 
         function openModal(modalId) {
             document.getElementById(modalId).classList.add('active');
-            if (modalId === 'modalEditar') {
-                renderEditableTable();
-            }
+            if (modalId === 'modalEditar') renderEditableTable();
+            if (modalId === 'modalWhatsApp') renderWhatsAppList();
+            if (modalId === 'modalExportTodo') atualizarPreviewExport();
             renderListas();
         }
 
@@ -1182,12 +1348,9 @@
             document.getElementById(modalId).classList.remove('active');
         }
 
-        // Fechar modal ao clicar fora
         document.querySelectorAll('.modal').forEach(modal => {
             modal.addEventListener('click', (e) => {
-                if (e.target === modal) {
-                    modal.classList.remove('active');
-                }
+                if (e.target === modal) modal.classList.remove('active');
             });
         });
 
@@ -1198,47 +1361,30 @@
             tbody.innerHTML = dados.escala.map(item => `
                 <tr class="row-manha">
                     <td class="data-cell" rowspan="2">${item.data}</td>
-                    <td>
-                        <span class="turno-label">☀️ Manhã</span>
-                        ${item.manha || '-'}
-                    </td>
+                    <td><span class="turno-label">☀️ Manhã</span>${item.manha || '-'}</td>
                     <td>${item.tema || '-'}</td>
                 </tr>
                 <tr class="row-noite">
-                    <td>
-                        <span class="turno-label">🌙 Noite</span>
-                        ${item.noite || '-'}
-                    </td>
+                    <td><span class="turno-label">🌙 Noite</span>${item.noite || '-'}</td>
                     <td>${item.tema2 || '-'}</td>
                 </tr>
             `).join('');
-            
-            // Atualizar também o resumo
             renderResumo();
         }
 
         function renderResumo() {
-            // Coletar dados por ministrante
             const resumoMap = new Map();
-
             dados.escala.forEach(item => {
-                // Manhã
                 if (item.manha && item.manha !== '-') {
-                    if (!resumoMap.has(item.manha)) {
-                        resumoMap.set(item.manha, { manha: [], noite: [] });
-                    }
+                    if (!resumoMap.has(item.manha)) resumoMap.set(item.manha, { manha: [], noite: [] });
                     resumoMap.get(item.manha).manha.push(item.data);
                 }
-                // Noite
                 if (item.noite && item.noite !== '-') {
-                    if (!resumoMap.has(item.noite)) {
-                        resumoMap.set(item.noite, { manha: [], noite: [] });
-                    }
+                    if (!resumoMap.has(item.noite)) resumoMap.set(item.noite, { manha: [], noite: [] });
                     resumoMap.get(item.noite).noite.push(item.data);
                 }
             });
 
-            // Converter para array e ordenar alfabeticamente
             const resumoArray = Array.from(resumoMap.entries())
                 .map(([nome, periodos]) => ({
                     nome,
@@ -1248,47 +1394,24 @@
                 }))
                 .sort((a, b) => a.nome.localeCompare(b.nome, 'pt-BR', { sensitivity: 'base' }));
 
-            // Renderizar tabela de resumo
             const tbody = document.getElementById('resumoBody');
             tbody.innerHTML = resumoArray.map(item => {
-                // Formatar datas (já ordenadas cronologicamente)
                 const datasFormatadas = [];
-                
                 item.manha.forEach(d => datasFormatadas.push({ data: d, tipo: 'manha' }));
                 item.noite.forEach(d => datasFormatadas.push({ data: d, tipo: 'noite' }));
-                
-                // Ordenar todas as datas juntas cronologicamente
-                datasFormatadas.sort((a, b) => {
-                    const meses = { 'jan': 1, 'fev': 2, 'mar': 3, 'abr': 4, 'mai': 5, 'jun': 6, 'jul': 7, 'ago': 8, 'set': 9, 'out': 10, 'nov': 11, 'dez': 12 };
-                    const [diaA, mesA] = a.data.split('/');
-                    const [diaB, mesB] = b.data.split('/');
-                    const mesNumA = meses[mesA.toLowerCase()] || 0;
-                    const mesNumB = meses[mesB.toLowerCase()] || 0;
-                    if (mesNumA !== mesNumB) return mesNumA - mesNumB;
-                    return parseInt(diaA) - parseInt(diaB);
-                });
+                datasFormatadas.sort((a, b) => compararDatas(a.data, b.data));
 
                 const datasHtml = datasFormatadas.map(d => 
-                    `<span class="periodo-badge periodo-${d.tipo === 'manha' ? 'manha' : 'noite'}">${d.tipo === 'manha' ? '☀️' : '🌙'} ${d.data}</span>`
+                    `<span class="periodo-badge periodo-${d.tipo}">${d.tipo === 'manha' ? '☀️' : '🌙'} ${d.data}</span>`
                 ).join(' ');
 
-                // Formatar períodos
                 const periodos = [];
-                if (item.manha.length > 0) {
-                    periodos.push(`<span class="periodo-badge periodo-manha">☀️ Manhã (${item.manha.length})</span>`);
-                }
-                if (item.noite.length > 0) {
-                    periodos.push(`<span class="periodo-badge periodo-noite">🌙 Noite (${item.noite.length})</span>`);
-                }
+                if (item.manha.length > 0) periodos.push(`<span class="periodo-badge periodo-manha">☀️ Manhã (${item.manha.length})</span>`);
+                if (item.noite.length > 0) periodos.push(`<span class="periodo-badge periodo-noite">🌙 Noite (${item.noite.length})</span>`);
 
                 return `
                     <tr class="row-resumo">
-                        <td>
-                            <div class="ministrante-cell">
-                                <span class="ministrante-nome">${item.nome}</span>
-                                <span class="qtd-badge">${item.total}x</span>
-                            </div>
-                        </td>
+                        <td><div class="ministrante-cell"><span class="ministrante-nome">${item.nome}</span><span class="qtd-badge">${item.total}x</span></div></td>
                         <td class="datas-list">${datasHtml}</td>
                         <td>${periodos.join(' ')}</td>
                     </tr>
@@ -1296,87 +1419,78 @@
             }).join('');
         }
 
-        function renderListas() {
-            // Ordenar listas para exibição
-            const datasOrdenadas = sortDatas(dados.datas);
-            const pessoasOrdenadas = sortAlphabetically(dados.pessoas);
-            const tiposOrdenados = sortAlphabetically(dados.tipos);
-            const temasOrdenados = sortAlphabetically(dados.temas);
+        function getNomePessoa(pessoa) {
+            return typeof pessoa === 'string' ? pessoa : pessoa.nome;
+        }
 
-            // Datas
+        function getTelefonePessoa(nomeBusca) {
+            const pessoa = dados.pessoas.find(p => getNomePessoa(p) === nomeBusca);
+            return pessoa ? (pessoa.telefone || '') : '';
+        }
+
+        function renderListas() {
+            const datasOrdenadas = sortDatas(dados.datas);
+            const pessoasOrdenadas = [...dados.pessoas].sort((a, b) => 
+                getNomePessoa(a).localeCompare(getNomePessoa(b), 'pt-BR', { sensitivity: 'base' })
+            );
+
             document.getElementById('listaDatas').innerHTML = datasOrdenadas.map((d) => {
                 const i = dados.datas.indexOf(d);
-                return `
-                <div class="item-list-item">
-                    <span>${d}</span>
-                    <button onclick="removeItem('datas', ${i})">🗑️</button>
-                </div>
-            `}).join('') || '<p style="color:#666; text-align:center;">Nenhuma data cadastrada</p>';
+                return `<div class="item-list-item"><span>${d}</span><button onclick="removeItem('datas', ${i})">🗑️</button></div>`;
+            }).join('') || '<p style="color:#666; text-align:center;">Nenhuma data cadastrada</p>';
 
-            // Pessoas
             document.getElementById('listaPessoas').innerHTML = pessoasOrdenadas.map((p) => {
                 const i = dados.pessoas.indexOf(p);
+                const nome = getNomePessoa(p);
+                const telefone = p.telefone || '';
                 return `
-                <div class="item-list-item">
-                    <span>${p}</span>
-                    <button onclick="removeItem('pessoas', ${i})">🗑️</button>
-                </div>
-            `}).join('') || '<p style="color:#666; text-align:center;">Nenhuma pessoa cadastrada</p>';
+                    <div class="item-list-item">
+                        <span>${nome} ${telefone ? '📱 ' + telefone : '<span style="color:#999;">(sem tel)</span>'}</span>
+                        <div>
+                            <button onclick="editarTelefone(${i})" style="background:#25D366; margin-right:5px;">📱</button>
+                            <button onclick="removeItem('pessoas', ${i})">🗑️</button>
+                        </div>
+                    </div>
+                `;
+            }).join('') || '<p style="color:#666; text-align:center;">Nenhuma pessoa cadastrada</p>';
 
-            // Tipos
-            document.getElementById('listaTipos').innerHTML = tiposOrdenados.map((t) => {
+            document.getElementById('listaTipos').innerHTML = sortAlphabetically(dados.tipos).map((t) => {
                 const i = dados.tipos.indexOf(t);
-                return `
-                <div class="item-list-item">
-                    <span>${t}</span>
-                    <button onclick="removeItem('tipos', ${i})">🗑️</button>
-                </div>
-            `}).join('') || '<p style="color:#666; text-align:center;">Nenhum tipo cadastrado</p>';
+                return `<div class="item-list-item"><span>${t}</span><button onclick="removeItem('tipos', ${i})">🗑️</button></div>`;
+            }).join('') || '<p style="color:#666; text-align:center;">Nenhum tipo cadastrado</p>';
 
-            // Temas
-            document.getElementById('listaTemas').innerHTML = temasOrdenados.map((t) => {
+            document.getElementById('listaTemas').innerHTML = sortAlphabetically(dados.temas).map((t) => {
                 const i = dados.temas.indexOf(t);
-                return `
-                <div class="item-list-item">
-                    <span>${t}</span>
-                    <button onclick="removeItem('temas', ${i})">🗑️</button>
-                </div>
-            `}).join('') || '<p style="color:#666; text-align:center;">Nenhum tema cadastrado</p>';
+                return `<div class="item-list-item"><span>${t}</span><button onclick="removeItem('temas', ${i})">🗑️</button></div>`;
+            }).join('') || '<p style="color:#666; text-align:center;">Nenhum tema cadastrado</p>';
         }
 
-        // Função para ordenar alfabeticamente (ignorando acentos)
         function sortAlphabetically(arr) {
-            return [...arr].sort((a, b) => 
-                a.localeCompare(b, 'pt-BR', { sensitivity: 'base' })
-            );
+            return [...arr].sort((a, b) => a.localeCompare(b, 'pt-BR', { sensitivity: 'base' }));
         }
 
-        // Função para ordenar datas cronologicamente
         function sortDatas(arr) {
-            const meses = {
-                'jan': 1, 'fev': 2, 'mar': 3, 'abr': 4, 'mai': 5, 'jun': 6,
-                'jul': 7, 'ago': 8, 'set': 9, 'out': 10, 'nov': 11, 'dez': 12
-            };
-            return [...arr].sort((a, b) => {
-                const [diaA, mesA] = a.split('/');
-                const [diaB, mesB] = b.split('/');
-                const mesNumA = meses[mesA.toLowerCase()] || 0;
-                const mesNumB = meses[mesB.toLowerCase()] || 0;
-                if (mesNumA !== mesNumB) return mesNumA - mesNumB;
-                return parseInt(diaA) - parseInt(diaB);
-            });
+            return [...arr].sort((a, b) => compararDatas(a, b));
+        }
+
+        function compararDatas(a, b) {
+            const meses = { 'jan': 1, 'fev': 2, 'mar': 3, 'abr': 4, 'mai': 5, 'jun': 6, 'jul': 7, 'ago': 8, 'set': 9, 'out': 10, 'nov': 11, 'dez': 12 };
+            const [diaA, mesA] = a.split('/');
+            const [diaB, mesB] = b.split('/');
+            const mesNumA = meses[mesA.toLowerCase()] || 0;
+            const mesNumB = meses[mesB.toLowerCase()] || 0;
+            if (mesNumA !== mesNumB) return mesNumA - mesNumB;
+            return parseInt(diaA) - parseInt(diaB);
         }
 
         function renderEditableTable() {
             const tbody = document.getElementById('editableBody');
-            
-            // Ordenar listas
-            const pessoasOrdenadas = sortAlphabetically(dados.pessoas);
+            const pessoasOrdenadas = [...dados.pessoas].sort((a, b) => getNomePessoa(a).localeCompare(getNomePessoa(b), 'pt-BR', { sensitivity: 'base' }));
             const temasOrdenados = sortAlphabetically(dados.temas);
             const datasOrdenadas = sortDatas(dados.datas);
             
             tbody.innerHTML = dados.escala.map((item, index) => `
-                <tr data-index="${index}">
+                <tr>
                     <td>
                         <select onchange="updateEscala(${index}, 'data', this.value)">
                             <option value="">Selecione...</option>
@@ -1387,7 +1501,7 @@
                     <td>
                         <select onchange="updateEscala(${index}, 'manha', this.value)">
                             <option value="">Selecione...</option>
-                            ${pessoasOrdenadas.map(p => `<option value="${p}" ${item.manha === p ? 'selected' : ''}>${p}</option>`).join('')}
+                            ${pessoasOrdenadas.map(p => { const n = getNomePessoa(p); return `<option value="${n}" ${item.manha === n ? 'selected' : ''}>${n}</option>`; }).join('')}
                         </select>
                     </td>
                     <td>
@@ -1399,7 +1513,7 @@
                     <td>
                         <select onchange="updateEscala(${index}, 'noite', this.value)">
                             <option value="">Selecione...</option>
-                            ${pessoasOrdenadas.map(p => `<option value="${p}" ${item.noite === p ? 'selected' : ''}>${p}</option>`).join('')}
+                            ${pessoasOrdenadas.map(p => { const n = getNomePessoa(p); return `<option value="${n}" ${item.noite === n ? 'selected' : ''}>${n}</option>`; }).join('')}
                         </select>
                     </td>
                     <td>
@@ -1408,9 +1522,7 @@
                             ${temasOrdenados.map(t => `<option value="${t}" ${item.tema2 === t ? 'selected' : ''}>${t}</option>`).join('')}
                         </select>
                     </td>
-                    <td>
-                        <button class="btn btn-danger" style="padding: 5px 10px; margin: 0;" onclick="removeLinha(${index})">🗑️</button>
-                    </td>
+                    <td><button class="btn btn-danger" style="padding:5px 10px;margin:0;" onclick="removeLinha(${index})">🗑️</button></td>
                 </tr>
             `).join('');
         }
@@ -1427,25 +1539,35 @@
                     saveToStorage();
                     renderListas();
                     input.value = '';
-                } else {
-                    alert('Esta data já está cadastrada!');
-                }
+                } else alert('Esta data já está cadastrada!');
             }
         }
 
         function addPessoa() {
             const titulo = document.getElementById('tituloPessoa').value;
             const nome = document.getElementById('nomePessoa').value.trim();
+            const telefone = document.getElementById('telefonePessoa').value.trim().replace(/\D/g, '');
+            
             if (nome) {
                 const nomeCompleto = titulo ? `${titulo} ${nome}` : nome;
-                if (!dados.pessoas.includes(nomeCompleto)) {
-                    dados.pessoas.push(nomeCompleto);
+                if (!dados.pessoas.some(p => getNomePessoa(p) === nomeCompleto)) {
+                    dados.pessoas.push({ nome: nomeCompleto, telefone });
                     saveToStorage();
                     renderListas();
                     document.getElementById('nomePessoa').value = '';
-                } else {
-                    alert('Esta pessoa já está cadastrada!');
-                }
+                    document.getElementById('telefonePessoa').value = '';
+                } else alert('Esta pessoa já está cadastrada!');
+            }
+        }
+
+        function editarTelefone(index) {
+            const pessoa = dados.pessoas[index];
+            const novoTelefone = prompt(`Telefone de ${getNomePessoa(pessoa)}:`, pessoa.telefone || '');
+            if (novoTelefone !== null) {
+                dados.pessoas[index].telefone = novoTelefone.replace(/\D/g, '');
+                saveToStorage();
+                renderListas();
+                showMessage('adminMessage', 'Telefone atualizado!', 'success');
             }
         }
 
@@ -1457,9 +1579,7 @@
                 saveToStorage();
                 renderListas();
                 input.value = '';
-            } else if (dados.tipos.includes(tipo)) {
-                alert('Este tipo já está cadastrado!');
-            }
+            } else if (dados.tipos.includes(tipo)) alert('Este tipo já está cadastrado!');
         }
 
         function addTema() {
@@ -1470,9 +1590,7 @@
                 saveToStorage();
                 renderListas();
                 input.value = '';
-            } else if (dados.temas.includes(tema)) {
-                alert('Este tema já está cadastrado!');
-            }
+            } else if (dados.temas.includes(tema)) alert('Este tema já está cadastrado!');
         }
 
         function removeItem(tipo, index) {
@@ -1483,16 +1601,8 @@
             }
         }
 
-        // ==================== EDIÇÃO DA ESCALA ====================
-
         function addNovaLinha() {
-            dados.escala.push({
-                data: '',
-                manha: '',
-                tema: '',
-                noite: '',
-                tema2: ''
-            });
+            dados.escala.push({ data: '', manha: '', tema: '', noite: '', tema2: '' });
             renderEditableTable();
         }
 
@@ -1510,8 +1620,312 @@
         function salvarEscala() {
             saveToStorage();
             renderEscala();
+            verificarLembretes();
             showMessage('adminMessage', 'Escala salva com sucesso!', 'success');
             closeModal('modalEditar');
+        }
+
+        // ==================== WHATSAPP ====================
+
+        function renderWhatsAppList() {
+            const filtro = document.getElementById('filtroWhatsApp').value;
+            const container = document.getElementById('whatsappList');
+            
+            let itens = [];
+            dados.escala.forEach(item => {
+                if ((filtro === 'todos' || filtro === 'manha') && item.manha) {
+                    itens.push({ data: item.data, periodo: 'manha', nome: item.manha, tema: item.tema, telefone: getTelefonePessoa(item.manha) });
+                }
+                if ((filtro === 'todos' || filtro === 'noite') && item.noite) {
+                    itens.push({ data: item.data, periodo: 'noite', nome: item.noite, tema: item.tema2, telefone: getTelefonePessoa(item.noite) });
+                }
+            });
+
+            itens.sort((a, b) => compararDatas(a.data, b.data));
+
+            container.innerHTML = itens.map(item => `
+                <div class="whatsapp-item">
+                    <div class="whatsapp-item-info">
+                        <div>
+                            <span class="data">${item.data}</span>
+                            <span class="periodo ${item.periodo}">${item.periodo === 'manha' ? '☀️ EBD' : '🌙 Celebração'}</span>
+                        </div>
+                        <div class="nome">👤 ${item.nome}</div>
+                        <div class="tema">📖 ${item.tema || 'Livre'}</div>
+                        <div class="telefone">${item.telefone ? '📱 ' + item.telefone : '⚠️ Sem telefone'}</div>
+                    </div>
+                    <button onclick="prepararMensagem('${item.nome}', '${item.data}', '${item.periodo}', '${item.tema || 'Livre'}', '${item.telefone}')" ${!item.telefone ? 'disabled' : ''}>📲 Enviar</button>
+                </div>
+            `).join('') || '<p style="text-align:center; color:#666;">Nenhuma escala encontrada</p>';
+        }
+
+        function prepararMensagem(nome, data, periodo, tema, telefone) {
+            mensagemAtual = { nome, data, periodo, tema, telefone };
+            tipoMensagemAtual = 'convite';
+            
+            document.getElementById('previewDestinatario').textContent = nome;
+            document.getElementById('previewTelefone').textContent = telefone || 'Não cadastrado';
+            document.getElementById('btnConvite').classList.add('active');
+            document.getElementById('btnLembrete').classList.remove('active');
+            
+            atualizarPreviewMensagem();
+            openModal('modalPreviewWhatsApp');
+        }
+
+        function selecionarTipoMensagem(tipo) {
+            tipoMensagemAtual = tipo;
+            document.getElementById('btnConvite').classList.toggle('active', tipo === 'convite');
+            document.getElementById('btnLembrete').classList.toggle('active', tipo === 'lembrete');
+            atualizarPreviewMensagem();
+        }
+
+        function atualizarPreviewMensagem() {
+            if (!mensagemAtual) return;
+            
+            const { nome, data, periodo, tema } = mensagemAtual;
+            const mesesNum = { 'jan': '01', 'fev': '02', 'mar': '03', 'abr': '04', 'mai': '05', 'jun': '06', 'jul': '07', 'ago': '08', 'set': '09', 'out': '10', 'nov': '11', 'dez': '12' };
+            const [dia, mes] = data.split('/');
+            const dataCompleta = `${dia}/${mesesNum[mes.toLowerCase()]}/2026`;
+
+            let mensagem = '';
+
+            if (tipoMensagemAtual === 'convite') {
+                if (periodo === 'manha') {
+                    mensagem = `Paz do Senhor, ${nome}! 🙏
+Tudo bem com você?
+Estamos organizando a Escola Bíblica Dominical da IDAC para janeiro e início de fevereiro de 2026, e gostaria muito de contar com você como professor.
+📖 Tema: "${tema}" (Malcolm Smith)
+📅 Período: Domingos de janeiro e fevereiro
+🕤 Horário: 9h30 às 11h30
+Cada professor ficará responsável por uma lição. Você teria disponibilidade para participar?
+Se tiver interesse, nossa necessidade é para o dia ${data}, com base nos capítulos 1 a 3 (Introdução e fundamentos). Confirmando, passo mais detalhes sobre materiais.
+Se puder participar, já entre no nosso grupo de professores do 1º Bim de 2026:
+👉 https://chat.whatsapp.com/GH0N75pdBC0JzS3SpTuYFF
+Agradeço desde já pela consideração!
+Deus abençoe,
+Bispo Vanjivaldo
+EBD/IDAC`;
+                } else {
+                    mensagem = `Paz do Senhor, ${nome}! 🙏
+Tudo bem com você?
+Estamos organizando a escala de ministrações de nossos cultos de Celebração, 18h, e gostaria muito de contar com você como nosso preletor.
+📖 Tema: "${tema}"
+📅 Período: ${dataCompleta}
+🕤 Horário: 18h
+Você teria disponibilidade para nos trazer essa reflexão?
+Se tiver como, nossa necessidade é para o dia ${dataCompleta}.
+Agradeço desde já pela consideração!
+Deus abençoe,
+Bispo Vanjivaldo
+IDAC`;
+                }
+            } else {
+                // Mensagem de lembrete (curta)
+                if (periodo === 'manha') {
+                    mensagem = `Paz do Senhor, ${nome}! 🙏
+Passando para lembrar que neste domingo, ${dataCompleta}, você ministrará na EBD às 9h30.
+📖 Tema: "${tema}"
+Qualquer dúvida, estou à disposição!
+Deus abençoe sua preparação!
+Bp. Vanjivaldo - IDAC`;
+                } else {
+                    mensagem = `Paz do Senhor, ${nome}! 🙏
+Passando para lembrar que neste domingo, ${dataCompleta}, você ministrará no Culto de Celebração às 18h.
+📖 Tema: ${tema}
+Qualquer dúvida, estou à disposição!
+Deus abençoe sua preparação!
+Bp. Vanjivaldo - IDAC`;
+                }
+            }
+
+            mensagemAtual.mensagem = mensagem;
+            document.getElementById('previewMensagem').textContent = mensagem;
+        }
+
+        function enviarWhatsApp() {
+            if (mensagemAtual && mensagemAtual.telefone) {
+                const telefone = '55' + mensagemAtual.telefone;
+                const url = `https://wa.me/${telefone}?text=${encodeURIComponent(mensagemAtual.mensagem)}`;
+                window.open(url, '_blank');
+                
+                // Se for lembrete, marcar como enviado
+                if (tipoMensagemAtual === 'lembrete') {
+                    const id = `${mensagemAtual.data}-${mensagemAtual.periodo}-lembrete`;
+                    if (!dados.enviados.includes(id)) {
+                        dados.enviados.push(id);
+                        saveToStorage();
+                        verificarLembretes();
+                    }
+                }
+                
+                closeModal('modalPreviewWhatsApp');
+            }
+        }
+
+        // ==================== EXPORTAR TO-DO ====================
+
+        function atualizarPreviewExport() {
+            const filtro = document.getElementById('filtroExport').value;
+            const tarefas = gerarTarefasTodo(filtro);
+            
+            document.getElementById('exportPreview').innerHTML = `
+                <p style="color:#666;">📋 <strong>${tarefas.length}</strong> tarefa(s) serão exportadas</p>
+            `;
+        }
+
+        function gerarTarefasTodo(filtro = 'todos') {
+            const hoje = new Date();
+            hoje.setHours(0, 0, 0, 0);
+            
+            const mesesNum = { 'jan': 0, 'fev': 1, 'mar': 2, 'abr': 3, 'mai': 4, 'jun': 5, 'jul': 6, 'ago': 7, 'set': 8, 'out': 9, 'nov': 10, 'dez': 11 };
+            const tarefas = [];
+
+            dados.escala.forEach(item => {
+                const [dia, mes] = item.data.split('/');
+                const dataEvento = new Date(2026, mesesNum[mes.toLowerCase()], parseInt(dia));
+                const dataLembrete = new Date(dataEvento);
+                dataLembrete.setDate(dataLembrete.getDate() - DIAS_LEMBRETE);
+
+                const diffDias = Math.ceil((dataEvento - hoje) / (1000 * 60 * 60 * 24));
+
+                // Filtros
+                if (filtro === 'proximos' && diffDias > 30) return;
+                if (filtro === 'pendentes') {
+                    const idManha = `${item.data}-manha-lembrete`;
+                    const idNoite = `${item.data}-noite-lembrete`;
+                    if (dados.enviados.includes(idManha) && dados.enviados.includes(idNoite)) return;
+                }
+
+                if (item.manha && dataLembrete >= hoje) {
+                    const id = `${item.data}-manha-lembrete`;
+                    if (filtro !== 'pendentes' || !dados.enviados.includes(id)) {
+                        tarefas.push({
+                            titulo: `📲 Lembrete: ${item.manha} - EBD ${item.data}`,
+                            dataVencimento: dataLembrete.toISOString().split('T')[0],
+                            dataEvento: dataEvento.toISOString().split('T')[0],
+                            responsavel: item.manha,
+                            telefone: getTelefonePessoa(item.manha),
+                            periodo: 'EBD',
+                            tema: item.tema || 'Esgotamento Espiritual',
+                            lista: 'IDAC - Lembretes',
+                            mensagem: gerarMensagemLembrete(item.manha, item.data, 'manha', item.tema)
+                        });
+                    }
+                }
+
+                if (item.noite && dataLembrete >= hoje) {
+                    const id = `${item.data}-noite-lembrete`;
+                    if (filtro !== 'pendentes' || !dados.enviados.includes(id)) {
+                        tarefas.push({
+                            titulo: `📲 Lembrete: ${item.noite} - Celebração ${item.data}`,
+                            dataVencimento: dataLembrete.toISOString().split('T')[0],
+                            dataEvento: dataEvento.toISOString().split('T')[0],
+                            responsavel: item.noite,
+                            telefone: getTelefonePessoa(item.noite),
+                            periodo: 'Celebração',
+                            tema: item.tema2 || 'Livre',
+                            lista: 'IDAC - Lembretes',
+                            mensagem: gerarMensagemLembrete(item.noite, item.data, 'noite', item.tema2)
+                        });
+                    }
+                }
+            });
+
+            return tarefas.sort((a, b) => a.dataVencimento.localeCompare(b.dataVencimento));
+        }
+
+        function gerarMensagemLembrete(nome, data, periodo, tema) {
+            const mesesNum = { 'jan': '01', 'fev': '02', 'mar': '03', 'abr': '04', 'mai': '05', 'jun': '06', 'jul': '07', 'ago': '08', 'set': '09', 'out': '10', 'nov': '11', 'dez': '12' };
+            const [dia, mes] = data.split('/');
+            const dataCompleta = `${dia}/${mesesNum[mes.toLowerCase()]}/2026`;
+
+            if (periodo === 'manha') {
+                return `Paz do Senhor, ${nome}! 🙏\nPassando para lembrar que neste domingo, ${dataCompleta}, você ministrará na EBD às 9h30.\n📖 Tema: "${tema || 'Esgotamento Espiritual'}"\nQualquer dúvida, estou à disposição!\nDeus abençoe sua preparação!\nBp. Vanjivaldo - IDAC`;
+            } else {
+                return `Paz do Senhor, ${nome}! 🙏\nPassando para lembrar que neste domingo, ${dataCompleta}, você ministrará no Culto de Celebração às 18h.\n📖 Tema: ${tema || 'Livre'}\nQualquer dúvida, estou à disposição!\nDeus abençoe sua preparação!\nBp. Vanjivaldo - IDAC`;
+            }
+        }
+
+        function exportarParaTodo() {
+            const filtro = document.getElementById('filtroExport').value;
+            const tarefas = gerarTarefasTodo(filtro);
+
+            if (tarefas.length === 0) {
+                alert('Nenhuma tarefa para exportar!');
+                return;
+            }
+
+            const json = JSON.stringify(tarefas, null, 2);
+            const blob = new Blob([json], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `IDAC_Lembretes_ToDo_${new Date().toISOString().split('T')[0]}.json`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+
+            showMessage('adminMessage', `${tarefas.length} tarefa(s) exportadas com sucesso!`, 'success');
+            closeModal('modalExportTodo');
+        }
+
+        // ==================== FILTRO ====================
+
+        let dadosOriginaisBackup = null;
+
+        function atualizarOpcoesFiltroView() {
+            const tipoFiltro = document.getElementById('tipoFiltroView').value;
+            const filtroDetalhe = document.getElementById('filtroDetalheView');
+            const valorFiltro = document.getElementById('valorFiltroView');
+            const labelFiltro = document.getElementById('labelFiltroDetalheView');
+            const dadosParaFiltro = dadosOriginaisBackup || dados.escala;
+
+            if (tipoFiltro === 'todos') {
+                filtroDetalhe.style.display = 'none';
+            } else if (tipoFiltro === 'ministrante') {
+                filtroDetalhe.style.display = 'block';
+                labelFiltro.textContent = 'Selecione o Ministrante:';
+                const ministrantes = new Set();
+                dadosParaFiltro.forEach(item => { if (item.manha) ministrantes.add(item.manha); if (item.noite) ministrantes.add(item.noite); });
+                valorFiltro.innerHTML = sortAlphabetically([...ministrantes]).map(m => `<option value="${m}">${m}</option>`).join('');
+            } else if (tipoFiltro === 'mes') {
+                filtroDetalhe.style.display = 'block';
+                labelFiltro.textContent = 'Selecione o Mês:';
+                const meses = new Set();
+                dadosParaFiltro.forEach(item => { if (item.data) { const m = item.data.split('/')[1]; if (m) meses.add(m); } });
+                const mesesNomes = { 'jan': 'Janeiro', 'fev': 'Fevereiro', 'mar': 'Março', 'abr': 'Abril', 'mai': 'Maio', 'jun': 'Junho', 'jul': 'Julho', 'ago': 'Agosto', 'set': 'Setembro', 'out': 'Outubro', 'nov': 'Novembro', 'dez': 'Dezembro' };
+                valorFiltro.innerHTML = [...meses].map(m => `<option value="${m}">${mesesNomes[m] || m}</option>`).join('');
+            } else if (tipoFiltro === 'periodo') {
+                filtroDetalhe.style.display = 'block';
+                labelFiltro.textContent = 'Selecione o Período:';
+                valorFiltro.innerHTML = `<option value="manha">☀️ Manhã</option><option value="noite">🌙 Noite</option>`;
+            }
+        }
+
+        function aplicarFiltroView() {
+            const tipoFiltro = document.getElementById('tipoFiltroView').value;
+            const valorFiltro = document.getElementById('valorFiltroView').value;
+
+            if (!dadosOriginaisBackup) dadosOriginaisBackup = [...dados.escala];
+
+            if (tipoFiltro === 'todos') {
+                dados.escala = [...dadosOriginaisBackup];
+            } else if (tipoFiltro === 'mes') {
+                dados.escala = dadosOriginaisBackup.filter(item => item.data && item.data.toLowerCase().includes(valorFiltro.toLowerCase()));
+            }
+
+            renderEscala();
+            closeModal('modalFiltroView');
+        }
+
+        function limparFiltroView() {
+            if (dadosOriginaisBackup) dados.escala = [...dadosOriginaisBackup];
+            document.getElementById('tipoFiltroView').value = 'todos';
+            document.getElementById('filtroDetalheView').style.display = 'none';
+            renderEscala();
+            closeModal('modalFiltroView');
         }
 
         // ==================== UTILITÁRIOS ====================
@@ -1520,509 +1934,10 @@
             const el = document.getElementById(elementId);
             el.textContent = text;
             el.className = `message ${type} active`;
-            setTimeout(() => {
-                el.classList.remove('active');
-            }, 3000);
+            setTimeout(() => el.classList.remove('active'), 3000);
         }
 
-        // Enter para login
-        document.getElementById('senhaAdmin').addEventListener('keypress', (e) => {
-            if (e.key === 'Enter') login();
-        });
-
-        // Função para imprimir / salvar PDF
-        function imprimirPDF() {
-            window.print();
-        }
-
-        // ==================== FILTRO DE VISUALIZAÇÃO ====================
-
-        // Guardar dados originais para restaurar
-        let dadosOriginaisBackup = null;
-        let filtroAtivo = false;
-
-        // Atualizar opções do filtro de visualização
-        function atualizarOpcoesFiltroView() {
-            const tipoFiltro = document.getElementById('tipoFiltroView').value;
-            const filtroDetalhe = document.getElementById('filtroDetalheView');
-            const valorFiltro = document.getElementById('valorFiltroView');
-            const labelFiltro = document.getElementById('labelFiltroDetalheView');
-
-            // Usar dados originais para popular as opções
-            const dadosParaFiltro = dadosOriginaisBackup || dados.escala;
-
-            if (tipoFiltro === 'todos') {
-                filtroDetalhe.style.display = 'none';
-            } else if (tipoFiltro === 'ministrante') {
-                filtroDetalhe.style.display = 'block';
-                labelFiltro.textContent = 'Selecione o Ministrante:';
-                
-                const ministrantes = new Set();
-                dadosParaFiltro.forEach(item => {
-                    if (item.manha) ministrantes.add(item.manha);
-                    if (item.noite) ministrantes.add(item.noite);
-                });
-                
-                const ministrantesOrdenados = sortAlphabetically([...ministrantes]);
-                valorFiltro.innerHTML = ministrantesOrdenados.map(m => `<option value="${m}">${m}</option>`).join('');
-                
-            } else if (tipoFiltro === 'mes') {
-                filtroDetalhe.style.display = 'block';
-                labelFiltro.textContent = 'Selecione o Mês:';
-                
-                const meses = new Set();
-                dadosParaFiltro.forEach(item => {
-                    if (item.data) {
-                        const mes = item.data.split('/')[1];
-                        if (mes) meses.add(mes);
-                    }
-                });
-                
-                const mesesNomes = {
-                    'jan': 'Janeiro', 'fev': 'Fevereiro', 'mar': 'Março', 'abr': 'Abril',
-                    'mai': 'Maio', 'jun': 'Junho', 'jul': 'Julho', 'ago': 'Agosto',
-                    'set': 'Setembro', 'out': 'Outubro', 'nov': 'Novembro', 'dez': 'Dezembro'
-                };
-                
-                valorFiltro.innerHTML = [...meses].map(m => `<option value="${m}">${mesesNomes[m] || m}</option>`).join('');
-            } else if (tipoFiltro === 'periodo') {
-                filtroDetalhe.style.display = 'block';
-                labelFiltro.textContent = 'Selecione o Período:';
-                valorFiltro.innerHTML = `
-                    <option value="manha">☀️ Manhã</option>
-                    <option value="noite">🌙 Noite</option>
-                `;
-            }
-        }
-
-        // Aplicar filtro na visualização
-        function aplicarFiltroView() {
-            const tipoFiltro = document.getElementById('tipoFiltroView').value;
-            const valorFiltro = document.getElementById('valorFiltroView').value;
-            
-            // Fazer backup dos dados originais se ainda não foi feito
-            if (!dadosOriginaisBackup) {
-                dadosOriginaisBackup = JSON.parse(JSON.stringify(dados.escala));
-            }
-            
-            // Restaurar dados originais antes de aplicar novo filtro
-            dados.escala = JSON.parse(JSON.stringify(dadosOriginaisBackup));
-            
-            if (tipoFiltro === 'todos') {
-                renderEscala();
-                filtroAtivo = false;
-            } else if (tipoFiltro === 'ministrante') {
-                renderEscalaFiltradaMinistrante(valorFiltro);
-                filtroAtivo = true;
-            } else if (tipoFiltro === 'mes') {
-                // Filtrar por mês
-                dados.escala = dadosOriginaisBackup.filter(item => {
-                    if (item.data) {
-                        const mes = item.data.split('/')[1];
-                        return mes === valorFiltro;
-                    }
-                    return false;
-                });
-                renderEscala();
-                filtroAtivo = true;
-            } else if (tipoFiltro === 'periodo') {
-                renderEscalaFiltradaPeriodo(valorFiltro);
-                filtroAtivo = true;
-            }
-            
-            closeModal('modalFiltroView');
-            
-            // Mostrar indicador de filtro ativo
-            const valorExibicao = tipoFiltro === 'periodo' ? (valorFiltro === 'manha' ? '☀️ Manhã' : '🌙 Noite') : valorFiltro;
-            atualizarIndicadorFiltro(tipoFiltro, valorExibicao);
-        }
-
-        // Limpar filtro e mostrar tudo
-        function limparFiltroView() {
-            if (dadosOriginaisBackup) {
-                dados.escala = JSON.parse(JSON.stringify(dadosOriginaisBackup));
-            }
-            renderEscala();
-            filtroAtivo = false;
-            document.getElementById('tipoFiltroView').value = 'todos';
-            document.getElementById('filtroDetalheView').style.display = 'none';
-            closeModal('modalFiltroView');
-            atualizarIndicadorFiltro('todos', '');
-        }
-
-        // Atualizar indicador visual de filtro
-        function atualizarIndicadorFiltro(tipo, valor) {
-            const btn = document.querySelector('.header-filter-btn');
-            if (tipo !== 'todos' && valor) {
-                btn.innerHTML = '🔍✓';
-                btn.style.background = 'rgba(40, 167, 69, 0.5)';
-                btn.title = `Filtro ativo: ${valor}`;
-            } else {
-                btn.innerHTML = '🔍';
-                btn.style.background = 'rgba(255,255,255,0.2)';
-                btn.title = 'Filtrar Escala';
-            }
-        }
-
-        // Atualizar opções do filtro de impressão
-        function atualizarOpcoesFiltro() {
-            const tipoFiltro = document.getElementById('tipoFiltro').value;
-            const filtroDetalhe = document.getElementById('filtroDetalhe');
-            const valorFiltro = document.getElementById('valorFiltro');
-            const labelFiltro = document.getElementById('labelFiltroDetalhe');
-            const previewTexto = document.getElementById('previewTexto');
-
-            if (tipoFiltro === 'todos') {
-                filtroDetalhe.style.display = 'none';
-                previewTexto.textContent = 'Escala completa + Resumo por Ministrante';
-            } else if (tipoFiltro === 'ministrante') {
-                filtroDetalhe.style.display = 'block';
-                labelFiltro.textContent = 'Selecione o Ministrante:';
-                
-                // Preencher com ministrantes únicos
-                const ministrantes = new Set();
-                dados.escala.forEach(item => {
-                    if (item.manha) ministrantes.add(item.manha);
-                    if (item.noite) ministrantes.add(item.noite);
-                });
-                
-                const ministrantesOrdenados = sortAlphabetically([...ministrantes]);
-                valorFiltro.innerHTML = '<option value="todos">👥 Todos os Ministrantes</option>' +
-                    ministrantesOrdenados.map(m => `<option value="${m}">${m}</option>`).join('');
-                
-                previewTexto.textContent = 'Escala filtrada por ministrante selecionado';
-            } else if (tipoFiltro === 'mes') {
-                filtroDetalhe.style.display = 'block';
-                labelFiltro.textContent = 'Selecione o Mês:';
-                
-                // Preencher com meses únicos
-                const meses = new Set();
-                dados.escala.forEach(item => {
-                    if (item.data) {
-                        const mes = item.data.split('/')[1];
-                        if (mes) meses.add(mes);
-                    }
-                });
-                
-                const mesesNomes = {
-                    'jan': 'Janeiro', 'fev': 'Fevereiro', 'mar': 'Março', 'abr': 'Abril',
-                    'mai': 'Maio', 'jun': 'Junho', 'jul': 'Julho', 'ago': 'Agosto',
-                    'set': 'Setembro', 'out': 'Outubro', 'nov': 'Novembro', 'dez': 'Dezembro'
-                };
-                
-                valorFiltro.innerHTML = '<option value="todos">📅 Todos os Meses</option>' +
-                    [...meses].map(m => `<option value="${m}">${mesesNomes[m] || m}</option>`).join('');
-                
-                previewTexto.textContent = 'Escala filtrada por mês selecionado';
-            } else if (tipoFiltro === 'periodo') {
-                filtroDetalhe.style.display = 'block';
-                labelFiltro.textContent = 'Selecione o Período:';
-                valorFiltro.innerHTML = `
-                    <option value="todos">🌗 Todos os Períodos</option>
-                    <option value="manha">☀️ Manhã</option>
-                    <option value="noite">🌙 Noite</option>
-                `;
-                previewTexto.textContent = 'Escala filtrada por período selecionado';
-            }
-        }
-
-        // Atualizar preview quando mudar o valor do filtro
-        document.getElementById('valorFiltro')?.addEventListener('change', function() {
-            const tipoFiltro = document.getElementById('tipoFiltro').value;
-            const valor = this.value;
-            const previewTexto = document.getElementById('previewTexto');
-            
-            if (valor === 'todos') {
-                if (tipoFiltro === 'ministrante') {
-                    previewTexto.textContent = 'Escala de todos os ministrantes';
-                } else {
-                    previewTexto.textContent = 'Escala de todos os meses';
-                }
-            } else {
-                previewTexto.textContent = `Escala filtrada: ${valor}`;
-            }
-        });
-
-        // Executar impressão com filtro
-        function executarImpressao() {
-            const tipoFiltro = document.getElementById('tipoFiltro').value;
-            const valorFiltro = document.getElementById('valorFiltro').value;
-            
-            // Guardar dados originais
-            const dadosOriginais = JSON.parse(JSON.stringify(dados.escala));
-            
-            // Aplicar filtro se necessário
-            if (tipoFiltro !== 'todos' && valorFiltro !== 'todos') {
-                if (tipoFiltro === 'ministrante') {
-                    // Criar nova escala apenas com o ministrante selecionado
-                    const escalaFiltrada = [];
-                    dadosOriginais.forEach(item => {
-                        if (item.manha === valorFiltro) {
-                            escalaFiltrada.push({
-                                data: item.data,
-                                manha: item.manha,
-                                tema: item.tema,
-                                noite: '',
-                                tema2: ''
-                            });
-                        }
-                        if (item.noite === valorFiltro) {
-                            escalaFiltrada.push({
-                                data: item.data,
-                                manha: '',
-                                tema: '',
-                                noite: item.noite,
-                                tema2: item.tema2
-                            });
-                        }
-                    });
-                    dados.escala = escalaFiltrada;
-                    
-                    // Renderizar versão simplificada para ministrante único
-                    renderEscalaFiltradaMinistrante(valorFiltro);
-                    
-                } else if (tipoFiltro === 'mes') {
-                    dados.escala = dadosOriginais.filter(item => {
-                        if (item.data) {
-                            const mes = item.data.split('/')[1];
-                            return mes === valorFiltro;
-                        }
-                        return false;
-                    });
-                    renderEscala();
-                } else if (tipoFiltro === 'periodo') {
-                    dados.escala = JSON.parse(JSON.stringify(dadosOriginais));
-                    renderEscalaFiltradaPeriodo(valorFiltro);
-                }
-            } else {
-                renderEscala();
-            }
-            
-            // Fechar modal
-            closeModal('modalImprimir');
-            
-            // Imprimir
-            setTimeout(() => {
-                window.print();
-                
-                // Restaurar dados originais após impressão
-                dados.escala = dadosOriginais;
-                renderEscala();
-            }, 100);
-        }
-
-        // Renderizar escala filtrada por ministrante (formato simplificado)
-        function renderEscalaFiltradaMinistrante(ministrante) {
-            const tbody = document.getElementById('escalaBody');
-            
-            // Usar dados originais para buscar
-            const dadosParaBusca = dadosOriginaisBackup || dados.escala;
-            
-            // Coletar todas as datas do ministrante
-            const datasDoMinistrante = [];
-            dadosParaBusca.forEach(item => {
-                if (item.manha === ministrante) {
-                    datasDoMinistrante.push({ data: item.data, periodo: 'Manhã', tema: item.tema });
-                }
-                if (item.noite === ministrante) {
-                    datasDoMinistrante.push({ data: item.data, periodo: 'Noite', tema: item.tema2 });
-                }
-            });
-            
-            // Ordenar por data
-            datasDoMinistrante.sort((a, b) => {
-                const meses = { 'jan': 1, 'fev': 2, 'mar': 3, 'abr': 4, 'mai': 5, 'jun': 6, 'jul': 7, 'ago': 8, 'set': 9, 'out': 10, 'nov': 11, 'dez': 12 };
-                const [diaA, mesA] = a.data.split('/');
-                const [diaB, mesB] = b.data.split('/');
-                const mesNumA = meses[mesA.toLowerCase()] || 0;
-                const mesNumB = meses[mesB.toLowerCase()] || 0;
-                if (mesNumA !== mesNumB) return mesNumA - mesNumB;
-                return parseInt(diaA) - parseInt(diaB);
-            });
-            
-            tbody.innerHTML = datasDoMinistrante.map(item => `
-                <tr class="${item.periodo === 'Manhã' ? 'row-manha' : 'row-noite'}">
-                    <td class="data-cell">${item.data}</td>
-                    <td>
-                        <span class="turno-label">${item.periodo === 'Manhã' ? '☀️ Manhã' : '🌙 Noite'}</span>
-                        ${ministrante}
-                    </td>
-                    <td>${item.tema || '-'}</td>
-                </tr>
-            `).join('');
-            
-            // Atualizar resumo apenas com o ministrante filtrado
-            renderResumoFiltrado(ministrante);
-        }
-
-        // Renderizar escala filtrada por período (manhã ou noite)
-        function renderEscalaFiltradaPeriodo(periodo) {
-            const tbody = document.getElementById('escalaBody');
-            
-            // Usar dados originais para buscar
-            const dadosParaBusca = dadosOriginaisBackup || dados.escala;
-            
-            // Coletar todas as entradas do período
-            const entradasDoPeriodo = [];
-            dadosParaBusca.forEach(item => {
-                if (periodo === 'manha' && item.manha) {
-                    entradasDoPeriodo.push({ 
-                        data: item.data, 
-                        ministrante: item.manha, 
-                        tema: item.tema 
-                    });
-                }
-                if (periodo === 'noite' && item.noite) {
-                    entradasDoPeriodo.push({ 
-                        data: item.data, 
-                        ministrante: item.noite, 
-                        tema: item.tema2 
-                    });
-                }
-            });
-            
-            // Ordenar por data
-            entradasDoPeriodo.sort((a, b) => {
-                const meses = { 'jan': 1, 'fev': 2, 'mar': 3, 'abr': 4, 'mai': 5, 'jun': 6, 'jul': 7, 'ago': 8, 'set': 9, 'out': 10, 'nov': 11, 'dez': 12 };
-                const [diaA, mesA] = a.data.split('/');
-                const [diaB, mesB] = b.data.split('/');
-                const mesNumA = meses[mesA.toLowerCase()] || 0;
-                const mesNumB = meses[mesB.toLowerCase()] || 0;
-                if (mesNumA !== mesNumB) return mesNumA - mesNumB;
-                return parseInt(diaA) - parseInt(diaB);
-            });
-            
-            const isManha = periodo === 'manha';
-            
-            tbody.innerHTML = entradasDoPeriodo.map(item => `
-                <tr class="${isManha ? 'row-manha' : 'row-noite'}">
-                    <td class="data-cell">${item.data}</td>
-                    <td>
-                        <span class="turno-label">${isManha ? '☀️ Manhã' : '🌙 Noite'}</span>
-                        ${item.ministrante}
-                    </td>
-                    <td>${item.tema || '-'}</td>
-                </tr>
-            `).join('');
-            
-            // Atualizar resumo apenas com ministrantes do período
-            renderResumoFiltradoPeriodo(periodo);
-        }
-
-        // Renderizar resumo filtrado por período
-        function renderResumoFiltradoPeriodo(periodo) {
-            const tbody = document.getElementById('resumoBody');
-            
-            // Usar dados originais para buscar
-            const dadosParaBusca = dadosOriginaisBackup || dados.escala;
-            
-            // Coletar dados por ministrante do período
-            const resumoMap = new Map();
-            
-            dadosParaBusca.forEach(item => {
-                if (periodo === 'manha' && item.manha) {
-                    if (!resumoMap.has(item.manha)) {
-                        resumoMap.set(item.manha, []);
-                    }
-                    resumoMap.get(item.manha).push(item.data);
-                }
-                if (periodo === 'noite' && item.noite) {
-                    if (!resumoMap.has(item.noite)) {
-                        resumoMap.set(item.noite, []);
-                    }
-                    resumoMap.get(item.noite).push(item.data);
-                }
-            });
-            
-            // Converter para array e ordenar
-            const resumoArray = Array.from(resumoMap.entries())
-                .map(([nome, datas]) => ({
-                    nome,
-                    datas: sortDatas(datas),
-                    total: datas.length
-                }))
-                .sort((a, b) => a.nome.localeCompare(b.nome, 'pt-BR', { sensitivity: 'base' }));
-            
-            const isManha = periodo === 'manha';
-            const periodoLabel = isManha ? '☀️ Manhã' : '🌙 Noite';
-            const periodoClass = isManha ? 'periodo-manha' : 'periodo-noite';
-            
-            tbody.innerHTML = resumoArray.map(item => {
-                const datasHtml = item.datas.map(d => 
-                    `<span class="periodo-badge ${periodoClass}">${isManha ? '☀️' : '🌙'} ${d}</span>`
-                ).join(' ');
-                
-                return `
-                    <tr class="row-resumo">
-                        <td>
-                            <div class="ministrante-cell">
-                                <span class="ministrante-nome">${item.nome}</span>
-                                <span class="qtd-badge">${item.total}x</span>
-                            </div>
-                        </td>
-                        <td class="datas-list">${datasHtml}</td>
-                        <td><span class="periodo-badge ${periodoClass}">${periodoLabel} (${item.total})</span></td>
-                    </tr>
-                `;
-            }).join('');
-        }
-
-        // Renderizar resumo filtrado por ministrante
-        function renderResumoFiltrado(ministrante) {
-            const tbody = document.getElementById('resumoBody');
-            
-            // Usar dados originais para buscar
-            const dadosParaBusca = dadosOriginaisBackup || dados.escala;
-            
-            // Coletar dados do ministrante
-            const manha = [];
-            const noite = [];
-            
-            dadosParaBusca.forEach(item => {
-                if (item.manha === ministrante) manha.push(item.data);
-                if (item.noite === ministrante) noite.push(item.data);
-            });
-            
-            const total = manha.length + noite.length;
-            
-            // Juntar todas as datas com tipo e ordenar cronologicamente
-            const todasDatas = [];
-            manha.forEach(d => todasDatas.push({ data: d, tipo: 'manha' }));
-            noite.forEach(d => todasDatas.push({ data: d, tipo: 'noite' }));
-            
-            todasDatas.sort((a, b) => {
-                const meses = { 'jan': 1, 'fev': 2, 'mar': 3, 'abr': 4, 'mai': 5, 'jun': 6, 'jul': 7, 'ago': 8, 'set': 9, 'out': 10, 'nov': 11, 'dez': 12 };
-                const [diaA, mesA] = a.data.split('/');
-                const [diaB, mesB] = b.data.split('/');
-                const mesNumA = meses[mesA.toLowerCase()] || 0;
-                const mesNumB = meses[mesB.toLowerCase()] || 0;
-                if (mesNumA !== mesNumB) return mesNumA - mesNumB;
-                return parseInt(diaA) - parseInt(diaB);
-            });
-            
-            // Formatar datas
-            const datasFormatadas = todasDatas.map(d => 
-                `<span class="periodo-badge periodo-${d.tipo === 'manha' ? 'manha' : 'noite'}">${d.tipo === 'manha' ? '☀️' : '🌙'} ${d.data}</span>`
-            );
-            
-            // Formatar períodos
-            const periodos = [];
-            if (manha.length > 0) periodos.push(`<span class="periodo-badge periodo-manha">☀️ Manhã (${manha.length})</span>`);
-            if (noite.length > 0) periodos.push(`<span class="periodo-badge periodo-noite">🌙 Noite (${noite.length})</span>`);
-            
-            tbody.innerHTML = `
-                <tr class="row-resumo">
-                    <td>
-                        <div class="ministrante-cell">
-                            <span class="ministrante-nome">${ministrante}</span>
-                            <span class="qtd-badge">${total}x</span>
-                        </div>
-                    </td>
-                    <td class="datas-list">${datasFormatadas.join(' ')}</td>
-                    <td>${periodos.join(' ')}</td>
-                </tr>
-            `;
-        }
+        document.getElementById('senhaAdmin').addEventListener('keypress', (e) => { if (e.key === 'Enter') login(); });
 
         // Inicializar
         init();
