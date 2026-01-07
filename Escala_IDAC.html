@@ -1798,27 +1798,27 @@
 
             if (tipoMensagemAtual === 'convite') {
                 if (periodo === 'manha') {
-                    mensagem = `Paz do Senhor, ${nome}!
+                    mensagem = `Paz do Senhor, ${nome}! 🙏
 Tudo bem com você?
 Estamos organizando a Escola Bíblica Dominical da IDAC para janeiro e início de fevereiro de 2026, e gostaria muito de contar com você como professor.
-* Tema: "${tema}" (Malcolm Smith)
-* Período: Domingos de janeiro e fevereiro
-* Horário: 9h30 às 11h30
+📖 Tema: "${tema}" (Malcolm Smith)
+📅 Período: Domingos de janeiro e fevereiro
+🕤 Horário: 9h30 às 11h30
 Cada professor ficará responsável por uma lição. Você teria disponibilidade para participar?
 Se tiver interesse, nossa necessidade é para o dia ${data}, com base nos capítulos 1 a 3 (Introdução e fundamentos). Confirmando, passo mais detalhes sobre materiais.
-Se puder participar, já entre no nosso grupo de professores do 1o Bim de 2026:
-https://chat.whatsapp.com/GH0N75pdBC0JzS3SpTuYFF
+Se puder participar, já entre no nosso grupo de professores do 1º Bim de 2026:
+👉 https://chat.whatsapp.com/GH0N75pdBC0JzS3SpTuYFF
 Agradeço desde já pela consideração!
 Deus abençoe,
 Bispo Vanjivaldo
 EBD/IDAC`;
                 } else {
-                    mensagem = `Paz do Senhor, ${nome}!
+                    mensagem = `Paz do Senhor, ${nome}! 🙏
 Tudo bem com você?
 Estamos organizando a escala de ministrações de nossos cultos de Celebração, 18h, e gostaria muito de contar com você como nosso preletor.
-* Tema: "${tema}"
-* Data: ${dataCompleta}
-* Horário: 18h
+📖 Tema: "${tema}"
+📅 Data: ${dataCompleta}
+🕤 Horário: 18h
 Você teria disponibilidade para nos trazer essa reflexão?
 Se tiver como, nossa necessidade é para o dia ${dataCompleta}.
 Agradeço desde já pela consideração!
@@ -1829,16 +1829,16 @@ IDAC`;
             } else {
                 // Mensagem de lembrete (curta)
                 if (periodo === 'manha') {
-                    mensagem = `Paz do Senhor, ${nome}!
+                    mensagem = `Paz do Senhor, ${nome}! 🙏
 Passando para lembrar que neste domingo, ${dataCompleta}, você ministrará na EBD às 9h30.
-* Tema: "${tema}"
+📖 Tema: "${tema}"
 Qualquer dúvida, estou à disposição!
 Deus abençoe sua preparação!
 Bp. Vanjivaldo - IDAC`;
                 } else {
-                    mensagem = `Paz do Senhor, ${nome}!
+                    mensagem = `Paz do Senhor, ${nome}! 🙏
 Passando para lembrar que neste domingo, ${dataCompleta}, você ministrará no Culto de Celebração às 18h.
-* Tema: ${tema}
+📖 Tema: ${tema}
 Qualquer dúvida, estou à disposição!
 Deus abençoe sua preparação!
 Bp. Vanjivaldo - IDAC`;
@@ -1852,7 +1852,10 @@ Bp. Vanjivaldo - IDAC`;
         function enviarWhatsApp() {
             if (mensagemAtual && mensagemAtual.telefone) {
                 const telefone = '55' + mensagemAtual.telefone;
-                const url = `https://wa.me/${telefone}?text=${encodeURIComponent(mensagemAtual.mensagem)}`;
+                // Normalizar texto para garantir encoding correto
+                const mensagemNormalizada = mensagemAtual.mensagem.normalize('NFC');
+                const mensagemEncoded = encodeURIComponent(mensagemNormalizada);
+                const url = `https://api.whatsapp.com/send?phone=${telefone}&text=${mensagemEncoded}`;
                 window.open(url, '_blank');
                 
                 // Se for lembrete, marcar como enviado
