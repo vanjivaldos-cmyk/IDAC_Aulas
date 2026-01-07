@@ -1798,49 +1798,49 @@
 
             if (tipoMensagemAtual === 'convite') {
                 if (periodo === 'manha') {
-                    mensagem = String.raw`Paz do Senhor, ${nome}! ` + '\u{1F64F}' + `
-Tudo bem com você?
-Estamos organizando a Escola Bíblica Dominical da IDAC para janeiro e início de fevereiro de 2026, e gostaria muito de contar com você como professor.
-` + '\u{1F4D6}' + ` Tema: "${tema}" (Malcolm Smith)
-` + '\u{1F4C5}' + ` Período: Domingos de janeiro e fevereiro
-` + '\u{1F551}' + ` Horário: 9h30 às 11h30
-Cada professor ficará responsável por uma lição. Você teria disponibilidade para participar?
-Se tiver interesse, nossa necessidade é para o dia ${data}, com base nos capítulos 1 a 3 (Introdução e fundamentos). Confirmando, passo mais detalhes sobre materiais.
-Se puder participar, já entre no nosso grupo de professores do 1º Bim de 2026:
-` + '\u{1F449}' + ` https://chat.whatsapp.com/GH0N75pdBC0JzS3SpTuYFF
-Agradeço desde já pela consideração!
-Deus abençoe,
+                    mensagem = `Paz do Senhor, ${nome}!
+Tudo bem com voce?
+Estamos organizando a Escola Biblica Dominical da IDAC para janeiro e inicio de fevereiro de 2026, e gostaria muito de contar com voce como professor.
+* Tema: "${tema}" (Malcolm Smith)
+* Periodo: Domingos de janeiro e fevereiro
+* Horario: 9h30 as 11h30
+Cada professor ficara responsavel por uma licao. Voce teria disponibilidade para participar?
+Se tiver interesse, nossa necessidade e para o dia ${data}, com base nos capitulos 1 a 3 (Introducao e fundamentos). Confirmando, passo mais detalhes sobre materiais.
+Se puder participar, ja entre no nosso grupo de professores do 1o Bim de 2026:
+https://chat.whatsapp.com/GH0N75pdBC0JzS3SpTuYFF
+Agradeco desde ja pela consideracao!
+Deus abencoe,
 Bispo Vanjivaldo
 EBD/IDAC`;
                 } else {
-                    mensagem = String.raw`Paz do Senhor, ${nome}! ` + '\u{1F64F}' + `
-Tudo bem com você?
-Estamos organizando a escala de ministrações de nossos cultos de Celebração, 18h, e gostaria muito de contar com você como nosso preletor.
-` + '\u{1F4D6}' + ` Tema: "${tema}"
-` + '\u{1F4C5}' + ` Data: ${dataCompleta}
-` + '\u{1F551}' + ` Horário: 18h
-Você teria disponibilidade para nos trazer essa reflexão?
-Se tiver como, nossa necessidade é para o dia ${dataCompleta}.
-Agradeço desde já pela consideração!
-Deus abençoe,
+                    mensagem = `Paz do Senhor, ${nome}!
+Tudo bem com voce?
+Estamos organizando a escala de ministracoes de nossos cultos de Celebracao, 18h, e gostaria muito de contar com voce como nosso preletor.
+* Tema: "${tema}"
+* Data: ${dataCompleta}
+* Horario: 18h
+Voce teria disponibilidade para nos trazer essa reflexao?
+Se tiver como, nossa necessidade e para o dia ${dataCompleta}.
+Agradeco desde ja pela consideracao!
+Deus abencoe,
 Bispo Vanjivaldo
 IDAC`;
                 }
             } else {
                 // Mensagem de lembrete (curta)
                 if (periodo === 'manha') {
-                    mensagem = String.raw`Paz do Senhor, ${nome}! ` + '\u{1F64F}' + `
-Passando para lembrar que neste domingo, ${dataCompleta}, você ministrará na EBD às 9h30.
-` + '\u{1F4D6}' + ` Tema: "${tema}"
-Qualquer dúvida, estou à disposição!
-Deus abençoe sua preparação!
+                    mensagem = `Paz do Senhor, ${nome}!
+Passando para lembrar que neste domingo, ${dataCompleta}, voce ministrara na EBD as 9h30.
+* Tema: "${tema}"
+Qualquer duvida, estou a disposicao!
+Deus abencoe sua preparacao!
 Bp. Vanjivaldo - IDAC`;
                 } else {
-                    mensagem = String.raw`Paz do Senhor, ${nome}! ` + '\u{1F64F}' + `
-Passando para lembrar que neste domingo, ${dataCompleta}, você ministrará no Culto de Celebração às 18h.
-` + '\u{1F4D6}' + ` Tema: ${tema}
-Qualquer dúvida, estou à disposição!
-Deus abençoe sua preparação!
+                    mensagem = `Paz do Senhor, ${nome}!
+Passando para lembrar que neste domingo, ${dataCompleta}, voce ministrara no Culto de Celebracao as 18h.
+* Tema: ${tema}
+Qualquer duvida, estou a disposicao!
+Deus abencoe sua preparacao!
 Bp. Vanjivaldo - IDAC`;
                 }
             }
