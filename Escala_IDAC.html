@@ -288,7 +288,73 @@
             width: 90%;
             max-height: 80vh;
             overflow-y: auto;
-            position: relative;
+            position: absolute;
+            resize: both;
+            overflow: auto;
+            min-width: 300px;
+            min-height: 200px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+        }
+
+        .modal-content.large {
+            max-width: 900px;
+        }
+
+        /* Barra de título arrastável */
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: move;
+            padding-bottom: 15px;
+            margin-bottom: 15px;
+            border-bottom: 2px solid #eee;
+            user-select: none;
+        }
+
+        .modal-header h2 {
+            color: #8B2F87;
+            margin: 0;
+            padding-right: 10px;
+        }
+
+        .modal-header-actions {
+            display: flex;
+            gap: 8px;
+        }
+
+        .modal-btn-action {
+            background: #eee;
+            border: none;
+            width: 32px;
+            height: 32px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+        }
+
+        .modal-btn-action:hover {
+            background: #ddd;
+        }
+
+        .modal-btn-action.close-btn:hover {
+            background: #ff6b6b;
+            color: white;
+        }
+
+        /* Indicador de redimensionamento */
+        .modal-content::after {
+            content: '⤡';
+            position: absolute;
+            bottom: 5px;
+            right: 10px;
+            font-size: 14px;
+            color: #aaa;
+            pointer-events: none;
         }
 
         .modal-close {
@@ -300,6 +366,7 @@
             font-size: 1.5rem;
             cursor: pointer;
             color: #666;
+            display: none; /* Escondido, usamos o novo header */
         }
 
         .modal h2 {
@@ -891,8 +958,12 @@
     <!-- Modal de Login -->
     <div class="modal" id="modalLogin">
         <div class="modal-content">
-            <button class="modal-close" onclick="closeModal('modalLogin')">&times;</button>
-            <h2>🔐 Acesso Administrativo</h2>
+            <div class="modal-header">
+                <h2>🔐 Acesso Administrativo</h2>
+                <div class="modal-header-actions">
+                    <button class="modal-btn-action close-btn" onclick="closeModal('modalLogin')">✕</button>
+                </div>
+            </div>
             <div class="form-group">
                 <label>Senha:</label>
                 <input type="password" id="senhaAdmin" placeholder="Digite a senha">
@@ -904,8 +975,12 @@
     <!-- Modal de Filtro -->
     <div class="modal" id="modalFiltroView">
         <div class="modal-content">
-            <button class="modal-close" onclick="closeModal('modalFiltroView')">&times;</button>
-            <h2>🔍 Filtrar Escala</h2>
+            <div class="modal-header">
+                <h2>🔍 Filtrar Escala</h2>
+                <div class="modal-header-actions">
+                    <button class="modal-btn-action close-btn" onclick="closeModal('modalFiltroView')">✕</button>
+                </div>
+            </div>
             <div class="form-group">
                 <label>Filtrar por:</label>
                 <select id="tipoFiltroView" onchange="atualizarOpcoesFiltroView()">
@@ -929,8 +1004,12 @@
     <!-- Modal Cadastrar Datas -->
     <div class="modal" id="modalDatas">
         <div class="modal-content">
-            <button class="modal-close" onclick="closeModal('modalDatas')">&times;</button>
-            <h2>📆 Cadastrar Datas</h2>
+            <div class="modal-header">
+                <h2>📆 Cadastrar Datas</h2>
+                <div class="modal-header-actions">
+                    <button class="modal-btn-action close-btn" onclick="closeModal('modalDatas')">✕</button>
+                </div>
+            </div>
             <div class="form-group">
                 <label>Nova Data:</label>
                 <input type="date" id="novaData">
@@ -943,8 +1022,12 @@
     <!-- Modal Cadastrar Pessoas -->
     <div class="modal" id="modalPessoas">
         <div class="modal-content">
-            <button class="modal-close" onclick="closeModal('modalPessoas')">&times;</button>
-            <h2>👥 Cadastrar Pessoas</h2>
+            <div class="modal-header">
+                <h2>👥 Cadastrar Pessoas</h2>
+                <div class="modal-header-actions">
+                    <button class="modal-btn-action close-btn" onclick="closeModal('modalPessoas')">✕</button>
+                </div>
+            </div>
             <div class="form-group">
                 <label>Título:</label>
                 <select id="tituloPessoa">
@@ -975,8 +1058,12 @@
     <!-- Modal Cadastrar Tipos -->
     <div class="modal" id="modalTipos">
         <div class="modal-content">
-            <button class="modal-close" onclick="closeModal('modalTipos')">&times;</button>
-            <h2>🏷️ Cadastrar Tipo</h2>
+            <div class="modal-header">
+                <h2>🏷️ Cadastrar Tipo</h2>
+                <div class="modal-header-actions">
+                    <button class="modal-btn-action close-btn" onclick="closeModal('modalTipos')">✕</button>
+                </div>
+            </div>
             <div class="form-group">
                 <label>Novo Tipo:</label>
                 <input type="text" id="novoTipo" placeholder="Ex: EBD, Celebração...">
@@ -989,8 +1076,12 @@
     <!-- Modal Cadastrar Temas -->
     <div class="modal" id="modalTemas">
         <div class="modal-content">
-            <button class="modal-close" onclick="closeModal('modalTemas')">&times;</button>
-            <h2>📝 Cadastrar Temas</h2>
+            <div class="modal-header">
+                <h2>📝 Cadastrar Temas</h2>
+                <div class="modal-header-actions">
+                    <button class="modal-btn-action close-btn" onclick="closeModal('modalTemas')">✕</button>
+                </div>
+            </div>
             <div class="form-group">
                 <label>Novo Tema:</label>
                 <input type="text" id="novoTema" placeholder="Ex: Esgotamento Espiritual">
@@ -1002,9 +1093,13 @@
 
     <!-- Modal Editar Tabela -->
     <div class="modal" id="modalEditar">
-        <div class="modal-content" style="max-width: 900px;">
-            <button class="modal-close" onclick="closeModal('modalEditar')">&times;</button>
-            <h2>✏️ Editar Escala</h2>
+        <div class="modal-content large" style="max-width: 900px;">
+            <div class="modal-header">
+                <h2>✏️ Editar Escala</h2>
+                <div class="modal-header-actions">
+                    <button class="modal-btn-action close-btn" onclick="closeModal('modalEditar')">✕</button>
+                </div>
+            </div>
             <div style="margin-bottom: 15px;">
                 <button class="btn btn-success" onclick="addNovaLinha()">+ Nova Linha</button>
             </div>
@@ -1032,8 +1127,12 @@
     <!-- Modal WhatsApp -->
     <div class="modal" id="modalWhatsApp">
         <div class="modal-content" style="max-width: 700px;">
-            <button class="modal-close" onclick="closeModal('modalWhatsApp')">&times;</button>
-            <h2>📲 Enviar Convite via WhatsApp</h2>
+            <div class="modal-header">
+                <h2>📲 Enviar Convite via WhatsApp</h2>
+                <div class="modal-header-actions">
+                    <button class="modal-btn-action close-btn" onclick="closeModal('modalWhatsApp')">✕</button>
+                </div>
+            </div>
             <div class="form-group">
                 <label>Filtrar por período:</label>
                 <select id="filtroWhatsApp" onchange="renderWhatsAppList()">
@@ -1049,8 +1148,12 @@
     <!-- Modal Preview WhatsApp -->
     <div class="modal" id="modalPreviewWhatsApp">
         <div class="modal-content" style="max-width: 600px;">
-            <button class="modal-close" onclick="closeModal('modalPreviewWhatsApp')">&times;</button>
-            <h2>📱 Prévia da Mensagem</h2>
+            <div class="modal-header">
+                <h2>📱 Prévia da Mensagem</h2>
+                <div class="modal-header-actions">
+                    <button class="modal-btn-action close-btn" onclick="closeModal('modalPreviewWhatsApp')">✕</button>
+                </div>
+            </div>
             
             <div class="form-group">
                 <label>Destinatário:</label>
@@ -1092,8 +1195,12 @@
     <!-- Modal Exportar To-Do -->
     <div class="modal" id="modalExportTodo">
         <div class="modal-content" style="max-width: 600px;">
-            <button class="modal-close" onclick="closeModal('modalExportTodo')">&times;</button>
-            <h2>📤 Exportar para Microsoft To-Do</h2>
+            <div class="modal-header">
+                <h2>📤 Exportar para Microsoft To-Do</h2>
+                <div class="modal-header-actions">
+                    <button class="modal-btn-action close-btn" onclick="closeModal('modalExportTodo')">✕</button>
+                </div>
+            </div>
             
             <div class="export-info">
                 <h4>ℹ️ Como funciona:</h4>
@@ -1691,27 +1798,27 @@
 
             if (tipoMensagemAtual === 'convite') {
                 if (periodo === 'manha') {
-                    mensagem = `Paz do Senhor, ${nome}! 🙏
+                    mensagem = String.raw`Paz do Senhor, ${nome}! ` + '\u{1F64F}' + `
 Tudo bem com você?
 Estamos organizando a Escola Bíblica Dominical da IDAC para janeiro e início de fevereiro de 2026, e gostaria muito de contar com você como professor.
-📖 Tema: "${tema}" (Malcolm Smith)
-📅 Período: Domingos de janeiro e fevereiro
-🕤 Horário: 9h30 às 11h30
+` + '\u{1F4D6}' + ` Tema: "${tema}" (Malcolm Smith)
+` + '\u{1F4C5}' + ` Período: Domingos de janeiro e fevereiro
+` + '\u{1F551}' + ` Horário: 9h30 às 11h30
 Cada professor ficará responsável por uma lição. Você teria disponibilidade para participar?
 Se tiver interesse, nossa necessidade é para o dia ${data}, com base nos capítulos 1 a 3 (Introdução e fundamentos). Confirmando, passo mais detalhes sobre materiais.
 Se puder participar, já entre no nosso grupo de professores do 1º Bim de 2026:
-👉 https://chat.whatsapp.com/GH0N75pdBC0JzS3SpTuYFF
+` + '\u{1F449}' + ` https://chat.whatsapp.com/GH0N75pdBC0JzS3SpTuYFF
 Agradeço desde já pela consideração!
 Deus abençoe,
 Bispo Vanjivaldo
 EBD/IDAC`;
                 } else {
-                    mensagem = `Paz do Senhor, ${nome}! 🙏
+                    mensagem = String.raw`Paz do Senhor, ${nome}! ` + '\u{1F64F}' + `
 Tudo bem com você?
 Estamos organizando a escala de ministrações de nossos cultos de Celebração, 18h, e gostaria muito de contar com você como nosso preletor.
-📖 Tema: "${tema}"
-📅 Período: ${dataCompleta}
-🕤 Horário: 18h
+` + '\u{1F4D6}' + ` Tema: "${tema}"
+` + '\u{1F4C5}' + ` Data: ${dataCompleta}
+` + '\u{1F551}' + ` Horário: 18h
 Você teria disponibilidade para nos trazer essa reflexão?
 Se tiver como, nossa necessidade é para o dia ${dataCompleta}.
 Agradeço desde já pela consideração!
@@ -1722,16 +1829,16 @@ IDAC`;
             } else {
                 // Mensagem de lembrete (curta)
                 if (periodo === 'manha') {
-                    mensagem = `Paz do Senhor, ${nome}! 🙏
+                    mensagem = String.raw`Paz do Senhor, ${nome}! ` + '\u{1F64F}' + `
 Passando para lembrar que neste domingo, ${dataCompleta}, você ministrará na EBD às 9h30.
-📖 Tema: "${tema}"
+` + '\u{1F4D6}' + ` Tema: "${tema}"
 Qualquer dúvida, estou à disposição!
 Deus abençoe sua preparação!
 Bp. Vanjivaldo - IDAC`;
                 } else {
-                    mensagem = `Paz do Senhor, ${nome}! 🙏
+                    mensagem = String.raw`Paz do Senhor, ${nome}! ` + '\u{1F64F}' + `
 Passando para lembrar que neste domingo, ${dataCompleta}, você ministrará no Culto de Celebração às 18h.
-📖 Tema: ${tema}
+` + '\u{1F4D6}' + ` Tema: ${tema}
 Qualquer dúvida, estou à disposição!
 Deus abençoe sua preparação!
 Bp. Vanjivaldo - IDAC`;
@@ -1840,9 +1947,9 @@ Bp. Vanjivaldo - IDAC`;
             const dataCompleta = `${dia}/${mesesNum[mes.toLowerCase()]}/2026`;
 
             if (periodo === 'manha') {
-                return `Paz do Senhor, ${nome}! 🙏\nPassando para lembrar que neste domingo, ${dataCompleta}, você ministrará na EBD às 9h30.\n📖 Tema: "${tema || 'Esgotamento Espiritual'}"\nQualquer dúvida, estou à disposição!\nDeus abençoe sua preparação!\nBp. Vanjivaldo - IDAC`;
+                return `Paz do Senhor, ${nome}!\nPassando para lembrar que neste domingo, ${dataCompleta}, você ministrará na EBD às 9h30.\nTema: "${tema || 'Esgotamento Espiritual'}"\nQualquer dúvida, estou à disposição!\nDeus abençoe sua preparação!\nBp. Vanjivaldo - IDAC`;
             } else {
-                return `Paz do Senhor, ${nome}! 🙏\nPassando para lembrar que neste domingo, ${dataCompleta}, você ministrará no Culto de Celebração às 18h.\n📖 Tema: ${tema || 'Livre'}\nQualquer dúvida, estou à disposição!\nDeus abençoe sua preparação!\nBp. Vanjivaldo - IDAC`;
+                return `Paz do Senhor, ${nome}!\nPassando para lembrar que neste domingo, ${dataCompleta}, você ministrará no Culto de Celebração às 18h.\nTema: ${tema || 'Livre'}\nQualquer dúvida, estou à disposição!\nDeus abençoe sua preparação!\nBp. Vanjivaldo - IDAC`;
             }
         }
 
@@ -1939,8 +2046,97 @@ Bp. Vanjivaldo - IDAC`;
 
         document.getElementById('senhaAdmin').addEventListener('keypress', (e) => { if (e.key === 'Enter') login(); });
 
+        // ==================== ARRASTAR MODAIS ====================
+
+        function initDraggableModals() {
+            document.querySelectorAll('.modal-content').forEach(modal => {
+                const header = modal.querySelector('.modal-header');
+                if (!header) return;
+
+                let isDragging = false;
+                let startX, startY, initialX, initialY;
+
+                header.addEventListener('mousedown', (e) => {
+                    if (e.target.closest('.modal-btn-action')) return;
+                    isDragging = true;
+                    startX = e.clientX;
+                    startY = e.clientY;
+                    const rect = modal.getBoundingClientRect();
+                    initialX = rect.left;
+                    initialY = rect.top;
+                    modal.style.transition = 'none';
+                });
+
+                document.addEventListener('mousemove', (e) => {
+                    if (!isDragging) return;
+                    e.preventDefault();
+                    const dx = e.clientX - startX;
+                    const dy = e.clientY - startY;
+                    modal.style.left = (initialX + dx) + 'px';
+                    modal.style.top = (initialY + dy) + 'px';
+                    modal.style.transform = 'none';
+                    modal.style.margin = '0';
+                });
+
+                document.addEventListener('mouseup', () => {
+                    isDragging = false;
+                    modal.style.transition = '';
+                });
+
+                // Touch support para mobile
+                header.addEventListener('touchstart', (e) => {
+                    if (e.target.closest('.modal-btn-action')) return;
+                    isDragging = true;
+                    const touch = e.touches[0];
+                    startX = touch.clientX;
+                    startY = touch.clientY;
+                    const rect = modal.getBoundingClientRect();
+                    initialX = rect.left;
+                    initialY = rect.top;
+                    modal.style.transition = 'none';
+                });
+
+                document.addEventListener('touchmove', (e) => {
+                    if (!isDragging) return;
+                    const touch = e.touches[0];
+                    const dx = touch.clientX - startX;
+                    const dy = touch.clientY - startY;
+                    modal.style.left = (initialX + dx) + 'px';
+                    modal.style.top = (initialY + dy) + 'px';
+                    modal.style.transform = 'none';
+                    modal.style.margin = '0';
+                });
+
+                document.addEventListener('touchend', () => {
+                    isDragging = false;
+                    modal.style.transition = '';
+                });
+            });
+        }
+
+        // Centralizar modal ao abrir
+        function centerModal(modalId) {
+            const modal = document.getElementById(modalId);
+            const content = modal.querySelector('.modal-content');
+            content.style.left = '50%';
+            content.style.top = '50%';
+            content.style.transform = 'translate(-50%, -50%)';
+            content.style.margin = '0';
+        }
+
+        // Modificar openModal para centralizar
+        const originalOpenModal = openModal;
+        openModal = function(modalId) {
+            originalOpenModal(modalId);
+            setTimeout(() => centerModal(modalId), 10);
+        };
+
+        // Inicializar arrastar após carregar
+        document.addEventListener('DOMContentLoaded', initDraggableModals);
+
         // Inicializar
         init();
+        initDraggableModals();
     </script>
 </body>
 </html>
