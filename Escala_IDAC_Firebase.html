@@ -1,0 +1,2315 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Escala IDAC ☁️ - Igreja de Deus Águas Claras</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            min-height: 100vh;
+            color: #333;
+        }
+
+        /* Header */
+        .header {
+            background: linear-gradient(135deg, #8B2F87 0%, #5D1A54 100%);
+            color: white;
+            padding: 20px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+        }
+
+        .header-content {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .header-logo-container {
+            width: 90px;
+            height: 90px;
+            border-radius: 50%;
+            background: white;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .header-logo {
+            width: 72px;
+            height: 72px;
+            object-fit: contain;
+        }
+
+        .header-text {
+            text-align: left;
+        }
+
+        .header-filter-btn {
+            background: rgba(255,255,255,0.2);
+            border: 2px solid rgba(255,255,255,0.4);
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1.5rem;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .header-filter-btn:hover {
+            background: rgba(255,255,255,0.3);
+            transform: scale(1.1);
+        }
+
+        .header h1 {
+            font-size: 1.8rem;
+            margin-bottom: 5px;
+        }
+
+        .header p {
+            opacity: 0.9;
+            font-size: 0.95rem;
+        }
+
+        /* Container principal */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Botão de acesso admin */
+        .admin-access {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: #8B2F87;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 50px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            box-shadow: 0 4px 15px rgba(139, 47, 135, 0.4);
+            transition: all 0.3s;
+            z-index: 1000;
+        }
+
+        .admin-access:hover {
+            background: #5D1A54;
+            transform: translateY(-2px);
+        }
+
+        .admin-access .badge {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background: #ff4444;
+            color: white;
+            border-radius: 50%;
+            width: 24px;
+            height: 24px;
+            font-size: 0.75rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        /* Tabela */
+        .table-container {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+            margin-top: 20px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th {
+            background: linear-gradient(135deg, #8B2F87 0%, #5D1A54 100%);
+            color: white;
+            padding: 15px 12px;
+            text-align: center;
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+
+        td {
+            padding: 14px 12px;
+            border-bottom: 1px solid #ddd;
+            text-align: center;
+            font-size: 1.05rem;
+        }
+
+        .data-cell {
+            background: linear-gradient(135deg, #5D1A54 0%, #8B2F87 100%);
+            color: white;
+            font-weight: 700;
+            font-size: 1.2rem;
+            vertical-align: middle;
+            border-right: 3px solid #fff;
+        }
+
+        .row-manha td {
+            background: linear-gradient(135deg, #C76BBF 0%, #A855A0 100%);
+            color: white;
+            font-size: 1.1rem;
+            font-weight: 500;
+        }
+
+        .row-noite td {
+            background: #f8f4f8;
+            color: #333;
+            font-size: 1.1rem;
+            font-weight: 500;
+        }
+
+        .row-noite td.data-cell {
+            background: linear-gradient(135deg, #5D1A54 0%, #8B2F87 100%);
+            color: white;
+        }
+
+        .turno-label {
+            font-weight: 600;
+            font-size: 0.8rem;
+            opacity: 0.9;
+            display: block;
+            margin-bottom: 3px;
+        }
+
+        .row-manha .turno-label { color: #FFD700; }
+        .row-noite .turno-label { color: #8B2F87; }
+
+        tr:hover td { filter: brightness(1.05); }
+        .row-noite td { border-bottom: 3px solid #8B2F87; }
+
+        /* Resumo */
+        .resumo-container { margin-top: 30px; }
+
+        .resumo-titulo {
+            color: #FFD700;
+            text-align: center;
+            margin-bottom: 15px;
+            font-size: 1.4rem;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.3);
+        }
+
+        .resumo-table th {
+            background: linear-gradient(135deg, #1E5128 0%, #4E9F3D 100%);
+        }
+
+        .resumo-table .row-resumo td {
+            background: #f8f9fa;
+            text-align: left;
+            vertical-align: middle;
+        }
+
+        .resumo-table .row-resumo:nth-child(odd) td { background: #D8E9A8; }
+
+        .ministrante-cell {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .ministrante-nome { font-weight: 600; color: #1E5128; }
+
+        .qtd-badge {
+            background: #4E9F3D;
+            color: white;
+            padding: 3px 10px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        .periodo-badge {
+            display: inline-block;
+            padding: 3px 8px;
+            border-radius: 12px;
+            font-size: 0.8rem;
+            margin: 2px;
+            font-weight: 500;
+        }
+
+        .periodo-manha { background: #FFD700; color: #333; }
+        .periodo-noite { background: #4A4A8A; color: white; }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.7);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal.active { display: flex; }
+
+        .modal-content {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            max-width: 500px;
+            width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
+            position: absolute;
+            resize: both;
+            overflow: auto;
+            min-width: 300px;
+            min-height: 200px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+        }
+
+        .modal-content.large {
+            max-width: 900px;
+        }
+
+        /* Barra de título arrastável */
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: move;
+            padding-bottom: 15px;
+            margin-bottom: 15px;
+            border-bottom: 2px solid #eee;
+            user-select: none;
+        }
+
+        .modal-header h2 {
+            color: #8B2F87;
+            margin: 0;
+            padding-right: 10px;
+        }
+
+        .modal-header-actions {
+            display: flex;
+            gap: 8px;
+        }
+
+        .modal-btn-action {
+            background: #eee;
+            border: none;
+            width: 32px;
+            height: 32px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+        }
+
+        .modal-btn-action:hover {
+            background: #ddd;
+        }
+
+        .modal-btn-action.close-btn:hover {
+            background: #ff6b6b;
+            color: white;
+        }
+
+        /* Indicador de redimensionamento */
+        .modal-content::after {
+            content: '⤡';
+            position: absolute;
+            bottom: 5px;
+            right: 10px;
+            font-size: 14px;
+            color: #aaa;
+            pointer-events: none;
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #666;
+            display: none; /* Escondido, usamos o novo header */
+        }
+
+        .modal h2 {
+            color: #8B2F87;
+            margin-bottom: 20px;
+            padding-right: 30px;
+        }
+
+        /* Formulários */
+        .form-group { margin-bottom: 15px; }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 600;
+            color: #555;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.3s;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #8B2F87;
+        }
+
+        .btn {
+            background: linear-gradient(135deg, #8B2F87 0%, #5D1A54 100%);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: all 0.3s;
+            margin-right: 10px;
+            margin-top: 10px;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(139, 47, 135, 0.4);
+        }
+
+        .btn-secondary { background: #6c757d; }
+        .btn-danger { background: #dc3545; }
+        .btn-success { background: #28a745; }
+        .btn-whatsapp { background: linear-gradient(135deg, #25D366 0%, #128C7E 100%); }
+        .btn-whatsapp:hover { box-shadow: 0 5px 15px rgba(37, 211, 102, 0.4); }
+        .btn-todo { background: linear-gradient(135deg, #0078D4 0%, #005A9E 100%); }
+        .btn-todo:hover { box-shadow: 0 5px 15px rgba(0, 120, 212, 0.4); }
+
+        /* Admin Panel */
+        .admin-panel {
+            display: none;
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 20px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+        }
+
+        .admin-panel.active { display: block; }
+
+        .admin-panel h2 {
+            color: #8B2F87;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        /* Alerta de Lembretes */
+        .alert-lembretes {
+            background: linear-gradient(135deg, #fff3cd 0%, #ffeeba 100%);
+            border: 2px solid #ffc107;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 20px;
+            display: none;
+        }
+
+        .alert-lembretes.active { display: block; }
+
+        .alert-lembretes h3 {
+            color: #856404;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .alert-lembretes .badge-count {
+            background: #dc3545;
+            color: white;
+            padding: 2px 10px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+        }
+
+        .lembrete-item {
+            background: white;
+            border-radius: 8px;
+            padding: 12px;
+            margin-bottom: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-left: 4px solid #ffc107;
+        }
+
+        .lembrete-item.enviado {
+            opacity: 0.6;
+            border-left-color: #28a745;
+        }
+
+        .lembrete-item-info .data {
+            font-weight: 700;
+            color: #856404;
+        }
+
+        .lembrete-item-info .dias {
+            font-size: 0.85rem;
+            color: #666;
+        }
+
+        .lembrete-item-info .nome {
+            font-size: 0.95rem;
+            color: #333;
+            margin-top: 3px;
+        }
+
+        .lembrete-item-actions {
+            display: flex;
+            gap: 8px;
+        }
+
+        .lembrete-item-actions button {
+            padding: 8px 12px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            transition: all 0.3s;
+        }
+
+        .btn-lembrete-enviar {
+            background: #25D366;
+            color: white;
+        }
+
+        .btn-lembrete-check {
+            background: #28a745;
+            color: white;
+        }
+
+        .admin-menu {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .admin-menu-item {
+            background: linear-gradient(135deg, #f8f4f8 0%, #efe8ef 100%);
+            border: 2px solid #ddd;
+            border-radius: 12px;
+            padding: 20px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .admin-menu-item:hover {
+            border-color: #8B2F87;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 20px rgba(139, 47, 135, 0.2);
+        }
+
+        .admin-menu-item.whatsapp {
+            background: linear-gradient(135deg, #dcf8c6 0%, #c5f0b0 100%);
+            border-color: #25D366;
+        }
+
+        .admin-menu-item.whatsapp:hover {
+            border-color: #128C7E;
+            box-shadow: 0 5px 20px rgba(37, 211, 102, 0.3);
+        }
+
+        .admin-menu-item.todo {
+            background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%);
+            border-color: #0078D4;
+        }
+
+        .admin-menu-item.todo:hover {
+            border-color: #005A9E;
+            box-shadow: 0 5px 20px rgba(0, 120, 212, 0.3);
+        }
+
+        .admin-menu-item .icon {
+            font-size: 2rem;
+            margin-bottom: 10px;
+        }
+
+        .admin-menu-item h3 {
+            color: #5D1A54;
+            font-size: 0.95rem;
+        }
+
+        .admin-menu-item.whatsapp h3 { color: #128C7E; }
+        .admin-menu-item.todo h3 { color: #0078D4; }
+
+        /* Lista de itens */
+        .item-list {
+            background: #f8f9fa;
+            border-radius: 8px;
+            padding: 15px;
+            margin-top: 15px;
+            max-height: 200px;
+            overflow-y: auto;
+        }
+
+        .item-list-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 8px 12px;
+            background: white;
+            border-radius: 5px;
+            margin-bottom: 5px;
+            border-left: 3px solid #8B2F87;
+        }
+
+        .item-list-item button {
+            background: #dc3545;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.8rem;
+        }
+
+        /* WhatsApp List */
+        .whatsapp-list {
+            max-height: 400px;
+            overflow-y: auto;
+        }
+
+        .whatsapp-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 10px;
+            margin-bottom: 10px;
+            border-left: 4px solid #25D366;
+        }
+
+        .whatsapp-item:hover { background: #e8f5e9; }
+
+        .whatsapp-item-info { flex: 1; }
+
+        .whatsapp-item-info .data {
+            font-weight: 700;
+            color: #8B2F87;
+            font-size: 1.1rem;
+        }
+
+        .whatsapp-item-info .periodo {
+            display: inline-block;
+            padding: 2px 8px;
+            border-radius: 10px;
+            font-size: 0.8rem;
+            margin-left: 10px;
+        }
+
+        .whatsapp-item-info .periodo.manha { background: #FFD700; color: #333; }
+        .whatsapp-item-info .periodo.noite { background: #4A4A8A; color: white; }
+
+        .whatsapp-item-info .nome {
+            font-size: 1rem;
+            color: #333;
+            margin-top: 5px;
+        }
+
+        .whatsapp-item-info .tema {
+            font-size: 0.85rem;
+            color: #666;
+            margin-top: 3px;
+        }
+
+        .whatsapp-item-info .telefone {
+            font-size: 0.8rem;
+            color: #25D366;
+            margin-top: 3px;
+        }
+
+        .whatsapp-item button {
+            background: linear-gradient(135deg, #25D366 0%, #128C7E 100%);
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: all 0.3s;
+        }
+
+        .whatsapp-item button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 3px 10px rgba(37, 211, 102, 0.4);
+        }
+
+        .whatsapp-item button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        /* Preview mensagem */
+        .message-preview {
+            background: #dcf8c6;
+            border-radius: 10px;
+            padding: 15px;
+            margin-top: 15px;
+            font-size: 0.9rem;
+            white-space: pre-wrap;
+            border-left: 4px solid #25D366;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+
+        /* Tipo de mensagem selector */
+        .tipo-mensagem-selector {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        .tipo-mensagem-btn {
+            flex: 1;
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            background: white;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-align: center;
+        }
+
+        .tipo-mensagem-btn:hover { border-color: #8B2F87; }
+
+        .tipo-mensagem-btn.active {
+            border-color: #25D366;
+            background: #dcf8c6;
+        }
+
+        .tipo-mensagem-btn .icon { font-size: 1.5rem; }
+        .tipo-mensagem-btn .label { font-size: 0.85rem; margin-top: 5px; }
+
+        /* Tabela editável */
+        .editable-table select {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            background: white;
+            font-size: 0.9rem;
+        }
+
+        .editable-table td { padding: 8px; }
+
+        /* Logout */
+        .logout-btn {
+            background: #dc3545;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            float: right;
+        }
+
+        /* Message */
+        .message {
+            padding: 10px 15px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            display: none;
+        }
+
+        .message.active { display: block; }
+        .message.success { background: #d4edda; color: #155724; border: 1px solid #c3e6cb; }
+        .message.error { background: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; }
+
+        /* Print */
+        .print-container {
+            text-align: center;
+            margin-top: 30px;
+        }
+
+        .btn-print {
+            background: linear-gradient(135deg, #2196F3 0%, #1565C0 100%);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 50px;
+            cursor: pointer;
+            font-size: 1.1rem;
+            box-shadow: 0 4px 15px rgba(33, 150, 243, 0.4);
+            transition: all 0.3s;
+        }
+
+        .btn-print:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(33, 150, 243, 0.5);
+        }
+
+        /* Export info */
+        .export-info {
+            background: #e3f2fd;
+            border-radius: 10px;
+            padding: 15px;
+            margin-top: 15px;
+            border-left: 4px solid #0078D4;
+        }
+
+        .export-info h4 {
+            color: #0078D4;
+            margin-bottom: 10px;
+        }
+
+        .export-info ul {
+            margin-left: 20px;
+            color: #555;
+        }
+
+        .export-info li { margin-bottom: 5px; }
+
+        /* Responsivo */
+        @media (max-width: 768px) {
+            .header h1 { font-size: 1.3rem; }
+            .header p { font-size: 0.85rem; }
+            th { padding: 12px 8px; font-size: 1rem; }
+            td { padding: 12px 8px; font-size: 1.05rem; }
+            .admin-menu { grid-template-columns: repeat(2, 1fr); }
+            .modal-content { padding: 20px; max-width: 95%; }
+            .lembrete-item { flex-direction: column; gap: 10px; }
+            .lembrete-item-actions { width: 100%; justify-content: flex-end; }
+        }
+
+        /* Print styles */
+        @media print {
+            body { background: white !important; }
+            .admin-access, .admin-panel, .print-container, .header-filter-btn { display: none !important; }
+            .header {
+                background: linear-gradient(135deg, #8B2F87 0%, #5D1A54 100%) !important;
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
+            }
+            .table-container { box-shadow: none; break-inside: avoid; }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="header-content">
+            <div class="header-logo-container">
+                <img src="https://raw.githubusercontent.com/vanjivaldos-cmyk/games-idac/main/images/LogoGame.png" alt="Logo IDAC" class="header-logo">
+            </div>
+            <div class="header-text">
+                <h1>Escala de Ministração - IDAC</h1>
+                <p>Igreja de Deus Águas Claras</p>
+            </div>
+            <button class="header-filter-btn" onclick="openModal('modalFiltroView')" title="Filtrar Escala">
+                🔍
+            </button>
+        </div>
+    </div>
+
+    <div class="container">
+        <!-- Painel Admin -->
+        <div class="admin-panel" id="adminPanel">
+            <h2>
+                ⚙️ Painel Administrativo
+                <button class="logout-btn" onclick="logout()">Sair</button>
+            </h2>
+            
+            <div class="message" id="adminMessage"></div>
+
+            <!-- Alerta de Lembretes -->
+            <div class="alert-lembretes" id="alertLembretes">
+                <h3>
+                    🔔 Lembretes Pendentes (5 dias)
+                    <span class="badge-count" id="badgeLembretes">0</span>
+                </h3>
+                <div id="listaLembretes"></div>
+            </div>
+
+            <div class="admin-menu">
+                <div class="admin-menu-item" onclick="openModal('modalDatas')">
+                    <div class="icon">📆</div>
+                    <h3>Cadastrar Datas</h3>
+                </div>
+                <div class="admin-menu-item" onclick="openModal('modalPessoas')">
+                    <div class="icon">👥</div>
+                    <h3>Cadastrar Pessoas</h3>
+                </div>
+                <div class="admin-menu-item" onclick="openModal('modalTipos')">
+                    <div class="icon">🏷️</div>
+                    <h3>Cadastrar Tipo</h3>
+                </div>
+                <div class="admin-menu-item" onclick="openModal('modalTemas')">
+                    <div class="icon">📝</div>
+                    <h3>Cadastrar Temas</h3>
+                </div>
+                <div class="admin-menu-item" onclick="openModal('modalEditar')">
+                    <div class="icon">✏️</div>
+                    <h3>Editar Tabela</h3>
+                </div>
+                <div class="admin-menu-item whatsapp" onclick="openModal('modalWhatsApp')">
+                    <div class="icon">📲</div>
+                    <h3>Enviar WhatsApp</h3>
+                </div>
+                <div class="admin-menu-item todo" onclick="openModal('modalExportTodo')">
+                    <div class="icon">📤</div>
+                    <h3>Exportar To-Do</h3>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tabela de Visualização -->
+        <div class="table-container">
+            <table id="escalaTable">
+                <thead>
+                    <tr>
+                        <th>Data</th>
+                        <th>Ministrador</th>
+                        <th>Tema</th>
+                    </tr>
+                </thead>
+                <tbody id="escalaBody"></tbody>
+            </table>
+        </div>
+
+        <!-- Tabela de Resumo -->
+        <div class="resumo-container">
+            <h2 class="resumo-titulo">📊 Resumo por Ministrante</h2>
+            <div class="table-container resumo-table">
+                <table id="resumoTable">
+                    <thead>
+                        <tr>
+                            <th>Ministrante</th>
+                            <th>Datas</th>
+                            <th>Período</th>
+                        </tr>
+                    </thead>
+                    <tbody id="resumoBody"></tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Botão Imprimir PDF -->
+        <div class="print-container">
+            <button class="btn-print" onclick="window.print()">
+                🖨️ Imprimir / Salvar PDF
+            </button>
+        </div>
+    </div>
+
+    <!-- Botão de acesso admin -->
+    <button class="admin-access" id="adminAccessBtn" onclick="openModal('modalLogin')">
+        🔐 Admin
+        <span class="badge" id="badgeAdmin" style="display:none;">0</span>
+    </button>
+
+    <!-- Modal de Login -->
+    <div class="modal" id="modalLogin">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>🔐 Acesso Administrativo</h2>
+                <div class="modal-header-actions">
+                    <button class="modal-btn-action close-btn" onclick="closeModal('modalLogin')">✕</button>
+                </div>
+            </div>
+            <div class="form-group">
+                <label>Senha:</label>
+                <input type="password" id="senhaAdmin" placeholder="Digite a senha">
+            </div>
+            <button class="btn" onclick="login()">Entrar</button>
+        </div>
+    </div>
+
+    <!-- Modal de Filtro -->
+    <div class="modal" id="modalFiltroView">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>🔍 Filtrar Escala</h2>
+                <div class="modal-header-actions">
+                    <button class="modal-btn-action close-btn" onclick="closeModal('modalFiltroView')">✕</button>
+                </div>
+            </div>
+            <div class="form-group">
+                <label>Filtrar por:</label>
+                <select id="tipoFiltroView" onchange="atualizarOpcoesFiltroView()">
+                    <option value="todos">📋 Mostrar Tudo</option>
+                    <option value="ministrante">👤 Por Ministrante</option>
+                    <option value="mes">📅 Por Mês</option>
+                    <option value="periodo">🌗 Por Período</option>
+                </select>
+            </div>
+            <div class="form-group" id="filtroDetalheView" style="display: none;">
+                <label id="labelFiltroDetalheView">Selecione:</label>
+                <select id="valorFiltroView"></select>
+            </div>
+            <div style="text-align: center; margin-top: 20px;">
+                <button class="btn" onclick="aplicarFiltroView()">✅ Aplicar Filtro</button>
+                <button class="btn btn-secondary" onclick="limparFiltroView()">🔄 Limpar Filtro</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Cadastrar Datas -->
+    <div class="modal" id="modalDatas">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>📆 Cadastrar Datas</h2>
+                <div class="modal-header-actions">
+                    <button class="modal-btn-action close-btn" onclick="closeModal('modalDatas')">✕</button>
+                </div>
+            </div>
+            <div class="form-group">
+                <label>Nova Data:</label>
+                <input type="date" id="novaData">
+            </div>
+            <button class="btn" onclick="addData()">Adicionar Data</button>
+            <div class="item-list" id="listaDatas"></div>
+        </div>
+    </div>
+
+    <!-- Modal Cadastrar Pessoas -->
+    <div class="modal" id="modalPessoas">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>👥 Cadastrar Pessoas</h2>
+                <div class="modal-header-actions">
+                    <button class="modal-btn-action close-btn" onclick="closeModal('modalPessoas')">✕</button>
+                </div>
+            </div>
+            <div class="form-group">
+                <label>Título:</label>
+                <select id="tituloPessoa">
+                    <option value="Pb.">Pb.</option>
+                    <option value="Pr.">Pr.</option>
+                    <option value="Pra.">Pra.</option>
+                    <option value="Prof.">Prof.</option>
+                    <option value="Bp.">Bp.</option>
+                    <option value="Ev.">Ev.</option>
+                    <option value="Dc.">Dc.</option>
+                    <option value="Dca.">Dca.</option>
+                    <option value="">Sem título</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Nome:</label>
+                <input type="text" id="nomePessoa" placeholder="Nome da pessoa">
+            </div>
+            <div class="form-group">
+                <label>Telefone (WhatsApp):</label>
+                <input type="tel" id="telefonePessoa" placeholder="Ex: 61999998888">
+            </div>
+            <button class="btn" onclick="addPessoa()">Adicionar Pessoa</button>
+            <div class="item-list" id="listaPessoas"></div>
+        </div>
+    </div>
+
+    <!-- Modal Cadastrar Tipos -->
+    <div class="modal" id="modalTipos">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>🏷️ Cadastrar Tipo</h2>
+                <div class="modal-header-actions">
+                    <button class="modal-btn-action close-btn" onclick="closeModal('modalTipos')">✕</button>
+                </div>
+            </div>
+            <div class="form-group">
+                <label>Novo Tipo:</label>
+                <input type="text" id="novoTipo" placeholder="Ex: EBD, Celebração...">
+            </div>
+            <button class="btn" onclick="addTipo()">Adicionar Tipo</button>
+            <div class="item-list" id="listaTipos"></div>
+        </div>
+    </div>
+
+    <!-- Modal Cadastrar Temas -->
+    <div class="modal" id="modalTemas">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>📝 Cadastrar Temas</h2>
+                <div class="modal-header-actions">
+                    <button class="modal-btn-action close-btn" onclick="closeModal('modalTemas')">✕</button>
+                </div>
+            </div>
+            <div class="form-group">
+                <label>Novo Tema:</label>
+                <input type="text" id="novoTema" placeholder="Ex: Esgotamento Espiritual">
+            </div>
+            <button class="btn" onclick="addTema()">Adicionar Tema</button>
+            <div class="item-list" id="listaTemas"></div>
+        </div>
+    </div>
+
+    <!-- Modal Editar Tabela -->
+    <div class="modal" id="modalEditar">
+        <div class="modal-content large" style="max-width: 900px;">
+            <div class="modal-header">
+                <h2>✏️ Editar Escala</h2>
+                <div class="modal-header-actions">
+                    <button class="modal-btn-action close-btn" onclick="closeModal('modalEditar')">✕</button>
+                </div>
+            </div>
+            <div style="margin-bottom: 15px;">
+                <button class="btn btn-success" onclick="addNovaLinha()">+ Nova Linha</button>
+            </div>
+            <div style="overflow-x: auto;">
+                <table class="editable-table" id="editableTable">
+                    <thead>
+                        <tr>
+                            <th>Data</th>
+                            <th>Manhã</th>
+                            <th>Tema</th>
+                            <th>Noite</th>
+                            <th>Tema 2</th>
+                            <th>Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody id="editableBody"></tbody>
+                </table>
+            </div>
+            <div style="margin-top: 20px;">
+                <button class="btn" onclick="salvarEscala()">💾 Salvar Alterações</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal WhatsApp -->
+    <div class="modal" id="modalWhatsApp">
+        <div class="modal-content" style="max-width: 700px;">
+            <div class="modal-header">
+                <h2>📲 Enviar Convite via WhatsApp</h2>
+                <div class="modal-header-actions">
+                    <button class="modal-btn-action close-btn" onclick="closeModal('modalWhatsApp')">✕</button>
+                </div>
+            </div>
+            <div class="form-group">
+                <label>Filtrar por período:</label>
+                <select id="filtroWhatsApp" onchange="renderWhatsAppList()">
+                    <option value="todos">📋 Todos</option>
+                    <option value="manha">☀️ Manhã (EBD)</option>
+                    <option value="noite">🌙 Noite (Celebração)</option>
+                </select>
+            </div>
+            <div class="whatsapp-list" id="whatsappList"></div>
+        </div>
+    </div>
+
+    <!-- Modal Preview WhatsApp -->
+    <div class="modal" id="modalPreviewWhatsApp">
+        <div class="modal-content" style="max-width: 600px;">
+            <div class="modal-header">
+                <h2>📱 Prévia da Mensagem</h2>
+                <div class="modal-header-actions">
+                    <button class="modal-btn-action close-btn" onclick="closeModal('modalPreviewWhatsApp')">✕</button>
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label>Destinatário:</label>
+                <p id="previewDestinatario" style="font-weight: bold; color: #8B2F87;"></p>
+            </div>
+
+            <div class="form-group">
+                <label>Telefone:</label>
+                <p id="previewTelefone" style="color: #25D366;"></p>
+            </div>
+
+            <!-- Seletor de tipo de mensagem -->
+            <div class="form-group">
+                <label>Tipo de Mensagem:</label>
+                <div class="tipo-mensagem-selector">
+                    <div class="tipo-mensagem-btn active" id="btnConvite" onclick="selecionarTipoMensagem('convite')">
+                        <div class="icon">📨</div>
+                        <div class="label">Convite Inicial</div>
+                    </div>
+                    <div class="tipo-mensagem-btn" id="btnLembrete" onclick="selecionarTipoMensagem('lembrete')">
+                        <div class="icon">🔔</div>
+                        <div class="label">Lembrete (5 dias)</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>Mensagem:</label>
+                <div class="message-preview" id="previewMensagem"></div>
+            </div>
+
+            <div style="text-align: center; margin-top: 20px;">
+                <button class="btn btn-whatsapp" onclick="enviarWhatsApp()">📲 Abrir WhatsApp</button>
+                <button class="btn btn-secondary" onclick="closeModal('modalPreviewWhatsApp')">Cancelar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Exportar To-Do -->
+    <div class="modal" id="modalExportTodo">
+        <div class="modal-content" style="max-width: 600px;">
+            <div class="modal-header">
+                <h2>📤 Exportar para Microsoft To-Do</h2>
+                <div class="modal-header-actions">
+                    <button class="modal-btn-action close-btn" onclick="closeModal('modalExportTodo')">✕</button>
+                </div>
+            </div>
+            
+            <div class="export-info">
+                <h4>ℹ️ Como funciona:</h4>
+                <ul>
+                    <li>Gera um arquivo JSON com todas as tarefas de lembrete</li>
+                    <li>Cada tarefa vence <strong>5 dias antes</strong> da ministração</li>
+                    <li>Lista no To-Do: <strong>"IDAC - Lembretes"</strong></li>
+                    <li>Salve o arquivo no OneDrive para o Power Automate processar</li>
+                </ul>
+            </div>
+
+            <div class="form-group" style="margin-top: 20px;">
+                <label>Filtrar exportação:</label>
+                <select id="filtroExport">
+                    <option value="todos">📋 Todas as escalas</option>
+                    <option value="pendentes">⏳ Apenas pendentes (não enviados)</option>
+                    <option value="proximos">📅 Próximos 30 dias</option>
+                </select>
+            </div>
+
+            <div id="exportPreview" style="margin-top: 15px;"></div>
+
+            <div style="text-align: center; margin-top: 20px;">
+                <button class="btn btn-todo" onclick="exportarParaTodo()">📥 Baixar JSON</button>
+                <button class="btn btn-secondary" onclick="closeModal('modalExportTodo')">Cancelar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js"></script>
+
+    <script>
+        // ==================== CONFIGURAÇÃO FIREBASE ====================
+        const firebaseConfig = {
+            apiKey: "AIzaSyD_FbMpEZYn_lLZiSjGmP0sMM7XcuTn8Qw",
+            authDomain: "games-idac.firebaseapp.com",
+            databaseURL: "https://games-idac-default-rtdb.firebaseio.com",
+            projectId: "games-idac",
+            storageBucket: "games-idac.appspot.com",
+            messagingSenderId: "123456789",
+            appId: "1:123456789:web:abc123"
+        };
+        
+        // Inicializar Firebase
+        firebase.initializeApp(firebaseConfig);
+        const database = firebase.database();
+        
+        // Referência do Firebase para escala
+        const escalaRef = database.ref('escala');
+        
+        // Flag para controlar se Firebase está carregado
+        let firebaseCarregado = false;
+
+        // ==================== DADOS ====================
+        const SENHA_ADMIN = 'idac2026';
+        const DIAS_LEMBRETE = 5;
+        
+        let dados = {
+            datas: [],
+            pessoas: [
+                { nome: 'Pb. José Dias', telefone: '' },
+                { nome: 'Prof. Paulo', telefone: '' },
+                { nome: 'Pr. Tadeu', telefone: '' },
+                { nome: 'Pra. Jaqueline', telefone: '' },
+                { nome: 'Bp. Vanjivaldo', telefone: '' },
+                { nome: 'Pra. Miguelina', telefone: '' },
+                { nome: 'Pra. Kélia', telefone: '' },
+                { nome: 'Pra. Maria Pereira', telefone: '' },
+                { nome: 'Pra. Neucy', telefone: '' },
+                { nome: 'Dc. Júnio', telefone: '' }
+            ],
+            tipos: ['EBD', 'Celebração'],
+            temas: ['Esgotamento Espiritual', 'Livre'],
+            escala: [
+                { data: '04/jan', manha: 'Pb. José Dias', tema: 'Esgotamento Espiritual', noite: 'Bp. Vanjivaldo', tema2: 'Livre' },
+                { data: '11/jan', manha: 'Prof. Paulo', tema: 'Esgotamento Espiritual', noite: 'Pra. Miguelina', tema2: 'Livre' },
+                { data: '18/jan', manha: 'Pr. Tadeu', tema: 'Esgotamento Espiritual', noite: 'Pra. Kélia', tema2: 'Livre' },
+                { data: '25/jan', manha: 'Pra. Jaqueline', tema: 'Esgotamento Espiritual', noite: 'Pra. Maria Pereira', tema2: 'Livre' },
+                { data: '01/fev', manha: 'Bp. Vanjivaldo', tema: 'Esgotamento Espiritual', noite: 'Pra. Miguelina', tema2: 'Livre' },
+                { data: '08/fev', manha: 'Dc. Júnio', tema: 'Esgotamento Espiritual', noite: 'Pra. Maria Pereira', tema2: 'Livre' },
+                { data: '15/fev', manha: 'Prof. Paulo', tema: 'Esgotamento Espiritual', noite: 'Pra. Neucy', tema2: 'Livre' },
+                { data: '22/fev', manha: 'Pb. José Dias', tema: 'Esgotamento Espiritual', noite: 'Bp. Vanjivaldo', tema2: 'Livre' }
+            ],
+            enviados: [] // Controle de mensagens já enviadas
+        };
+
+        let isAdmin = false;
+        let mensagemAtual = null;
+        let tipoMensagemAtual = 'convite';
+
+        // ==================== INICIALIZAÇÃO ====================
+        
+        function init() {
+            // Mostrar loading
+            mostrarLoading(true);
+            
+            // Carregar dados do Firebase
+            carregarDadosFirebase();
+        }
+        
+        function mostrarLoading(show) {
+            let loader = document.getElementById('firebaseLoader');
+            if (!loader && show) {
+                loader = document.createElement('div');
+                loader.id = 'firebaseLoader';
+                loader.innerHTML = `
+                    <div style="position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.7);display:flex;align-items:center;justify-content:center;z-index:9999;">
+                        <div style="background:white;padding:30px;border-radius:15px;text-align:center;">
+                            <div style="font-size:2rem;margin-bottom:10px;">☁️</div>
+                            <div style="color:#8B2F87;font-weight:bold;">Carregando dados da nuvem...</div>
+                        </div>
+                    </div>
+                `;
+                document.body.appendChild(loader);
+            } else if (loader && !show) {
+                loader.remove();
+            }
+        }
+
+        async function carregarDadosFirebase() {
+            try {
+                const snapshot = await escalaRef.once('value');
+                if (snapshot.exists()) {
+                    dados = snapshot.val();
+                    // Garantir que arrays existam
+                    if (!dados.datas) dados.datas = [];
+                    if (!dados.pessoas) dados.pessoas = getDadosIniciais().pessoas;
+                    if (!dados.tipos) dados.tipos = ['EBD', 'Celebração'];
+                    if (!dados.temas) dados.temas = ['Esgotamento Espiritual', 'Livre'];
+                    if (!dados.escala) dados.escala = getDadosIniciais().escala;
+                    if (!dados.enviados) dados.enviados = [];
+                    
+                    // Converter objetos para arrays se necessário
+                    if (!Array.isArray(dados.pessoas)) dados.pessoas = Object.values(dados.pessoas);
+                    if (!Array.isArray(dados.datas)) dados.datas = Object.values(dados.datas);
+                    if (!Array.isArray(dados.tipos)) dados.tipos = Object.values(dados.tipos);
+                    if (!Array.isArray(dados.temas)) dados.temas = Object.values(dados.temas);
+                    if (!Array.isArray(dados.escala)) dados.escala = Object.values(dados.escala);
+                    if (!Array.isArray(dados.enviados)) dados.enviados = Object.values(dados.enviados);
+                } else {
+                    // Dados iniciais - salvar no Firebase
+                    dados = getDadosIniciais();
+                    await saveToFirebase();
+                }
+                
+                migratePessoasIfNeeded();
+                firebaseCarregado = true;
+                mostrarLoading(false);
+                renderEscala();
+                renderListas();
+                verificarLembretes();
+                
+                // Configurar listener para atualizações em tempo real
+                configurarListenerFirebase();
+                
+                showMessage('adminMessage', '☁️ Dados carregados da nuvem!', 'success');
+            } catch (error) {
+                console.error('Erro ao carregar Firebase:', error);
+                mostrarLoading(false);
+                // Fallback para dados iniciais
+                dados = getDadosIniciais();
+                renderEscala();
+                renderListas();
+                verificarLembretes();
+            }
+        }
+        
+        function configurarListenerFirebase() {
+            escalaRef.on('value', (snapshot) => {
+                if (!firebaseCarregado) return;
+                if (snapshot.exists()) {
+                    const novosDados = snapshot.val();
+                    // Converter objetos para arrays
+                    if (novosDados.pessoas && !Array.isArray(novosDados.pessoas)) novosDados.pessoas = Object.values(novosDados.pessoas);
+                    if (novosDados.datas && !Array.isArray(novosDados.datas)) novosDados.datas = Object.values(novosDados.datas);
+                    if (novosDados.tipos && !Array.isArray(novosDados.tipos)) novosDados.tipos = Object.values(novosDados.tipos);
+                    if (novosDados.temas && !Array.isArray(novosDados.temas)) novosDados.temas = Object.values(novosDados.temas);
+                    if (novosDados.escala && !Array.isArray(novosDados.escala)) novosDados.escala = Object.values(novosDados.escala);
+                    if (novosDados.enviados && !Array.isArray(novosDados.enviados)) novosDados.enviados = Object.values(novosDados.enviados);
+                    
+                    dados = novosDados;
+                    renderEscala();
+                    renderListas();
+                    verificarLembretes();
+                }
+            });
+        }
+        
+        function getDadosIniciais() {
+            return {
+                datas: [],
+                pessoas: [
+                    { nome: 'Pb. José Dias', telefone: '' },
+                    { nome: 'Prof. Paulo', telefone: '' },
+                    { nome: 'Pr. Tadeu', telefone: '' },
+                    { nome: 'Pra. Jaqueline', telefone: '' },
+                    { nome: 'Bp. Vanjivaldo', telefone: '' },
+                    { nome: 'Pra. Miguelina', telefone: '' },
+                    { nome: 'Pra. Kélia', telefone: '' },
+                    { nome: 'Pra. Maria Pereira', telefone: '' },
+                    { nome: 'Pra. Neucy', telefone: '' },
+                    { nome: 'Dc. Júnio', telefone: '' }
+                ],
+                tipos: ['EBD', 'Celebração'],
+                temas: ['Esgotamento Espiritual', 'Livre'],
+                escala: [
+                    { data: '04/jan', manha: 'Pb. José Dias', tema: 'Esgotamento Espiritual', noite: 'Bp. Vanjivaldo', tema2: 'Livre' },
+                    { data: '11/jan', manha: 'Prof. Paulo', tema: 'Esgotamento Espiritual', noite: 'Pra. Miguelina', tema2: 'Livre' },
+                    { data: '18/jan', manha: 'Pr. Tadeu', tema: 'Esgotamento Espiritual', noite: 'Pra. Kélia', tema2: 'Livre' },
+                    { data: '25/jan', manha: 'Pra. Jaqueline', tema: 'Esgotamento Espiritual', noite: 'Pra. Maria Pereira', tema2: 'Livre' },
+                    { data: '01/fev', manha: 'Bp. Vanjivaldo', tema: 'Esgotamento Espiritual', noite: 'Pra. Miguelina', tema2: 'Livre' },
+                    { data: '08/fev', manha: 'Dc. Júnio', tema: 'Esgotamento Espiritual', noite: 'Pra. Maria Pereira', tema2: 'Livre' },
+                    { data: '15/fev', manha: 'Prof. Paulo', tema: 'Esgotamento Espiritual', noite: 'Pra. Neucy', tema2: 'Livre' },
+                    { data: '22/fev', manha: 'Pb. José Dias', tema: 'Esgotamento Espiritual', noite: 'Bp. Vanjivaldo', tema2: 'Livre' }
+                ],
+                enviados: []
+            };
+        }
+
+        async function saveToFirebase() {
+            try {
+                await escalaRef.set(dados);
+                console.log('☁️ Salvo na nuvem!');
+            } catch (error) {
+                console.error('Erro ao salvar:', error);
+            }
+        }
+
+        function migratePessoasIfNeeded() {
+            if (dados.pessoas && dados.pessoas.length > 0 && typeof dados.pessoas[0] === 'string') {
+                dados.pessoas = dados.pessoas.map(p => ({ nome: p, telefone: '' }));
+                saveToStorage();
+            }
+            if (!dados.enviados) {
+                dados.enviados = [];
+                saveToStorage();
+            }
+        }
+
+        function loadFromStorage() {
+            // Função mantida por compatibilidade - dados já carregados via Firebase
+        }
+
+        function saveToStorage() {
+            saveToFirebase();
+        }
+
+        // ==================== AUTENTICAÇÃO ====================
+
+        function login() {
+            const senha = document.getElementById('senhaAdmin').value;
+            if (senha === SENHA_ADMIN) {
+                isAdmin = true;
+                document.getElementById('adminPanel').classList.add('active');
+                document.getElementById('adminAccessBtn').style.display = 'none';
+                closeModal('modalLogin');
+                document.getElementById('senhaAdmin').value = '';
+                showMessage('adminMessage', 'Login realizado com sucesso!', 'success');
+                verificarLembretes();
+            } else {
+                alert('Senha incorreta!');
+            }
+        }
+
+        function logout() {
+            isAdmin = false;
+            document.getElementById('adminPanel').classList.remove('active');
+            document.getElementById('adminAccessBtn').style.display = 'block';
+        }
+
+        // ==================== LEMBRETES ====================
+
+        function verificarLembretes() {
+            const hoje = new Date();
+            hoje.setHours(0, 0, 0, 0);
+            
+            const lembretes = [];
+            const mesesNum = { 'jan': 0, 'fev': 1, 'mar': 2, 'abr': 3, 'mai': 4, 'jun': 5, 'jul': 6, 'ago': 7, 'set': 8, 'out': 9, 'nov': 10, 'dez': 11 };
+            
+            dados.escala.forEach(item => {
+                const [dia, mes] = item.data.split('/');
+                const dataEvento = new Date(2026, mesesNum[mes.toLowerCase()], parseInt(dia));
+                const diffDias = Math.ceil((dataEvento - hoje) / (1000 * 60 * 60 * 24));
+                
+                if (diffDias > 0 && diffDias <= DIAS_LEMBRETE) {
+                    if (item.manha) {
+                        const id = `${item.data}-manha-lembrete`;
+                        lembretes.push({
+                            id,
+                            data: item.data,
+                            dataEvento,
+                            diffDias,
+                            periodo: 'manha',
+                            nome: item.manha,
+                            tema: item.tema,
+                            telefone: getTelefonePessoa(item.manha),
+                            enviado: dados.enviados.includes(id)
+                        });
+                    }
+                    if (item.noite) {
+                        const id = `${item.data}-noite-lembrete`;
+                        lembretes.push({
+                            id,
+                            data: item.data,
+                            dataEvento,
+                            diffDias,
+                            periodo: 'noite',
+                            nome: item.noite,
+                            tema: item.tema2,
+                            telefone: getTelefonePessoa(item.noite),
+                            enviado: dados.enviados.includes(id)
+                        });
+                    }
+                }
+            });
+
+            // Ordenar por dias restantes
+            lembretes.sort((a, b) => a.diffDias - b.diffDias);
+
+            const pendentes = lembretes.filter(l => !l.enviado);
+            
+            // Atualizar badge no botão admin
+            const badgeAdmin = document.getElementById('badgeAdmin');
+            if (pendentes.length > 0) {
+                badgeAdmin.textContent = pendentes.length;
+                badgeAdmin.style.display = 'flex';
+            } else {
+                badgeAdmin.style.display = 'none';
+            }
+
+            // Atualizar alerta no painel
+            const alertEl = document.getElementById('alertLembretes');
+            const badgeLembretes = document.getElementById('badgeLembretes');
+            const listaEl = document.getElementById('listaLembretes');
+
+            if (lembretes.length > 0) {
+                alertEl.classList.add('active');
+                badgeLembretes.textContent = pendentes.length;
+
+                listaEl.innerHTML = lembretes.map(l => `
+                    <div class="lembrete-item ${l.enviado ? 'enviado' : ''}">
+                        <div class="lembrete-item-info">
+                            <span class="data">${l.data}</span>
+                            <span class="periodo ${l.periodo}">${l.periodo === 'manha' ? '☀️ EBD' : '🌙 Celebração'}</span>
+                            <span class="dias">(${l.diffDias} dia${l.diffDias > 1 ? 's' : ''})</span>
+                            <div class="nome">👤 ${l.nome}</div>
+                        </div>
+                        <div class="lembrete-item-actions">
+                            ${l.enviado ? 
+                                '<span style="color:#28a745;">✅ Enviado</span>' : 
+                                `<button class="btn-lembrete-enviar" onclick="enviarLembrete('${l.nome}', '${l.data}', '${l.periodo}', '${l.tema}', '${l.telefone}')" ${!l.telefone ? 'disabled title="Sem telefone"' : ''}>📲</button>
+                                 <button class="btn-lembrete-check" onclick="marcarEnviado('${l.id}')">✓</button>`
+                            }
+                        </div>
+                    </div>
+                `).join('');
+            } else {
+                alertEl.classList.remove('active');
+            }
+        }
+
+        function marcarEnviado(id) {
+            if (!dados.enviados.includes(id)) {
+                dados.enviados.push(id);
+                saveToStorage();
+                verificarLembretes();
+                showMessage('adminMessage', 'Marcado como enviado!', 'success');
+            }
+        }
+
+        function enviarLembrete(nome, data, periodo, tema, telefone) {
+            mensagemAtual = {
+                nome,
+                data,
+                periodo,
+                tema,
+                telefone,
+                tipo: 'lembrete'
+            };
+            tipoMensagemAtual = 'lembrete';
+            
+            document.getElementById('previewDestinatario').textContent = nome;
+            document.getElementById('previewTelefone').textContent = telefone || 'Não cadastrado';
+            document.getElementById('btnConvite').classList.remove('active');
+            document.getElementById('btnLembrete').classList.add('active');
+            
+            atualizarPreviewMensagem();
+            openModal('modalPreviewWhatsApp');
+        }
+
+        // ==================== MODAIS ====================
+
+        function openModal(modalId) {
+            document.getElementById(modalId).classList.add('active');
+            if (modalId === 'modalEditar') renderEditableTable();
+            if (modalId === 'modalWhatsApp') renderWhatsAppList();
+            if (modalId === 'modalExportTodo') atualizarPreviewExport();
+            renderListas();
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).classList.remove('active');
+        }
+
+        // Evento de fechar ao clicar fora está no initDraggableModals()
+
+        // ==================== RENDERIZAÇÃO ====================
+
+        function renderEscala() {
+            const tbody = document.getElementById('escalaBody');
+            tbody.innerHTML = dados.escala.map(item => `
+                <tr class="row-manha">
+                    <td class="data-cell" rowspan="2">${item.data}</td>
+                    <td><span class="turno-label">☀️ Manhã</span>${item.manha || '-'}</td>
+                    <td>${item.tema || '-'}</td>
+                </tr>
+                <tr class="row-noite">
+                    <td><span class="turno-label">🌙 Noite</span>${item.noite || '-'}</td>
+                    <td>${item.tema2 || '-'}</td>
+                </tr>
+            `).join('');
+            renderResumo();
+        }
+
+        function renderResumo() {
+            const resumoMap = new Map();
+            dados.escala.forEach(item => {
+                if (item.manha && item.manha !== '-') {
+                    if (!resumoMap.has(item.manha)) resumoMap.set(item.manha, { manha: [], noite: [] });
+                    resumoMap.get(item.manha).manha.push(item.data);
+                }
+                if (item.noite && item.noite !== '-') {
+                    if (!resumoMap.has(item.noite)) resumoMap.set(item.noite, { manha: [], noite: [] });
+                    resumoMap.get(item.noite).noite.push(item.data);
+                }
+            });
+
+            const resumoArray = Array.from(resumoMap.entries())
+                .map(([nome, periodos]) => ({
+                    nome,
+                    manha: sortDatas(periodos.manha),
+                    noite: sortDatas(periodos.noite),
+                    total: periodos.manha.length + periodos.noite.length
+                }))
+                .sort((a, b) => a.nome.localeCompare(b.nome, 'pt-BR', { sensitivity: 'base' }));
+
+            const tbody = document.getElementById('resumoBody');
+            tbody.innerHTML = resumoArray.map(item => {
+                const datasFormatadas = [];
+                item.manha.forEach(d => datasFormatadas.push({ data: d, tipo: 'manha' }));
+                item.noite.forEach(d => datasFormatadas.push({ data: d, tipo: 'noite' }));
+                datasFormatadas.sort((a, b) => compararDatas(a.data, b.data));
+
+                const datasHtml = datasFormatadas.map(d => 
+                    `<span class="periodo-badge periodo-${d.tipo}">${d.tipo === 'manha' ? '☀️' : '🌙'} ${d.data}</span>`
+                ).join(' ');
+
+                const periodos = [];
+                if (item.manha.length > 0) periodos.push(`<span class="periodo-badge periodo-manha">☀️ Manhã (${item.manha.length})</span>`);
+                if (item.noite.length > 0) periodos.push(`<span class="periodo-badge periodo-noite">🌙 Noite (${item.noite.length})</span>`);
+
+                return `
+                    <tr class="row-resumo">
+                        <td><div class="ministrante-cell"><span class="ministrante-nome">${item.nome}</span><span class="qtd-badge">${item.total}x</span></div></td>
+                        <td class="datas-list">${datasHtml}</td>
+                        <td>${periodos.join(' ')}</td>
+                    </tr>
+                `;
+            }).join('');
+        }
+
+        function getNomePessoa(pessoa) {
+            return typeof pessoa === 'string' ? pessoa : pessoa.nome;
+        }
+
+        function getTelefonePessoa(nomeBusca) {
+            const pessoa = dados.pessoas.find(p => getNomePessoa(p) === nomeBusca);
+            return pessoa ? (pessoa.telefone || '') : '';
+        }
+
+        function renderListas() {
+            const datasOrdenadas = sortDatas(dados.datas);
+            const pessoasOrdenadas = [...dados.pessoas].sort((a, b) => 
+                getNomePessoa(a).localeCompare(getNomePessoa(b), 'pt-BR', { sensitivity: 'base' })
+            );
+
+            document.getElementById('listaDatas').innerHTML = datasOrdenadas.map((d) => {
+                const i = dados.datas.indexOf(d);
+                return `<div class="item-list-item"><span>${d}</span><button onclick="removeItem('datas', ${i})">🗑️</button></div>`;
+            }).join('') || '<p style="color:#666; text-align:center;">Nenhuma data cadastrada</p>';
+
+            document.getElementById('listaPessoas').innerHTML = pessoasOrdenadas.map((p) => {
+                const i = dados.pessoas.indexOf(p);
+                const nome = getNomePessoa(p);
+                const telefone = p.telefone || '';
+                return `
+                    <div class="item-list-item">
+                        <span>${nome} ${telefone ? '📱 ' + telefone : '<span style="color:#999;">(sem tel)</span>'}</span>
+                        <div>
+                            <button onclick="editarTelefone(${i})" style="background:#25D366; margin-right:5px;">📱</button>
+                            <button onclick="removeItem('pessoas', ${i})">🗑️</button>
+                        </div>
+                    </div>
+                `;
+            }).join('') || '<p style="color:#666; text-align:center;">Nenhuma pessoa cadastrada</p>';
+
+            document.getElementById('listaTipos').innerHTML = sortAlphabetically(dados.tipos).map((t) => {
+                const i = dados.tipos.indexOf(t);
+                return `<div class="item-list-item"><span>${t}</span><button onclick="removeItem('tipos', ${i})">🗑️</button></div>`;
+            }).join('') || '<p style="color:#666; text-align:center;">Nenhum tipo cadastrado</p>';
+
+            document.getElementById('listaTemas').innerHTML = sortAlphabetically(dados.temas).map((t) => {
+                const i = dados.temas.indexOf(t);
+                return `<div class="item-list-item"><span>${t}</span><button onclick="removeItem('temas', ${i})">🗑️</button></div>`;
+            }).join('') || '<p style="color:#666; text-align:center;">Nenhum tema cadastrado</p>';
+        }
+
+        function sortAlphabetically(arr) {
+            return [...arr].sort((a, b) => a.localeCompare(b, 'pt-BR', { sensitivity: 'base' }));
+        }
+
+        function sortDatas(arr) {
+            return [...arr].sort((a, b) => compararDatas(a, b));
+        }
+
+        function compararDatas(a, b) {
+            const meses = { 'jan': 1, 'fev': 2, 'mar': 3, 'abr': 4, 'mai': 5, 'jun': 6, 'jul': 7, 'ago': 8, 'set': 9, 'out': 10, 'nov': 11, 'dez': 12 };
+            const [diaA, mesA] = a.split('/');
+            const [diaB, mesB] = b.split('/');
+            const mesNumA = meses[mesA.toLowerCase()] || 0;
+            const mesNumB = meses[mesB.toLowerCase()] || 0;
+            if (mesNumA !== mesNumB) return mesNumA - mesNumB;
+            return parseInt(diaA) - parseInt(diaB);
+        }
+
+        function renderEditableTable() {
+            const tbody = document.getElementById('editableBody');
+            const pessoasOrdenadas = [...dados.pessoas].sort((a, b) => getNomePessoa(a).localeCompare(getNomePessoa(b), 'pt-BR', { sensitivity: 'base' }));
+            const temasOrdenados = sortAlphabetically(dados.temas);
+            const datasOrdenadas = sortDatas(dados.datas);
+            
+            tbody.innerHTML = dados.escala.map((item, index) => `
+                <tr>
+                    <td>
+                        <select onchange="updateEscala(${index}, 'data', this.value)">
+                            <option value="">Selecione...</option>
+                            ${datasOrdenadas.map(d => `<option value="${d}" ${item.data === d ? 'selected' : ''}>${d}</option>`).join('')}
+                            ${item.data && !dados.datas.includes(item.data) ? `<option value="${item.data}" selected>${item.data}</option>` : ''}
+                        </select>
+                    </td>
+                    <td>
+                        <select onchange="updateEscala(${index}, 'manha', this.value)">
+                            <option value="">Selecione...</option>
+                            ${pessoasOrdenadas.map(p => { const n = getNomePessoa(p); return `<option value="${n}" ${item.manha === n ? 'selected' : ''}>${n}</option>`; }).join('')}
+                        </select>
+                    </td>
+                    <td>
+                        <select onchange="updateEscala(${index}, 'tema', this.value)">
+                            <option value="">Selecione...</option>
+                            ${temasOrdenados.map(t => `<option value="${t}" ${item.tema === t ? 'selected' : ''}>${t}</option>`).join('')}
+                        </select>
+                    </td>
+                    <td>
+                        <select onchange="updateEscala(${index}, 'noite', this.value)">
+                            <option value="">Selecione...</option>
+                            ${pessoasOrdenadas.map(p => { const n = getNomePessoa(p); return `<option value="${n}" ${item.noite === n ? 'selected' : ''}>${n}</option>`; }).join('')}
+                        </select>
+                    </td>
+                    <td>
+                        <select onchange="updateEscala(${index}, 'tema2', this.value)">
+                            <option value="">Selecione...</option>
+                            ${temasOrdenados.map(t => `<option value="${t}" ${item.tema2 === t ? 'selected' : ''}>${t}</option>`).join('')}
+                        </select>
+                    </td>
+                    <td><button class="btn btn-danger" style="padding:5px 10px;margin:0;" onclick="removeLinha(${index})">🗑️</button></td>
+                </tr>
+            `).join('');
+        }
+
+        // ==================== CADASTROS ====================
+
+        function addData() {
+            const input = document.getElementById('novaData');
+            if (input.value) {
+                const date = new Date(input.value + 'T00:00:00');
+                const formatted = date.toLocaleDateString('pt-BR', { day: '2-digit', month: 'short' }).replace('.', '');
+                if (!dados.datas.includes(formatted)) {
+                    dados.datas.push(formatted);
+                    saveToStorage();
+                    renderListas();
+                    input.value = '';
+                } else alert('Esta data já está cadastrada!');
+            }
+        }
+
+        function addPessoa() {
+            const titulo = document.getElementById('tituloPessoa').value;
+            const nome = document.getElementById('nomePessoa').value.trim();
+            const telefone = document.getElementById('telefonePessoa').value.trim().replace(/\D/g, '');
+            
+            if (nome) {
+                const nomeCompleto = titulo ? `${titulo} ${nome}` : nome;
+                if (!dados.pessoas.some(p => getNomePessoa(p) === nomeCompleto)) {
+                    dados.pessoas.push({ nome: nomeCompleto, telefone });
+                    saveToStorage();
+                    renderListas();
+                    document.getElementById('nomePessoa').value = '';
+                    document.getElementById('telefonePessoa').value = '';
+                } else alert('Esta pessoa já está cadastrada!');
+            }
+        }
+
+        function editarTelefone(index) {
+            const pessoa = dados.pessoas[index];
+            const novoTelefone = prompt(`Telefone de ${getNomePessoa(pessoa)}:`, pessoa.telefone || '');
+            if (novoTelefone !== null) {
+                dados.pessoas[index].telefone = novoTelefone.replace(/\D/g, '');
+                saveToStorage();
+                renderListas();
+                showMessage('adminMessage', 'Telefone atualizado!', 'success');
+            }
+        }
+
+        function addTipo() {
+            const input = document.getElementById('novoTipo');
+            const tipo = input.value.trim();
+            if (tipo && !dados.tipos.includes(tipo)) {
+                dados.tipos.push(tipo);
+                saveToStorage();
+                renderListas();
+                input.value = '';
+            } else if (dados.tipos.includes(tipo)) alert('Este tipo já está cadastrado!');
+        }
+
+        function addTema() {
+            const input = document.getElementById('novoTema');
+            const tema = input.value.trim();
+            if (tema && !dados.temas.includes(tema)) {
+                dados.temas.push(tema);
+                saveToStorage();
+                renderListas();
+                input.value = '';
+            } else if (dados.temas.includes(tema)) alert('Este tema já está cadastrado!');
+        }
+
+        function removeItem(tipo, index) {
+            if (confirm('Deseja realmente remover este item?')) {
+                dados[tipo].splice(index, 1);
+                saveToStorage();
+                renderListas();
+            }
+        }
+
+        function addNovaLinha() {
+            dados.escala.push({ data: '', manha: '', tema: '', noite: '', tema2: '' });
+            renderEditableTable();
+        }
+
+        function updateEscala(index, campo, valor) {
+            dados.escala[index][campo] = valor;
+        }
+
+        function removeLinha(index) {
+            if (confirm('Deseja remover esta linha?')) {
+                dados.escala.splice(index, 1);
+                renderEditableTable();
+            }
+        }
+
+        function salvarEscala() {
+            saveToStorage();
+            renderEscala();
+            verificarLembretes();
+            showMessage('adminMessage', 'Escala salva com sucesso!', 'success');
+            closeModal('modalEditar');
+        }
+
+        // ==================== WHATSAPP ====================
+
+        function renderWhatsAppList() {
+            const filtro = document.getElementById('filtroWhatsApp').value;
+            const container = document.getElementById('whatsappList');
+            
+            let itens = [];
+            dados.escala.forEach(item => {
+                if ((filtro === 'todos' || filtro === 'manha') && item.manha) {
+                    itens.push({ data: item.data, periodo: 'manha', nome: item.manha, tema: item.tema, telefone: getTelefonePessoa(item.manha) });
+                }
+                if ((filtro === 'todos' || filtro === 'noite') && item.noite) {
+                    itens.push({ data: item.data, periodo: 'noite', nome: item.noite, tema: item.tema2, telefone: getTelefonePessoa(item.noite) });
+                }
+            });
+
+            itens.sort((a, b) => compararDatas(a.data, b.data));
+
+            container.innerHTML = itens.map(item => `
+                <div class="whatsapp-item">
+                    <div class="whatsapp-item-info">
+                        <div>
+                            <span class="data">${item.data}</span>
+                            <span class="periodo ${item.periodo}">${item.periodo === 'manha' ? '☀️ EBD' : '🌙 Celebração'}</span>
+                        </div>
+                        <div class="nome">👤 ${item.nome}</div>
+                        <div class="tema">📖 ${item.tema || 'Livre'}</div>
+                        <div class="telefone">${item.telefone ? '📱 ' + item.telefone : '⚠️ Sem telefone'}</div>
+                    </div>
+                    <button onclick="prepararMensagem('${item.nome}', '${item.data}', '${item.periodo}', '${item.tema || 'Livre'}', '${item.telefone}')" ${!item.telefone ? 'disabled' : ''}>📲 Enviar</button>
+                </div>
+            `).join('') || '<p style="text-align:center; color:#666;">Nenhuma escala encontrada</p>';
+        }
+
+        function prepararMensagem(nome, data, periodo, tema, telefone) {
+            mensagemAtual = { nome, data, periodo, tema, telefone };
+            tipoMensagemAtual = 'convite';
+            
+            document.getElementById('previewDestinatario').textContent = nome;
+            document.getElementById('previewTelefone').textContent = telefone || 'Não cadastrado';
+            document.getElementById('btnConvite').classList.add('active');
+            document.getElementById('btnLembrete').classList.remove('active');
+            
+            atualizarPreviewMensagem();
+            openModal('modalPreviewWhatsApp');
+        }
+
+        function selecionarTipoMensagem(tipo) {
+            tipoMensagemAtual = tipo;
+            document.getElementById('btnConvite').classList.toggle('active', tipo === 'convite');
+            document.getElementById('btnLembrete').classList.toggle('active', tipo === 'lembrete');
+            atualizarPreviewMensagem();
+        }
+
+        function atualizarPreviewMensagem() {
+            if (!mensagemAtual) return;
+            
+            const { nome, data, periodo, tema } = mensagemAtual;
+            const mesesNum = { 'jan': '01', 'fev': '02', 'mar': '03', 'abr': '04', 'mai': '05', 'jun': '06', 'jul': '07', 'ago': '08', 'set': '09', 'out': '10', 'nov': '11', 'dez': '12' };
+            const [dia, mes] = data.split('/');
+            const dataCompleta = `${dia}/${mesesNum[mes.toLowerCase()]}/2026`;
+
+            let mensagem = '';
+
+            if (tipoMensagemAtual === 'convite') {
+                if (periodo === 'manha') {
+                    mensagem = `Paz do Senhor, ${nome}! 🙏
+Tudo bem com você?
+Estamos organizando a Escola Bíblica Dominical da IDAC para janeiro e início de fevereiro de 2026, e gostaria muito de contar com você como professor.
+*📖 Tema:* "${tema}" (Malcolm Smith)
+*📅 Período:* Domingos de janeiro e fevereiro
+*🕤 Horário:* 9h30 às 11h30
+Cada professor ficará responsável por uma lição. Você teria disponibilidade para participar?
+Se tiver interesse, nossa necessidade é para o dia ${data}, com base nos capítulos 1 a 3 (Introdução e fundamentos). Confirmando, passo mais detalhes sobre materiais.
+Se puder participar, já entre no nosso grupo de professores do 1º Bim de 2026:
+👉 https://chat.whatsapp.com/GH0N75pdBC0JzS3SpTuYFF
+Agradeço desde já pela consideração!
+Deus abençoe,
+Bispo Vanjivaldo
+EBD/IDAC`;
+                } else {
+                    mensagem = `Paz do Senhor, ${nome}! 🙏
+Tudo bem com você?
+Estamos organizando a escala de ministrações de nossos cultos de Celebração, 18h, e gostaria muito de contar com você como nosso preletor.
+*📖 Tema:* "${tema}"
+*📅 Data:* ${dataCompleta}
+*🕤 Horário:* 18h
+Você teria disponibilidade para nos trazer essa reflexão?
+Se tiver como, nossa necessidade é para o dia ${dataCompleta}.
+Agradeço desde já pela consideração!
+Deus abençoe,
+Bispo Vanjivaldo
+IDAC`;
+                }
+            } else {
+                // Mensagem de lembrete (curta)
+                if (periodo === 'manha') {
+                    mensagem = `Paz do Senhor, ${nome}! 🙏
+Passando para lembrar que neste domingo, ${dataCompleta}, você ministrará na EBD às 9h30.
+*📖 Tema:* "${tema}"
+Qualquer dúvida, estou à disposição!
+Deus abençoe sua preparação!
+Bp. Vanjivaldo - IDAC`;
+                } else {
+                    mensagem = `Paz do Senhor, ${nome}! 🙏
+Passando para lembrar que neste domingo, ${dataCompleta}, você ministrará no Culto de Celebração às 18h.
+*📖 Tema:* ${tema}
+Qualquer dúvida, estou à disposição!
+Deus abençoe sua preparação!
+Bp. Vanjivaldo - IDAC`;
+                }
+            }
+
+            mensagemAtual.mensagem = mensagem;
+            document.getElementById('previewMensagem').textContent = mensagem;
+        }
+
+        function enviarWhatsApp() {
+            if (mensagemAtual && mensagemAtual.telefone) {
+                const telefone = '55' + mensagemAtual.telefone;
+                // Normalizar texto para garantir encoding correto
+                const mensagemNormalizada = mensagemAtual.mensagem.normalize('NFC');
+                const mensagemEncoded = encodeURIComponent(mensagemNormalizada);
+                const url = `https://api.whatsapp.com/send?phone=${telefone}&text=${mensagemEncoded}`;
+                window.open(url, '_blank');
+                
+                // Se for lembrete, marcar como enviado
+                if (tipoMensagemAtual === 'lembrete') {
+                    const id = `${mensagemAtual.data}-${mensagemAtual.periodo}-lembrete`;
+                    if (!dados.enviados.includes(id)) {
+                        dados.enviados.push(id);
+                        saveToStorage();
+                        verificarLembretes();
+                    }
+                }
+                
+                closeModal('modalPreviewWhatsApp');
+            }
+        }
+
+        // ==================== EXPORTAR TO-DO ====================
+
+        function atualizarPreviewExport() {
+            const filtro = document.getElementById('filtroExport').value;
+            const tarefas = gerarTarefasTodo(filtro);
+            
+            document.getElementById('exportPreview').innerHTML = `
+                <p style="color:#666;">📋 <strong>${tarefas.length}</strong> tarefa(s) serão exportadas</p>
+            `;
+        }
+
+        function gerarTarefasTodo(filtro = 'todos') {
+            const hoje = new Date();
+            hoje.setHours(0, 0, 0, 0);
+            
+            const mesesNum = { 'jan': 0, 'fev': 1, 'mar': 2, 'abr': 3, 'mai': 4, 'jun': 5, 'jul': 6, 'ago': 7, 'set': 8, 'out': 9, 'nov': 10, 'dez': 11 };
+            const tarefas = [];
+
+            dados.escala.forEach(item => {
+                const [dia, mes] = item.data.split('/');
+                const dataEvento = new Date(2026, mesesNum[mes.toLowerCase()], parseInt(dia));
+                const dataLembrete = new Date(dataEvento);
+                dataLembrete.setDate(dataLembrete.getDate() - DIAS_LEMBRETE);
+
+                const diffDias = Math.ceil((dataEvento - hoje) / (1000 * 60 * 60 * 24));
+
+                // Filtros
+                if (filtro === 'proximos' && diffDias > 30) return;
+                if (filtro === 'pendentes') {
+                    const idManha = `${item.data}-manha-lembrete`;
+                    const idNoite = `${item.data}-noite-lembrete`;
+                    if (dados.enviados.includes(idManha) && dados.enviados.includes(idNoite)) return;
+                }
+
+                if (item.manha && dataLembrete >= hoje) {
+                    const id = `${item.data}-manha-lembrete`;
+                    if (filtro !== 'pendentes' || !dados.enviados.includes(id)) {
+                        tarefas.push({
+                            titulo: `📲 Lembrete: ${item.manha} - EBD ${item.data}`,
+                            dataVencimento: dataLembrete.toISOString().split('T')[0],
+                            dataEvento: dataEvento.toISOString().split('T')[0],
+                            responsavel: item.manha,
+                            telefone: getTelefonePessoa(item.manha),
+                            periodo: 'EBD',
+                            tema: item.tema || 'Esgotamento Espiritual',
+                            lista: 'IDAC - Lembretes',
+                            mensagem: gerarMensagemLembrete(item.manha, item.data, 'manha', item.tema)
+                        });
+                    }
+                }
+
+                if (item.noite && dataLembrete >= hoje) {
+                    const id = `${item.data}-noite-lembrete`;
+                    if (filtro !== 'pendentes' || !dados.enviados.includes(id)) {
+                        tarefas.push({
+                            titulo: `📲 Lembrete: ${item.noite} - Celebração ${item.data}`,
+                            dataVencimento: dataLembrete.toISOString().split('T')[0],
+                            dataEvento: dataEvento.toISOString().split('T')[0],
+                            responsavel: item.noite,
+                            telefone: getTelefonePessoa(item.noite),
+                            periodo: 'Celebração',
+                            tema: item.tema2 || 'Livre',
+                            lista: 'IDAC - Lembretes',
+                            mensagem: gerarMensagemLembrete(item.noite, item.data, 'noite', item.tema2)
+                        });
+                    }
+                }
+            });
+
+            return tarefas.sort((a, b) => a.dataVencimento.localeCompare(b.dataVencimento));
+        }
+
+        function gerarMensagemLembrete(nome, data, periodo, tema) {
+            const mesesNum = { 'jan': '01', 'fev': '02', 'mar': '03', 'abr': '04', 'mai': '05', 'jun': '06', 'jul': '07', 'ago': '08', 'set': '09', 'out': '10', 'nov': '11', 'dez': '12' };
+            const [dia, mes] = data.split('/');
+            const dataCompleta = `${dia}/${mesesNum[mes.toLowerCase()]}/2026`;
+
+            if (periodo === 'manha') {
+                return `Paz do Senhor, ${nome}!\nPassando para lembrar que neste domingo, ${dataCompleta}, você ministrará na EBD às 9h30.\nTema: "${tema || 'Esgotamento Espiritual'}"\nQualquer dúvida, estou à disposição!\nDeus abençoe sua preparação!\nBp. Vanjivaldo - IDAC`;
+            } else {
+                return `Paz do Senhor, ${nome}!\nPassando para lembrar que neste domingo, ${dataCompleta}, você ministrará no Culto de Celebração às 18h.\nTema: ${tema || 'Livre'}\nQualquer dúvida, estou à disposição!\nDeus abençoe sua preparação!\nBp. Vanjivaldo - IDAC`;
+            }
+        }
+
+        function exportarParaTodo() {
+            const filtro = document.getElementById('filtroExport').value;
+            const tarefas = gerarTarefasTodo(filtro);
+
+            if (tarefas.length === 0) {
+                alert('Nenhuma tarefa para exportar!');
+                return;
+            }
+
+            const json = JSON.stringify(tarefas, null, 2);
+            const blob = new Blob([json], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `IDAC_Lembretes_ToDo_${new Date().toISOString().split('T')[0]}.json`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+
+            showMessage('adminMessage', `${tarefas.length} tarefa(s) exportadas com sucesso!`, 'success');
+            closeModal('modalExportTodo');
+        }
+
+        // ==================== FILTRO ====================
+
+        let dadosOriginaisBackup = null;
+
+        function atualizarOpcoesFiltroView() {
+            const tipoFiltro = document.getElementById('tipoFiltroView').value;
+            const filtroDetalhe = document.getElementById('filtroDetalheView');
+            const valorFiltro = document.getElementById('valorFiltroView');
+            const labelFiltro = document.getElementById('labelFiltroDetalheView');
+            const dadosParaFiltro = dadosOriginaisBackup || dados.escala;
+
+            if (tipoFiltro === 'todos') {
+                filtroDetalhe.style.display = 'none';
+            } else if (tipoFiltro === 'ministrante') {
+                filtroDetalhe.style.display = 'block';
+                labelFiltro.textContent = 'Selecione o Ministrante:';
+                const ministrantes = new Set();
+                dadosParaFiltro.forEach(item => { if (item.manha) ministrantes.add(item.manha); if (item.noite) ministrantes.add(item.noite); });
+                valorFiltro.innerHTML = sortAlphabetically([...ministrantes]).map(m => `<option value="${m}">${m}</option>`).join('');
+            } else if (tipoFiltro === 'mes') {
+                filtroDetalhe.style.display = 'block';
+                labelFiltro.textContent = 'Selecione o Mês:';
+                const meses = new Set();
+                dadosParaFiltro.forEach(item => { if (item.data) { const m = item.data.split('/')[1]; if (m) meses.add(m); } });
+                const mesesNomes = { 'jan': 'Janeiro', 'fev': 'Fevereiro', 'mar': 'Março', 'abr': 'Abril', 'mai': 'Maio', 'jun': 'Junho', 'jul': 'Julho', 'ago': 'Agosto', 'set': 'Setembro', 'out': 'Outubro', 'nov': 'Novembro', 'dez': 'Dezembro' };
+                valorFiltro.innerHTML = [...meses].map(m => `<option value="${m}">${mesesNomes[m] || m}</option>`).join('');
+            } else if (tipoFiltro === 'periodo') {
+                filtroDetalhe.style.display = 'block';
+                labelFiltro.textContent = 'Selecione o Período:';
+                valorFiltro.innerHTML = `<option value="manha">☀️ Manhã</option><option value="noite">🌙 Noite</option>`;
+            }
+        }
+
+        function aplicarFiltroView() {
+            const tipoFiltro = document.getElementById('tipoFiltroView').value;
+            const valorFiltro = document.getElementById('valorFiltroView').value;
+
+            if (!dadosOriginaisBackup) dadosOriginaisBackup = [...dados.escala];
+
+            if (tipoFiltro === 'todos') {
+                dados.escala = [...dadosOriginaisBackup];
+            } else if (tipoFiltro === 'mes') {
+                dados.escala = dadosOriginaisBackup.filter(item => item.data && item.data.toLowerCase().includes(valorFiltro.toLowerCase()));
+            }
+
+            renderEscala();
+            closeModal('modalFiltroView');
+        }
+
+        function limparFiltroView() {
+            if (dadosOriginaisBackup) dados.escala = [...dadosOriginaisBackup];
+            document.getElementById('tipoFiltroView').value = 'todos';
+            document.getElementById('filtroDetalheView').style.display = 'none';
+            renderEscala();
+            closeModal('modalFiltroView');
+        }
+
+        // ==================== UTILITÁRIOS ====================
+
+        function showMessage(elementId, text, type) {
+            const el = document.getElementById(elementId);
+            el.textContent = text;
+            el.className = `message ${type} active`;
+            setTimeout(() => el.classList.remove('active'), 3000);
+        }
+
+        document.getElementById('senhaAdmin').addEventListener('keypress', (e) => { if (e.key === 'Enter') login(); });
+
+        // ==================== ARRASTAR MODAIS ====================
+
+        let modalDragging = false;
+
+        function initDraggableModals() {
+            document.querySelectorAll('.modal-content').forEach(modal => {
+                const header = modal.querySelector('.modal-header');
+                if (!header) return;
+
+                let isDragging = false;
+                let startX, startY, initialX, initialY;
+
+                header.addEventListener('mousedown', (e) => {
+                    if (e.target.closest('.modal-btn-action')) return;
+                    isDragging = true;
+                    modalDragging = true;
+                    startX = e.clientX;
+                    startY = e.clientY;
+                    const rect = modal.getBoundingClientRect();
+                    initialX = rect.left;
+                    initialY = rect.top;
+                    modal.style.transition = 'none';
+                    e.preventDefault();
+                });
+
+                document.addEventListener('mousemove', (e) => {
+                    if (!isDragging) return;
+                    e.preventDefault();
+                    const dx = e.clientX - startX;
+                    const dy = e.clientY - startY;
+                    modal.style.left = (initialX + dx) + 'px';
+                    modal.style.top = (initialY + dy) + 'px';
+                    modal.style.transform = 'none';
+                    modal.style.margin = '0';
+                });
+
+                document.addEventListener('mouseup', () => {
+                    if (isDragging) {
+                        isDragging = false;
+                        modal.style.transition = '';
+                        // Delay para evitar que o clique feche o modal
+                        setTimeout(() => { modalDragging = false; }, 100);
+                    }
+                });
+
+                // Touch support para mobile
+                header.addEventListener('touchstart', (e) => {
+                    if (e.target.closest('.modal-btn-action')) return;
+                    isDragging = true;
+                    modalDragging = true;
+                    const touch = e.touches[0];
+                    startX = touch.clientX;
+                    startY = touch.clientY;
+                    const rect = modal.getBoundingClientRect();
+                    initialX = rect.left;
+                    initialY = rect.top;
+                    modal.style.transition = 'none';
+                });
+
+                document.addEventListener('touchmove', (e) => {
+                    if (!isDragging) return;
+                    const touch = e.touches[0];
+                    const dx = touch.clientX - startX;
+                    const dy = touch.clientY - startY;
+                    modal.style.left = (initialX + dx) + 'px';
+                    modal.style.top = (initialY + dy) + 'px';
+                    modal.style.transform = 'none';
+                    modal.style.margin = '0';
+                });
+
+                document.addEventListener('touchend', () => {
+                    if (isDragging) {
+                        isDragging = false;
+                        modal.style.transition = '';
+                        setTimeout(() => { modalDragging = false; }, 100);
+                    }
+                });
+            });
+
+            // Modificar o comportamento de fechar modal ao clicar fora
+            document.querySelectorAll('.modal').forEach(modal => {
+                modal.addEventListener('click', (e) => {
+                    // Só fecha se clicou no fundo E não estava arrastando
+                    if (e.target === modal && !modalDragging) {
+                        modal.classList.remove('active');
+                    }
+                });
+            });
+        }
+
+        // Centralizar modal ao abrir
+        function centerModal(modalId) {
+            const modal = document.getElementById(modalId);
+            const content = modal.querySelector('.modal-content');
+            content.style.left = '50%';
+            content.style.top = '50%';
+            content.style.transform = 'translate(-50%, -50%)';
+            content.style.margin = '0';
+        }
+
+        // Modificar openModal para centralizar
+        const originalOpenModal = openModal;
+        openModal = function(modalId) {
+            originalOpenModal(modalId);
+            setTimeout(() => centerModal(modalId), 10);
+        };
+
+        // Inicializar arrastar após carregar
+        document.addEventListener('DOMContentLoaded', initDraggableModals);
+
+        // Inicializar
+        init();
+        initDraggableModals();
+    </script>
+</body>
+</html>
