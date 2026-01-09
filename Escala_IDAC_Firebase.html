@@ -1708,8 +1708,9 @@
                     <div class="item-list-item">
                         <span>${nome} ${telefone ? '📱 ' + telefone : '<span style="color:#999;">(sem tel)</span>'}</span>
                         <div>
-                            <button onclick="editarTelefone(${i})" style="background:#25D366; margin-right:5px;">📱</button>
-                            <button onclick="removeItem('pessoas', ${i})">🗑️</button>
+                            <button onclick="editarPessoa(${i})" style="background:#FFA500; margin-right:5px;" title="Editar nome">✏️</button>
+                            <button onclick="editarTelefone(${i})" style="background:#25D366; margin-right:5px;" title="Editar telefone">📱</button>
+                            <button onclick="removeItem('pessoas', ${i})" title="Excluir">🗑️</button>
                         </div>
                     </div>
                 `;
@@ -1842,6 +1843,34 @@
             }
         }
 
+        function editarPessoa(index) {
+            const pessoa = dados.pessoas[index];
+            const nomeAtual = getNomePessoa(pessoa);
+            const novoNome = prompt(`Editar nome de "${nomeAtual}":`, nomeAtual);
+            
+            if (novoNome !== null && novoNome.trim() !== '') {
+                const novoNomeTrim = novoNome.trim();
+                
+                // Atualizar o nome na lista de pessoas
+                if (typeof pessoa === 'string') {
+                    dados.pessoas[index] = novoNomeTrim;
+                } else {
+                    dados.pessoas[index].nome = novoNomeTrim;
+                }
+                
+                // Atualizar todas as escalas que usam esse nome
+                dados.escala.forEach(item => {
+                    if (item.manha === nomeAtual) item.manha = novoNomeTrim;
+                    if (item.noite === nomeAtual) item.noite = novoNomeTrim;
+                });
+                
+                saveToStorage();
+                renderListas();
+                renderEscala();
+                showMessage('adminMessage', `Nome alterado de "${nomeAtual}" para "${novoNomeTrim}"!`, 'success');
+            }
+        }
+
         function addTipo() {
             const input = document.getElementById('novoTipo');
             const tipo = input.value.trim();
@@ -1888,8 +1917,8 @@
             }
         }
 
-        function salvarEscala() {
-            saveToStorage();
+        async function salvarEscala() {
+            await saveToStorage();
             renderEscala();
             verificarLembretes();
             showMessage('adminMessage', 'Escala salva com sucesso!', 'success');
