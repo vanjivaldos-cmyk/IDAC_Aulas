@@ -1754,21 +1754,15 @@
             erroDiv.style.display = 'none';
             
             try {
+                // Definir persistência LOCAL (mantém login mesmo fechando navegador)
+                await auth.setPersistence(firebase.auth.Auth.Persistence.LOCAL);
                 await auth.signInWithEmailAndPassword(email, senha);
                 // Login bem sucedido - o listener onAuthStateChanged vai cuidar do resto
             } catch (error) {
                 console.error('Erro no login:', error);
-                let mensagem = '❌ Erro ao fazer login';
-                if (error.code === 'auth/user-not-found') {
-                    mensagem = '❌ Usuário não encontrado';
-                } else if (error.code === 'auth/wrong-password') {
-                    mensagem = '❌ Senha incorreta';
-                } else if (error.code === 'auth/invalid-email') {
-                    mensagem = '❌ E-mail inválido';
-                } else if (error.code === 'auth/too-many-requests') {
-                    mensagem = '❌ Muitas tentativas. Aguarde um momento.';
-                }
-                erroDiv.textContent = mensagem;
+                // Mostrar erro COMPLETO na tela para debug
+                let mensagem = '❌ Erro: ' + error.code + '\n' + error.message;
+                erroDiv.innerHTML = mensagem.replace('\n', '<br><small style="color:#666;">') + '</small>';
                 erroDiv.style.display = 'block';
             }
         }
