@@ -1347,15 +1347,29 @@
 
         async function carregarDadosFirebase() {
             try {
+                console.log('🔄 Carregando dados do Firebase...');
                 const snapshot = await escalaRef.once('value');
+                console.log('📦 Snapshot existe?', snapshot.exists());
+                
                 if (snapshot.exists()) {
                     dados = snapshot.val();
-                    // Garantir que arrays existam
+                    console.log('📊 Dados carregados:', dados);
+                    console.log('📋 Escala:', dados.escala);
+                    
+                    // Garantir que arrays existam e não estejam vazios
                     if (!dados.datas) dados.datas = [];
-                    if (!dados.pessoas) dados.pessoas = getDadosIniciais().pessoas;
-                    if (!dados.tipos) dados.tipos = ['EBD', 'Celebração'];
-                    if (!dados.temas) dados.temas = ['Esgotamento Espiritual', 'Livre'];
-                    if (!dados.escala) dados.escala = getDadosIniciais().escala;
+                    if (!dados.pessoas || (Array.isArray(dados.pessoas) && dados.pessoas.length === 0)) {
+                        dados.pessoas = getDadosIniciais().pessoas;
+                    }
+                    if (!dados.tipos || (Array.isArray(dados.tipos) && dados.tipos.length === 0)) {
+                        dados.tipos = ['EBD', 'Celebração'];
+                    }
+                    if (!dados.temas || (Array.isArray(dados.temas) && dados.temas.length === 0)) {
+                        dados.temas = ['Esgotamento Espiritual', 'Livre'];
+                    }
+                    if (!dados.escala || (Array.isArray(dados.escala) && dados.escala.length === 0)) {
+                        dados.escala = getDadosIniciais().escala;
+                    }
                     if (!dados.enviados) dados.enviados = [];
                     
                     // Converter objetos para arrays se necessário
@@ -1365,11 +1379,20 @@
                     if (!Array.isArray(dados.temas)) dados.temas = Object.values(dados.temas);
                     if (!Array.isArray(dados.escala)) dados.escala = Object.values(dados.escala);
                     if (!Array.isArray(dados.enviados)) dados.enviados = Object.values(dados.enviados);
+                    
+                    // Verificação final - se escala ainda estiver vazia, usar dados iniciais
+                    if (dados.escala.length === 0) {
+                        dados.escala = getDadosIniciais().escala;
+                    }
                 } else {
                     // Dados iniciais - salvar no Firebase
                     dados = getDadosIniciais();
                     await saveToFirebase();
                 }
+                
+                // IMPORTANTE: Resetar filtro ao carregar
+                filtroAtivo = null;
+                dadosOriginaisBackup = null;
                 
                 migratePessoasIfNeeded();
                 firebaseCarregado = true;
@@ -1647,21 +1670,28 @@
             const tbody = document.getElementById('escalaBody');
             
             tbody.innerHTML = dados.escala.map(item => {
-                // Verificar se deve mostrar manhã e/ou noite baseado no filtro
+                // Verificar se deve mostrar este item baseado no filtro
+                let mostrarItem = true;
                 let mostrarManha = true;
                 let mostrarNoite = true;
                 
                 // Só aplicar filtro se existir e não for "todos"
                 if (filtroAtivo && filtroAtivo.tipo && filtroAtivo.tipo !== 'todos') {
-                    if (filtroAtivo.tipo === 'ministrante') {
+                    if (filtroAtivo.tipo === 'mes') {
+                        // Filtro por mês - verificar se a data contém o mês
+                        mostrarItem = item.data && item.data.toLowerCase().includes(filtroAtivo.valor.toLowerCase());
+                    } else if (filtroAtivo.tipo === 'ministrante') {
                         mostrarManha = item.manha === filtroAtivo.valor;
                         mostrarNoite = item.noite === filtroAtivo.valor;
+                        mostrarItem = mostrarManha || mostrarNoite;
                     } else if (filtroAtivo.tipo === 'periodo') {
                         mostrarManha = filtroAtivo.valor === 'manha';
                         mostrarNoite = filtroAtivo.valor === 'noite';
                     }
-                    // Para filtro por mês, mostrar ambos (já filtrado nos dados)
                 }
+                
+                // Se item não passa no filtro, não mostrar
+                if (!mostrarItem) return '';
                 
                 // Se ambos ocultos por filtro de ministrante/periodo, não mostrar
                 if (!mostrarManha && !mostrarNoite) return '';
@@ -1711,12 +1741,34 @@
 
         function renderResumo() {
             const resumoMap = new Map();
+            
             dados.escala.forEach(item => {
-                if (item.manha && item.manha !== '-') {
+                // Verificar se deve considerar manhã e/ou noite baseado no filtro
+                let considerarManha = true;
+                let considerarNoite = true;
+                
+                if (filtroAtivo && filtroAtivo.tipo && filtroAtivo.tipo !== 'todos') {
+                    if (filtroAtivo.tipo === 'mes') {
+                        // Filtro por mês - verificar se a data contém o mês
+                        const passaFiltroMes = item.data && item.data.toLowerCase().includes(filtroAtivo.valor.toLowerCase());
+                        if (!passaFiltroMes) {
+                            considerarManha = false;
+                            considerarNoite = false;
+                        }
+                    } else if (filtroAtivo.tipo === 'ministrante') {
+                        considerarManha = item.manha === filtroAtivo.valor;
+                        considerarNoite = item.noite === filtroAtivo.valor;
+                    } else if (filtroAtivo.tipo === 'periodo') {
+                        considerarManha = filtroAtivo.valor === 'manha';
+                        considerarNoite = filtroAtivo.valor === 'noite';
+                    }
+                }
+                
+                if (considerarManha && item.manha && item.manha !== '-') {
                     if (!resumoMap.has(item.manha)) resumoMap.set(item.manha, { manha: [], noite: [] });
                     resumoMap.get(item.manha).manha.push(item.data);
                 }
-                if (item.noite && item.noite !== '-') {
+                if (considerarNoite && item.noite && item.noite !== '-') {
                     if (!resumoMap.has(item.noite)) resumoMap.set(item.noite, { manha: [], noite: [] });
                     resumoMap.get(item.noite).noite.push(item.data);
                 }
@@ -2029,10 +2081,15 @@
         }
 
         async function salvarEscala() {
-            await saveToStorage();
-            renderEscala();
-            verificarLembretes();
-            showMessage('adminMessage', 'Escala salva com sucesso!', 'success');
+            try {
+                await saveToStorage();
+                renderEscala();
+                verificarLembretes();
+                showMessage('adminMessage', 'Escala salva com sucesso!', 'success');
+            } catch (error) {
+                console.error('Erro ao salvar:', error);
+                showMessage('adminMessage', 'Erro ao salvar, mas dados locais atualizados', 'warning');
+            }
             closeModal('modalEditar');
         }
 
@@ -2387,8 +2444,6 @@ Bp. Vanjivaldo - IDAC`;
 
         // ==================== FILTRO ====================
 
-        let dadosOriginaisBackup = null;
-
         function atualizarOpcoesFiltroView() {
             const tipoFiltro = document.getElementById('tipoFiltroView').value;
             const filtroDetalhe = document.getElementById('filtroDetalheView');
@@ -2422,27 +2477,11 @@ Bp. Vanjivaldo - IDAC`;
             const tipoFiltro = document.getElementById('tipoFiltroView').value;
             const valorFiltro = document.getElementById('valorFiltroView').value;
 
-            if (!dadosOriginaisBackup) dadosOriginaisBackup = [...dados.escala];
-
-            // Guardar filtro ativo
-            filtroAtivo = { tipo: tipoFiltro, valor: valorFiltro };
-
+            // Apenas guardar o filtro - NÃO modificar dados.escala
             if (tipoFiltro === 'todos') {
-                dados.escala = [...dadosOriginaisBackup];
                 filtroAtivo = null;
-            } else if (tipoFiltro === 'mes') {
-                dados.escala = dadosOriginaisBackup.filter(item => item.data && item.data.toLowerCase().includes(valorFiltro.toLowerCase()));
-            } else if (tipoFiltro === 'ministrante') {
-                dados.escala = dadosOriginaisBackup.filter(item => 
-                    (item.manha && item.manha === valorFiltro) || 
-                    (item.noite && item.noite === valorFiltro)
-                );
-            } else if (tipoFiltro === 'periodo') {
-                dados.escala = dadosOriginaisBackup.filter(item => {
-                    if (valorFiltro === 'manha') return item.manha;
-                    if (valorFiltro === 'noite') return item.noite;
-                    return true;
-                });
+            } else {
+                filtroAtivo = { tipo: tipoFiltro, valor: valorFiltro };
             }
 
             renderEscala();
@@ -2450,7 +2489,6 @@ Bp. Vanjivaldo - IDAC`;
         }
 
         function limparFiltroView() {
-            if (dadosOriginaisBackup) dados.escala = [...dadosOriginaisBackup];
             filtroAtivo = null;
             document.getElementById('tipoFiltroView').value = 'todos';
             document.getElementById('filtroDetalheView').style.display = 'none';
