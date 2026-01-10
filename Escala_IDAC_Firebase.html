@@ -1044,7 +1044,12 @@
             </div>
             <div class="form-group">
                 <label>Nome:</label>
-                <input type="text" id="nomePessoa" placeholder="Nome da pessoa">
+                <div style="position: relative;">
+                    <input type="text" id="nomePessoa" placeholder="Nome da pessoa" oninput="verificarNomeExistente()" autocomplete="off">
+                    <div id="sugestaoNome" style="position:absolute;top:100%;left:0;right:0;background:#fff3cd;color:#856404;padding:8px 12px;border-radius:0 0 8px 8px;display:none;font-size:0.9rem;border:1px solid #ffc107;border-top:none;">
+                        ⚠️ <span id="sugestaoTexto"></span>
+                    </div>
+                </div>
             </div>
             <div class="form-group">
                 <label>Telefone (WhatsApp):</label>
@@ -1177,7 +1182,20 @@
                         <div class="icon">🔔</div>
                         <div class="label">Lembrete (5 dias)</div>
                     </div>
+                    <div class="tipo-mensagem-btn" id="btnLivre" onclick="selecionarTipoMensagem('livre')">
+                        <div class="icon">✏️</div>
+                        <div class="label">Livre Edição</div>
+                    </div>
                 </div>
+            </div>
+
+            <!-- Textarea para edição livre -->
+            <div class="form-group" id="textareaLivre" style="display: none;">
+                <label>Editar Mensagem Livre:</label>
+                <p style="font-size: 0.8rem; color: #666; margin-bottom: 8px;">
+                    Use: <code>{nome}</code>, <code>{data}</code>, <code>{tema}</code>, <code>{dias}</code>, <code>{periodo}</code>
+                </p>
+                <textarea id="inputMensagemLivre" rows="8" style="width:100%;padding:10px;border:2px solid #8B2F87;border-radius:8px;font-family:inherit;resize:vertical;" onchange="atualizarMensagemLivre()" onkeyup="atualizarPreviewMensagem()"></textarea>
             </div>
 
             <div class="form-group">
@@ -1446,8 +1464,8 @@
             // Função mantida por compatibilidade - dados já carregados via Firebase
         }
 
-        function saveToStorage() {
-            saveToFirebase();
+        async function saveToStorage() {
+            return await saveToFirebase();
         }
 
         // ==================== AUTENTICAÇÃO ====================
@@ -1588,6 +1606,8 @@
             document.getElementById('previewTelefone').textContent = telefone || 'Não cadastrado';
             document.getElementById('btnConvite').classList.remove('active');
             document.getElementById('btnLembrete').classList.add('active');
+            document.getElementById('btnLivre').classList.remove('active');
+            document.getElementById('textareaLivre').style.display = 'none';
             
             atualizarPreviewMensagem();
             openModal('modalPreviewWhatsApp');
@@ -1828,7 +1848,36 @@
                     renderListas();
                     document.getElementById('nomePessoa').value = '';
                     document.getElementById('telefonePessoa').value = '';
+                    document.getElementById('sugestaoNome').style.display = 'none';
                 } else alert('Esta pessoa já está cadastrada!');
+            }
+        }
+
+        function verificarNomeExistente() {
+            const titulo = document.getElementById('tituloPessoa').value;
+            const nome = document.getElementById('nomePessoa').value.trim();
+            const sugestaoDiv = document.getElementById('sugestaoNome');
+            const sugestaoTexto = document.getElementById('sugestaoTexto');
+            
+            if (nome.length < 2) {
+                sugestaoDiv.style.display = 'none';
+                return;
+            }
+            
+            const nomeCompleto = titulo ? `${titulo} ${nome}` : nome;
+            const nomeLower = nomeCompleto.toLowerCase();
+            
+            // Buscar nomes similares
+            const similares = dados.pessoas.filter(p => {
+                const n = getNomePessoa(p).toLowerCase();
+                return n.includes(nomeLower) || nomeLower.includes(n) || n.startsWith(nomeLower.substring(0, 3));
+            }).map(p => getNomePessoa(p));
+            
+            if (similares.length > 0) {
+                sugestaoTexto.textContent = `Já existe: ${similares.slice(0, 3).join(', ')}${similares.length > 3 ? '...' : ''}`;
+                sugestaoDiv.style.display = 'block';
+            } else {
+                sugestaoDiv.style.display = 'none';
             }
         }
 
@@ -1967,6 +2016,8 @@
             document.getElementById('previewTelefone').textContent = telefone || 'Não cadastrado';
             document.getElementById('btnConvite').classList.add('active');
             document.getElementById('btnLembrete').classList.remove('active');
+            document.getElementById('btnLivre').classList.remove('active');
+            document.getElementById('textareaLivre').style.display = 'none';
             
             atualizarPreviewMensagem();
             openModal('modalPreviewWhatsApp');
@@ -1976,6 +2027,44 @@
             tipoMensagemAtual = tipo;
             document.getElementById('btnConvite').classList.toggle('active', tipo === 'convite');
             document.getElementById('btnLembrete').classList.toggle('active', tipo === 'lembrete');
+            document.getElementById('btnLivre').classList.toggle('active', tipo === 'livre');
+            
+            // Mostrar/esconder textarea de edição livre
+            const textareaLivre = document.getElementById('textareaLivre');
+            if (tipo === 'livre') {
+                textareaLivre.style.display = 'block';
+                // Carregar mensagem livre salva ou usar template padrão
+                if (!dados.mensagemLivre) {
+                    dados.mensagemLivre = `Paz do Senhor, {nome}! 🙏
+
+{mensagem_personalizada}
+
+*⏳ Faltam {dias} dia(s) para esse momento!*
+
+Deus abençoe!
+Bp. Vanjivaldo - IDAC`;
+                }
+                document.getElementById('inputMensagemLivre').value = dados.mensagemLivre;
+            } else {
+                textareaLivre.style.display = 'none';
+            }
+            
+            atualizarPreviewMensagem();
+        }
+
+        function calcularDiasFaltantes(data) {
+            const mesesNum = { 'jan': 0, 'fev': 1, 'mar': 2, 'abr': 3, 'mai': 4, 'jun': 5, 'jul': 6, 'ago': 7, 'set': 8, 'out': 9, 'nov': 10, 'dez': 11 };
+            const [dia, mes] = data.split('/');
+            const dataEvento = new Date(2026, mesesNum[mes.toLowerCase()], parseInt(dia));
+            const hoje = new Date();
+            hoje.setHours(0, 0, 0, 0);
+            const diffDias = Math.ceil((dataEvento - hoje) / (1000 * 60 * 60 * 24));
+            return diffDias;
+        }
+
+        function atualizarMensagemLivre() {
+            dados.mensagemLivre = document.getElementById('inputMensagemLivre').value;
+            saveToStorage();
             atualizarPreviewMensagem();
         }
 
@@ -1986,6 +2075,7 @@
             const mesesNum = { 'jan': '01', 'fev': '02', 'mar': '03', 'abr': '04', 'mai': '05', 'jun': '06', 'jul': '07', 'ago': '08', 'set': '09', 'out': '10', 'nov': '11', 'dez': '12' };
             const [dia, mes] = data.split('/');
             const dataCompleta = `${dia}/${mesesNum[mes.toLowerCase()]}/2026`;
+            const diasFaltantes = calcularDiasFaltantes(data);
 
             let mensagem = '';
 
@@ -2019,14 +2109,17 @@ Deus abençoe,
 Bispo Vanjivaldo
 IDAC`;
                 }
-            } else {
-                // Mensagem de lembrete (curta)
+            } else if (tipoMensagemAtual === 'lembrete') {
+                // Mensagem de lembrete (curta) com dias faltantes
                 if (periodo === 'manha') {
                     mensagem = `Paz do Senhor, ${nome}! 🙏
 Passando para lembrar que neste domingo, ${dataCompleta}, você ministrará na EBD às 9h30.
 *📖 Tema:* "${tema}"
 Qualquer dúvida, estou à disposição!
 Deus abençoe sua preparação!
+
+*_⏳ Faltam ${diasFaltantes} dia(s) para esse momento!_*
+
 Bp. Vanjivaldo - IDAC`;
                 } else {
                     mensagem = `Paz do Senhor, ${nome}! 🙏
@@ -2034,8 +2127,19 @@ Passando para lembrar que neste domingo, ${dataCompleta}, você ministrará no C
 *📖 Tema:* ${tema}
 Qualquer dúvida, estou à disposição!
 Deus abençoe sua preparação!
+
+*_⏳ Faltam ${diasFaltantes} dia(s) para esse momento!_*
+
 Bp. Vanjivaldo - IDAC`;
                 }
+            } else if (tipoMensagemAtual === 'livre') {
+                // Mensagem livre - substituir variáveis
+                mensagem = (dados.mensagemLivre || '')
+                    .replace(/{nome}/g, nome)
+                    .replace(/{data}/g, dataCompleta)
+                    .replace(/{tema}/g, tema || 'Livre')
+                    .replace(/{dias}/g, diasFaltantes)
+                    .replace(/{periodo}/g, periodo === 'manha' ? 'EBD 9h30' : 'Celebração 18h');
             }
 
             mensagemAtual.mensagem = mensagem;
@@ -2245,6 +2349,7 @@ Bp. Vanjivaldo - IDAC`;
         // ==================== ARRASTAR MODAIS ====================
 
         let modalDragging = false;
+        let modalResizing = false;
 
         function initDraggableModals() {
             document.querySelectorAll('.modal-content').forEach(modal => {
@@ -2253,6 +2358,21 @@ Bp. Vanjivaldo - IDAC`;
 
                 let isDragging = false;
                 let startX, startY, initialX, initialY;
+
+                // Detectar resize
+                modal.addEventListener('mousedown', (e) => {
+                    const rect = modal.getBoundingClientRect();
+                    const isNearEdge = (e.clientX > rect.right - 20) || (e.clientY > rect.bottom - 20);
+                    if (isNearEdge) {
+                        modalResizing = true;
+                    }
+                });
+
+                document.addEventListener('mouseup', () => {
+                    if (modalResizing) {
+                        setTimeout(() => { modalResizing = false; }, 300);
+                    }
+                });
 
                 header.addEventListener('mousedown', (e) => {
                     if (e.target.closest('.modal-btn-action')) return;
@@ -2282,8 +2402,8 @@ Bp. Vanjivaldo - IDAC`;
                     if (isDragging) {
                         isDragging = false;
                         modal.style.transition = '';
-                        // Delay para evitar que o clique feche o modal
-                        setTimeout(() => { modalDragging = false; }, 100);
+                        // Delay maior para evitar que o clique feche o modal
+                        setTimeout(() => { modalDragging = false; }, 300);
                     }
                 });
 
@@ -2316,7 +2436,7 @@ Bp. Vanjivaldo - IDAC`;
                     if (isDragging) {
                         isDragging = false;
                         modal.style.transition = '';
-                        setTimeout(() => { modalDragging = false; }, 100);
+                        setTimeout(() => { modalDragging = false; }, 300);
                     }
                 });
             });
@@ -2324,8 +2444,8 @@ Bp. Vanjivaldo - IDAC`;
             // Modificar o comportamento de fechar modal ao clicar fora
             document.querySelectorAll('.modal').forEach(modal => {
                 modal.addEventListener('click', (e) => {
-                    // Só fecha se clicou no fundo E não estava arrastando
-                    if (e.target === modal && !modalDragging) {
+                    // Só fecha se clicou no fundo E não estava arrastando E não estava redimensionando
+                    if (e.target === modal && !modalDragging && !modalResizing) {
                         modal.classList.remove('active');
                     }
                 });
