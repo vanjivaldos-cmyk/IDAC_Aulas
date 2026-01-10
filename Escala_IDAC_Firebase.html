@@ -1280,6 +1280,9 @@
         const SENHA_ADMIN = 'idac2026';
         const DIAS_LEMBRETE = 5;
         
+        let filtroAtivo = null;
+        let dadosOriginaisBackup = null;
+        
         let dados = {
             datas: [],
             pessoas: [
@@ -1642,17 +1645,65 @@
 
         function renderEscala() {
             const tbody = document.getElementById('escalaBody');
-            tbody.innerHTML = dados.escala.map(item => `
-                <tr class="row-manha">
-                    <td class="data-cell" rowspan="2">${item.data}</td>
-                    <td><span class="turno-label">☀️ Manhã</span>${item.manha || '-'}</td>
-                    <td>${item.tema || '-'}</td>
-                </tr>
-                <tr class="row-noite">
-                    <td><span class="turno-label">🌙 Noite</span>${item.noite || '-'}</td>
-                    <td>${item.tema2 || '-'}</td>
-                </tr>
-            `).join('');
+            
+            tbody.innerHTML = dados.escala.map(item => {
+                // Verificar se deve mostrar manhã e/ou noite baseado no filtro
+                let mostrarManha = true;
+                let mostrarNoite = true;
+                
+                if (filtroAtivo) {
+                    if (filtroAtivo.tipo === 'ministrante') {
+                        mostrarManha = item.manha === filtroAtivo.valor;
+                        mostrarNoite = item.noite === filtroAtivo.valor;
+                    } else if (filtroAtivo.tipo === 'periodo') {
+                        mostrarManha = filtroAtivo.valor === 'manha';
+                        mostrarNoite = filtroAtivo.valor === 'noite';
+                    }
+                }
+                
+                // Se ambos ocultos, não mostrar nada (não deveria acontecer)
+                if (!mostrarManha && !mostrarNoite) return '';
+                
+                // Se mostrar ambos (normal ou filtro por mês)
+                if (mostrarManha && mostrarNoite) {
+                    return `
+                        <tr class="row-manha">
+                            <td class="data-cell" rowspan="2">${item.data}</td>
+                            <td><span class="turno-label">☀️ Manhã</span>${item.manha || '-'}</td>
+                            <td>${item.tema || '-'}</td>
+                        </tr>
+                        <tr class="row-noite">
+                            <td><span class="turno-label">🌙 Noite</span>${item.noite || '-'}</td>
+                            <td>${item.tema2 || '-'}</td>
+                        </tr>
+                    `;
+                }
+                
+                // Se mostrar só manhã
+                if (mostrarManha) {
+                    return `
+                        <tr class="row-manha">
+                            <td class="data-cell">${item.data}</td>
+                            <td><span class="turno-label">☀️ Manhã</span>${item.manha || '-'}</td>
+                            <td>${item.tema || '-'}</td>
+                        </tr>
+                    `;
+                }
+                
+                // Se mostrar só noite
+                if (mostrarNoite) {
+                    return `
+                        <tr class="row-noite">
+                            <td class="data-cell">${item.data}</td>
+                            <td><span class="turno-label">🌙 Noite</span>${item.noite || '-'}</td>
+                            <td>${item.tema2 || '-'}</td>
+                        </tr>
+                    `;
+                }
+                
+                return '';
+            }).join('');
+            
             renderResumo();
         }
 
@@ -2091,7 +2142,9 @@ Bp. Vanjivaldo - IDAC`;
                 btn.style.background = '#8B2F87';
                 textarea.focus();
             } else {
-                // Voltar para preview
+                // Voltar para preview - SALVAR o texto editado antes
+                mensagemAtual.mensagem = textarea.value;
+                preview.textContent = mensagemAtual.mensagem;
                 preview.style.display = 'block';
                 textarea.style.display = 'none';
                 btn.textContent = '✏️ Editar';
@@ -2369,8 +2422,12 @@ Bp. Vanjivaldo - IDAC`;
 
             if (!dadosOriginaisBackup) dadosOriginaisBackup = [...dados.escala];
 
+            // Guardar filtro ativo
+            filtroAtivo = { tipo: tipoFiltro, valor: valorFiltro };
+
             if (tipoFiltro === 'todos') {
                 dados.escala = [...dadosOriginaisBackup];
+                filtroAtivo = null;
             } else if (tipoFiltro === 'mes') {
                 dados.escala = dadosOriginaisBackup.filter(item => item.data && item.data.toLowerCase().includes(valorFiltro.toLowerCase()));
             } else if (tipoFiltro === 'ministrante') {
@@ -2379,11 +2436,11 @@ Bp. Vanjivaldo - IDAC`;
                     (item.noite && item.noite === valorFiltro)
                 );
             } else if (tipoFiltro === 'periodo') {
-                if (valorFiltro === 'manha') {
-                    dados.escala = dadosOriginaisBackup.filter(item => item.manha);
-                } else if (valorFiltro === 'noite') {
-                    dados.escala = dadosOriginaisBackup.filter(item => item.noite);
-                }
+                dados.escala = dadosOriginaisBackup.filter(item => {
+                    if (valorFiltro === 'manha') return item.manha;
+                    if (valorFiltro === 'noite') return item.noite;
+                    return true;
+                });
             }
 
             renderEscala();
@@ -2392,6 +2449,7 @@ Bp. Vanjivaldo - IDAC`;
 
         function limparFiltroView() {
             if (dadosOriginaisBackup) dados.escala = [...dadosOriginaisBackup];
+            filtroAtivo = null;
             document.getElementById('tipoFiltroView').value = 'todos';
             document.getElementById('filtroDetalheView').style.display = 'none';
             renderEscala();
