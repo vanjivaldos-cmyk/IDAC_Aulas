@@ -1651,7 +1651,8 @@
                 let mostrarManha = true;
                 let mostrarNoite = true;
                 
-                if (filtroAtivo) {
+                // Só aplicar filtro se existir e não for "todos"
+                if (filtroAtivo && filtroAtivo.tipo && filtroAtivo.tipo !== 'todos') {
                     if (filtroAtivo.tipo === 'ministrante') {
                         mostrarManha = item.manha === filtroAtivo.valor;
                         mostrarNoite = item.noite === filtroAtivo.valor;
@@ -1659,9 +1660,10 @@
                         mostrarManha = filtroAtivo.valor === 'manha';
                         mostrarNoite = filtroAtivo.valor === 'noite';
                     }
+                    // Para filtro por mês, mostrar ambos (já filtrado nos dados)
                 }
                 
-                // Se ambos ocultos, não mostrar nada (não deveria acontecer)
+                // Se ambos ocultos por filtro de ministrante/periodo, não mostrar
                 if (!mostrarManha && !mostrarNoite) return '';
                 
                 // Se mostrar ambos (normal ou filtro por mês)
