@@ -1191,16 +1191,18 @@
 
             <!-- Textarea para edição livre -->
             <div class="form-group" id="textareaLivre" style="display: none;">
-                <label>Editar Mensagem Livre:</label>
                 <p style="font-size: 0.8rem; color: #666; margin-bottom: 8px;">
                     Use: <code>{nome}</code>, <code>{data}</code>, <code>{tema}</code>, <code>{dias}</code>, <code>{periodo}</code>
                 </p>
-                <textarea id="inputMensagemLivre" rows="8" style="width:100%;padding:10px;border:2px solid #8B2F87;border-radius:8px;font-family:inherit;resize:vertical;" onchange="atualizarMensagemLivre()" onkeyup="atualizarPreviewMensagem()"></textarea>
             </div>
 
             <div class="form-group">
-                <label>Mensagem:</label>
+                <label style="display: flex; justify-content: space-between; align-items: center;">
+                    Mensagem:
+                    <button type="button" onclick="toggleEditarMensagem()" id="btnEditarMsg" style="background: #FFA500; color: white; border: none; padding: 5px 10px; border-radius: 5px; cursor: pointer; font-size: 0.8rem;">✏️ Editar</button>
+                </label>
                 <div class="message-preview" id="previewMensagem"></div>
+                <textarea id="textareaMensagemEditavel" rows="10" style="width:100%;padding:10px;border:2px solid #8B2F87;border-radius:8px;font-family:inherit;resize:vertical;display:none;" onkeyup="atualizarMensagemEditada()"></textarea>
             </div>
 
             <div style="text-align: center; margin-top: 20px;">
@@ -1601,6 +1603,7 @@
                 tipo: 'lembrete'
             };
             tipoMensagemAtual = 'lembrete';
+            modoEdicaoMensagem = false;
             
             document.getElementById('previewDestinatario').textContent = nome;
             document.getElementById('previewTelefone').textContent = telefone || 'Não cadastrado';
@@ -1608,6 +1611,12 @@
             document.getElementById('btnLembrete').classList.add('active');
             document.getElementById('btnLivre').classList.remove('active');
             document.getElementById('textareaLivre').style.display = 'none';
+            
+            // Resetar modo edição
+            document.getElementById('previewMensagem').style.display = 'block';
+            document.getElementById('textareaMensagemEditavel').style.display = 'none';
+            document.getElementById('btnEditarMsg').textContent = '✏️ Editar';
+            document.getElementById('btnEditarMsg').style.background = '#FFA500';
             
             atualizarPreviewMensagem();
             openModal('modalPreviewWhatsApp');
@@ -2011,6 +2020,7 @@
         function prepararMensagem(nome, data, periodo, tema, telefone) {
             mensagemAtual = { nome, data, periodo, tema, telefone };
             tipoMensagemAtual = 'convite';
+            modoEdicaoMensagem = false;
             
             document.getElementById('previewDestinatario').textContent = nome;
             document.getElementById('previewTelefone').textContent = telefone || 'Não cadastrado';
@@ -2018,6 +2028,12 @@
             document.getElementById('btnLembrete').classList.remove('active');
             document.getElementById('btnLivre').classList.remove('active');
             document.getElementById('textareaLivre').style.display = 'none';
+            
+            // Resetar modo edição
+            document.getElementById('previewMensagem').style.display = 'block';
+            document.getElementById('textareaMensagemEditavel').style.display = 'none';
+            document.getElementById('btnEditarMsg').textContent = '✏️ Editar';
+            document.getElementById('btnEditarMsg').style.background = '#FFA500';
             
             atualizarPreviewMensagem();
             openModal('modalPreviewWhatsApp');
@@ -2029,7 +2045,7 @@
             document.getElementById('btnLembrete').classList.toggle('active', tipo === 'lembrete');
             document.getElementById('btnLivre').classList.toggle('active', tipo === 'livre');
             
-            // Mostrar/esconder textarea de edição livre
+            // Mostrar/esconder dica de variáveis para tipo livre
             const textareaLivre = document.getElementById('textareaLivre');
             if (tipo === 'livre') {
                 textareaLivre.style.display = 'block';
@@ -2044,12 +2060,54 @@
 Deus abençoe!
 Bp. Vanjivaldo - IDAC`;
                 }
-                document.getElementById('inputMensagemLivre').value = dados.mensagemLivre;
             } else {
                 textareaLivre.style.display = 'none';
             }
             
+            // Resetar modo de edição
+            modoEdicaoMensagem = false;
+            document.getElementById('previewMensagem').style.display = 'block';
+            document.getElementById('textareaMensagemEditavel').style.display = 'none';
+            document.getElementById('btnEditarMsg').textContent = '✏️ Editar';
+            document.getElementById('btnEditarMsg').style.background = '#FFA500';
+            
             atualizarPreviewMensagem();
+        }
+
+        let modoEdicaoMensagem = false;
+
+        function toggleEditarMensagem() {
+            modoEdicaoMensagem = !modoEdicaoMensagem;
+            const preview = document.getElementById('previewMensagem');
+            const textarea = document.getElementById('textareaMensagemEditavel');
+            const btn = document.getElementById('btnEditarMsg');
+            
+            if (modoEdicaoMensagem) {
+                // Entrar no modo edição
+                textarea.value = mensagemAtual.mensagem;
+                preview.style.display = 'none';
+                textarea.style.display = 'block';
+                btn.textContent = '👁️ Preview';
+                btn.style.background = '#8B2F87';
+                textarea.focus();
+            } else {
+                // Voltar para preview
+                preview.style.display = 'block';
+                textarea.style.display = 'none';
+                btn.textContent = '✏️ Editar';
+                btn.style.background = '#FFA500';
+            }
+        }
+
+        function atualizarMensagemEditada() {
+            const textarea = document.getElementById('textareaMensagemEditavel');
+            mensagemAtual.mensagem = textarea.value;
+            
+            // Se for tipo livre, salvar como template para próximas vezes
+            if (tipoMensagemAtual === 'livre') {
+                dados.mensagemLivre = textarea.value;
+                saveToStorage();
+            }
         }
 
         function calcularDiasFaltantes(data) {
@@ -2060,12 +2118,6 @@ Bp. Vanjivaldo - IDAC`;
             hoje.setHours(0, 0, 0, 0);
             const diffDias = Math.ceil((dataEvento - hoje) / (1000 * 60 * 60 * 24));
             return diffDias;
-        }
-
-        function atualizarMensagemLivre() {
-            dados.mensagemLivre = document.getElementById('inputMensagemLivre').value;
-            saveToStorage();
-            atualizarPreviewMensagem();
         }
 
         function atualizarPreviewMensagem() {
@@ -2321,6 +2373,17 @@ Bp. Vanjivaldo - IDAC`;
                 dados.escala = [...dadosOriginaisBackup];
             } else if (tipoFiltro === 'mes') {
                 dados.escala = dadosOriginaisBackup.filter(item => item.data && item.data.toLowerCase().includes(valorFiltro.toLowerCase()));
+            } else if (tipoFiltro === 'ministrante') {
+                dados.escala = dadosOriginaisBackup.filter(item => 
+                    (item.manha && item.manha === valorFiltro) || 
+                    (item.noite && item.noite === valorFiltro)
+                );
+            } else if (tipoFiltro === 'periodo') {
+                if (valorFiltro === 'manha') {
+                    dados.escala = dadosOriginaisBackup.filter(item => item.manha);
+                } else if (valorFiltro === 'noite') {
+                    dados.escala = dadosOriginaisBackup.filter(item => item.noite);
+                }
             }
 
             renderEscala();
