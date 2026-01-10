@@ -993,9 +993,26 @@
         };
         
         // Inicializar Firebase
-        firebase.initializeApp(firebaseConfig);
+        let firebaseInitError = null;
+        try {
+            firebase.initializeApp(firebaseConfig);
+        } catch(e) {
+            firebaseInitError = e;
+        }
+        
         const auth = firebase.auth();
         const database = firebase.database();
+        
+        // Mostrar erro de inicialização se houver
+        if (firebaseInitError) {
+            setTimeout(() => {
+                const erroDiv = document.getElementById('loginErro');
+                if (erroDiv) {
+                    erroDiv.innerHTML = '❌ Erro Firebase Init: ' + firebaseInitError.message;
+                    erroDiv.style.display = 'block';
+                }
+            }, 1000);
+        }
         
         // Variável para controlar autenticação
         let usuarioAutenticado = false;
@@ -1751,18 +1768,27 @@
                 return;
             }
             
-            erroDiv.style.display = 'none';
+            erroDiv.innerHTML = '⏳ Tentando login...';
+            erroDiv.style.display = 'block';
+            erroDiv.style.background = '#e3f2fd';
+            erroDiv.style.color = '#1565c0';
             
             try {
                 // Definir persistência LOCAL (mantém login mesmo fechando navegador)
                 await auth.setPersistence(firebase.auth.Auth.Persistence.LOCAL);
                 await auth.signInWithEmailAndPassword(email, senha);
-                // Login bem sucedido - o listener onAuthStateChanged vai cuidar do resto
+                erroDiv.innerHTML = '✅ Login OK!';
+                erroDiv.style.background = '#d4edda';
+                erroDiv.style.color = '#155724';
             } catch (error) {
                 console.error('Erro no login:', error);
-                // Mostrar erro COMPLETO na tela para debug
-                let mensagem = '❌ Erro: ' + error.code + '\n' + error.message;
-                erroDiv.innerHTML = mensagem.replace('\n', '<br><small style="color:#666;">') + '</small>';
+                // Mostrar TUDO sobre o erro
+                erroDiv.style.background = '#fee';
+                erroDiv.style.color = '#c00';
+                erroDiv.innerHTML = `❌ ERRO<br>
+                    <b>Código:</b> ${error.code || 'N/A'}<br>
+                    <b>Mensagem:</b> ${error.message || 'N/A'}<br>
+                    <b>Nome:</b> ${error.name || 'N/A'}`;
                 erroDiv.style.display = 'block';
             }
         }
