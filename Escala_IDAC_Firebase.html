@@ -264,6 +264,190 @@
         .periodo-manha { background: #FFD700; color: #333; }
         .periodo-noite { background: #4A4A8A; color: white; }
 
+        /* Estatísticas Dashboard */
+        .stats-dashboard {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+        .stat-card {
+            background: rgba(139, 47, 135, 0.1);
+            border-radius: 12px;
+            padding: 15px;
+            text-align: center;
+            border: 2px solid rgba(139, 47, 135, 0.2);
+        }
+        .stat-card .stat-value {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #8B2F87;
+        }
+        .stat-card .stat-label {
+            color: #666;
+            font-size: 0.8rem;
+            margin-top: 5px;
+        }
+        .stat-card.verde .stat-value { color: #22c55e; }
+        .stat-card.verde { border-color: rgba(34, 197, 94, 0.3); background: rgba(34, 197, 94, 0.1); }
+        .stat-card.vermelho .stat-value { color: #ef4444; }
+        .stat-card.vermelho { border-color: rgba(239, 68, 68, 0.3); background: rgba(239, 68, 68, 0.1); }
+        .stat-card.azul .stat-value { color: #3b82f6; }
+        .stat-card.azul { border-color: rgba(59, 130, 246, 0.3); background: rgba(59, 130, 246, 0.1); }
+
+        /* Tabela de Ranking */
+        .ranking-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+            font-size: 0.9rem;
+        }
+        .ranking-table th {
+            background: linear-gradient(135deg, #8B2F87 0%, #5D1A54 100%);
+            color: white;
+            padding: 10px;
+            text-align: left;
+        }
+        .ranking-table td {
+            padding: 10px;
+            border-bottom: 1px solid #eee;
+        }
+        .ranking-table tr:hover {
+            background: rgba(139, 47, 135, 0.05);
+        }
+        .badge-taxa {
+            display: inline-block;
+            padding: 3px 10px;
+            border-radius: 12px;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+        .badge-taxa.verde { background: rgba(34, 197, 94, 0.2); color: #16a34a; }
+        .badge-taxa.amarelo { background: rgba(245, 158, 11, 0.2); color: #d97706; }
+        .badge-taxa.vermelho { background: rgba(239, 68, 68, 0.2); color: #dc2626; }
+
+        /* Cumprimento */
+        .cumprimento-list {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            max-height: 400px;
+            overflow-y: auto;
+        }
+        .cumprimento-item {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 12px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 15px;
+            border: 1px solid #eee;
+        }
+        .cumprimento-item .info {
+            flex: 1;
+        }
+        .cumprimento-item .nome {
+            color: #8B2F87;
+            font-weight: bold;
+        }
+        .cumprimento-item .atividade {
+            color: #666;
+            font-size: 0.85rem;
+        }
+        .cumprimento-toggle {
+            display: flex;
+            gap: 8px;
+        }
+        .cumprimento-toggle button {
+            padding: 8px 15px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 0.9rem;
+            transition: all 0.2s;
+            opacity: 0.5;
+        }
+        .cumprimento-toggle button.active {
+            opacity: 1;
+            transform: scale(1.05);
+        }
+        .cumprimento-toggle .btn-sim {
+            background: #22c55e;
+            color: white;
+        }
+        .cumprimento-toggle .btn-nao {
+            background: #ef4444;
+            color: white;
+        }
+        .cumprimento-toggle .btn-pendente {
+            background: #6b7280;
+            color: white;
+        }
+
+        /* Filtros período */
+        .filtro-periodo {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-bottom: 15px;
+            align-items: center;
+        }
+        .filtro-periodo label {
+            color: #666;
+            font-size: 0.85rem;
+        }
+        .filtro-periodo select {
+            padding: 8px 12px;
+            border-radius: 8px;
+            border: 1px solid #ddd;
+            background: white;
+            font-size: 0.9rem;
+        }
+        .filtro-periodo button {
+            padding: 8px 15px;
+            border: none;
+            border-radius: 8px;
+            background: #8B2F87;
+            color: white;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        
+        /* Info culto */
+        .info-culto-cumprimento {
+            text-align: center;
+            padding: 12px;
+            background: linear-gradient(135deg, rgba(139, 47, 135, 0.1), rgba(93, 26, 84, 0.1));
+            border-radius: 10px;
+            margin-bottom: 15px;
+            border: 1px solid rgba(139, 47, 135, 0.2);
+        }
+        .info-culto-cumprimento .data {
+            color: #8B2F87;
+            font-weight: bold;
+            font-size: 1.1rem;
+        }
+        .info-culto-cumprimento .turno {
+            color: #666;
+            font-size: 0.9rem;
+        }
+        
+        /* Seletor de data para cumprimento */
+        .seletor-data-cumprimento {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+        .seletor-data-cumprimento select {
+            padding: 10px;
+            border-radius: 8px;
+            border: 1px solid #ddd;
+            font-size: 0.95rem;
+        }
+
         /* Modal */
         .modal {
             display: none;
@@ -907,6 +1091,14 @@
                     <div class="icon">📤</div>
                     <h3>Exportar To-Do</h3>
                 </div>
+                <div class="admin-menu-item" onclick="openModal('modalEstatisticas')" style="background: linear-gradient(135deg, #ec4899 0%, #be185d 100%);">
+                    <div class="icon">📊</div>
+                    <h3>Estatísticas</h3>
+                </div>
+                <div class="admin-menu-item" onclick="openModal('modalCumprimento')" style="background: linear-gradient(135deg, #14b8a6 0%, #0d9488 100%);">
+                    <div class="icon">✅</div>
+                    <h3>Cumprimento</h3>
+                </div>
             </div>
         </div>
 
@@ -1247,6 +1439,156 @@
                 <button class="btn btn-todo" onclick="exportarParaTodo()">📥 Baixar JSON</button>
                 <button class="btn btn-secondary" onclick="closeModal('modalExportTodo')">Cancelar</button>
             </div>
+        </div>
+    </div>
+
+    <!-- Modal de Estatísticas -->
+    <div class="modal" id="modalEstatisticas">
+        <div class="modal-content" style="max-width: 900px;">
+            <div class="modal-header">
+                <h2>📊 Estatísticas de Participação</h2>
+                <div class="modal-header-actions">
+                    <button class="modal-btn-action close-btn" onclick="closeModal('modalEstatisticas')">✕</button>
+                </div>
+            </div>
+            
+            <!-- Filtros -->
+            <div class="filtro-periodo">
+                <label>Período:</label>
+                <select id="filtroMesEstat" onchange="carregarEstatisticas()">
+                    <option value="">Todos</option>
+                    <option value="jan">Janeiro</option>
+                    <option value="fev">Fevereiro</option>
+                    <option value="mar">Março</option>
+                    <option value="abr">Abril</option>
+                    <option value="mai">Maio</option>
+                    <option value="jun">Junho</option>
+                    <option value="jul">Julho</option>
+                    <option value="ago">Agosto</option>
+                    <option value="set">Setembro</option>
+                    <option value="out">Outubro</option>
+                    <option value="nov">Novembro</option>
+                    <option value="dez">Dezembro</option>
+                </select>
+                <button onclick="carregarEstatisticas()">🔄 Atualizar</button>
+                <button onclick="exportarEstatisticasPDF()" style="background: #ef4444;">📄 Exportar PDF</button>
+            </div>
+            
+            <!-- Dashboard Cards -->
+            <div class="stats-dashboard" id="statsDashboard">
+                <div class="stat-card">
+                    <div class="stat-value" id="statTotalEscalas">0</div>
+                    <div class="stat-label">Total de Escalas</div>
+                </div>
+                <div class="stat-card verde">
+                    <div class="stat-value" id="statTotalCumpridos">0</div>
+                    <div class="stat-label">Cumpridos</div>
+                </div>
+                <div class="stat-card vermelho">
+                    <div class="stat-value" id="statTotalAusencias">0</div>
+                    <div class="stat-label">Ausências</div>
+                </div>
+                <div class="stat-card azul">
+                    <div class="stat-value" id="statTaxaGeral">0%</div>
+                    <div class="stat-label">Taxa Geral</div>
+                </div>
+            </div>
+            
+            <!-- Ranking de Participação -->
+            <h4 style="color: #8B2F87; margin-bottom: 15px;">🏆 Ranking de Participação</h4>
+            <div style="max-height: 350px; overflow-y: auto;">
+                <table class="ranking-table" id="rankingTable">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Ministrante</th>
+                            <th>Escalado</th>
+                            <th>Cumpriu</th>
+                            <th>Ausências</th>
+                            <th>Taxa</th>
+                        </tr>
+                    </thead>
+                    <tbody id="rankingBody">
+                        <!-- Preenchido via JS -->
+                    </tbody>
+                </table>
+            </div>
+            
+            <!-- Resumo Visual por Ministrante -->
+            <h4 style="color: #1E5128; margin: 25px 0 15px; display: flex; align-items: center; gap: 10px;">
+                📊 Resumo por Ministrante
+            </h4>
+            <div class="table-container resumo-table" style="max-height: 400px; overflow-y: auto;">
+                <table id="resumoEstatTable">
+                    <thead>
+                        <tr>
+                            <th style="background: linear-gradient(135deg, #1E5128 0%, #4E9F3D 100%);">Ministrante</th>
+                            <th style="background: linear-gradient(135deg, #1E5128 0%, #4E9F3D 100%);">Datas</th>
+                            <th style="background: linear-gradient(135deg, #1E5128 0%, #4E9F3D 100%);">Período</th>
+                        </tr>
+                    </thead>
+                    <tbody id="resumoEstatBody">
+                        <!-- Preenchido via JS -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal de Cumprimento -->
+    <div class="modal" id="modalCumprimento">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>✅ Marcar Cumprimento da Escala</h2>
+                <div class="modal-header-actions">
+                    <button class="modal-btn-action close-btn" onclick="closeModal('modalCumprimento')">✕</button>
+                </div>
+            </div>
+            
+            <!-- Seletor de Data -->
+            <div class="seletor-data-cumprimento">
+                <select id="dataCumprimento" onchange="carregarCumprimento()">
+                    <option value="">Selecione uma data...</option>
+                </select>
+                <select id="turnoCumprimento" onchange="carregarCumprimento()">
+                    <option value="ambos">☀️🌙 Ambos turnos</option>
+                    <option value="manha">☀️ Manhã</option>
+                    <option value="noite">🌙 Noite</option>
+                </select>
+            </div>
+            
+            <div class="info-culto-cumprimento" id="infoCultoCumprimento">
+                <span class="data">Selecione uma data para marcar o cumprimento</span>
+            </div>
+            
+            <!-- Resumo rápido -->
+            <div class="stats-dashboard" style="grid-template-columns: repeat(3, 1fr); margin-bottom: 15px;">
+                <div class="stat-card verde" style="padding: 10px;">
+                    <div class="stat-value" style="font-size: 1.5rem;" id="cumprimentoSim">0</div>
+                    <div class="stat-label">Cumpriram ✅</div>
+                </div>
+                <div class="stat-card vermelho" style="padding: 10px;">
+                    <div class="stat-value" style="font-size: 1.5rem;" id="cumprimentoNao">0</div>
+                    <div class="stat-label">Ausentes ❌</div>
+                </div>
+                <div class="stat-card" style="padding: 10px;">
+                    <div class="stat-value" style="font-size: 1.5rem;" id="cumprimentoPendente">0</div>
+                    <div class="stat-label">Pendentes ⏳</div>
+                </div>
+            </div>
+            
+            <!-- Ações rápidas -->
+            <div style="display: flex; gap: 10px; margin-bottom: 15px;">
+                <button onclick="marcarTodosCumprimento('sim')" style="flex: 1; padding: 10px; background: #22c55e; color: white; border: none; border-radius: 8px; cursor: pointer; font-weight: bold;">✅ Todos Cumpriram</button>
+                <button onclick="marcarTodosCumprimento('pendente')" style="flex: 1; padding: 10px; background: #6b7280; color: white; border: none; border-radius: 8px; cursor: pointer; font-weight: bold;">🔄 Resetar</button>
+            </div>
+            
+            <!-- Lista de escalados para marcar cumprimento -->
+            <div class="cumprimento-list" id="cumprimentoList">
+                <!-- Preenchido via JS -->
+            </div>
+            
+            <button class="btn" style="width: 100%; margin-top: 15px; background: #f59e0b;" onclick="salvarCumprimento()">💾 Salvar Cumprimento</button>
         </div>
     </div>
 
@@ -2636,6 +2978,506 @@ Bp. Vanjivaldo - IDAC`;
         // Inicializar
         init();
         initDraggableModals();
+
+        // ========================================
+        // SISTEMA DE ESTATÍSTICAS E CUMPRIMENTO
+        // ========================================
+        
+        // Referência Firebase para cumprimentos
+        const cumprimentosRef = database.ref('escala_cumprimento');
+        
+        // Cache de cumprimentos
+        let cumprimentosCache = {};
+        
+        // Carregar cumprimentos do Firebase
+        function carregarCumprimentosFirebase() {
+            cumprimentosRef.once('value').then(snapshot => {
+                cumprimentosCache = snapshot.val() || {};
+                console.log('Cumprimentos carregados:', Object.keys(cumprimentosCache).length);
+            }).catch(err => {
+                console.log('Erro ao carregar cumprimentos:', err);
+            });
+        }
+        
+        // Carregar ao iniciar (após Firebase estar pronto)
+        setTimeout(carregarCumprimentosFirebase, 2000);
+        
+        // Abrir modal de estatísticas
+        function abrirModalEstatisticas() {
+            carregarEstatisticas();
+        }
+        
+        // Carregar estatísticas
+        function carregarEstatisticas() {
+            const mesFiltro = document.getElementById('filtroMesEstat').value;
+            
+            // Filtrar escalas por mês se necessário
+            let escalasFiltradas = dados.escala;
+            if (mesFiltro) {
+                escalasFiltradas = dados.escala.filter(item => {
+                    return item.data && item.data.toLowerCase().includes(mesFiltro);
+                });
+            }
+            
+            processarEstatisticas(escalasFiltradas);
+        }
+        
+        // Processar e exibir estatísticas
+        function processarEstatisticas(escalas) {
+            const estatisticas = {};
+            let totalEscalas = 0;
+            let totalCumpridos = 0;
+            let totalAusencias = 0;
+            
+            // Processar cada escala
+            escalas.forEach(item => {
+                const chave = item.data.replace(/\//g, '_');
+                const cumprimento = cumprimentosCache[chave] || {};
+                
+                // Manhã
+                if (item.manha) {
+                    totalEscalas++;
+                    if (!estatisticas[item.manha]) {
+                        estatisticas[item.manha] = { nome: item.manha, escalado: 0, cumpriu: 0, ausente: 0 };
+                    }
+                    estatisticas[item.manha].escalado++;
+                    
+                    const statusManha = cumprimento['manha'];
+                    if (statusManha === 'sim') {
+                        estatisticas[item.manha].cumpriu++;
+                        totalCumpridos++;
+                    } else if (statusManha === 'nao') {
+                        estatisticas[item.manha].ausente++;
+                        totalAusencias++;
+                    }
+                }
+                
+                // Noite
+                if (item.noite) {
+                    totalEscalas++;
+                    if (!estatisticas[item.noite]) {
+                        estatisticas[item.noite] = { nome: item.noite, escalado: 0, cumpriu: 0, ausente: 0 };
+                    }
+                    estatisticas[item.noite].escalado++;
+                    
+                    const statusNoite = cumprimento['noite'];
+                    if (statusNoite === 'sim') {
+                        estatisticas[item.noite].cumpriu++;
+                        totalCumpridos++;
+                    } else if (statusNoite === 'nao') {
+                        estatisticas[item.noite].ausente++;
+                        totalAusencias++;
+                    }
+                }
+            });
+            
+            // Atualizar dashboard
+            document.getElementById('statTotalEscalas').textContent = totalEscalas;
+            document.getElementById('statTotalCumpridos').textContent = totalCumpridos;
+            document.getElementById('statTotalAusencias').textContent = totalAusencias;
+            
+            const total = totalCumpridos + totalAusencias;
+            const taxaGeral = total > 0 ? Math.round((totalCumpridos / total) * 100) : 0;
+            document.getElementById('statTaxaGeral').textContent = taxaGeral + '%';
+            
+            // Renderizar ranking
+            renderizarRanking(estatisticas);
+        }
+        
+        // Renderizar tabela de ranking
+        function renderizarRanking(estatisticas) {
+            const tbody = document.getElementById('rankingBody');
+            
+            // Converter para array e ordenar por escalado
+            const ranking = Object.values(estatisticas)
+                .sort((a, b) => b.escalado - a.escalado);
+            
+            if (ranking.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="6" style="text-align: center; color: #666;">Nenhum dado encontrado no período</td></tr>';
+                return;
+            }
+            
+            tbody.innerHTML = ranking.map((pessoa, index) => {
+                const totalAvaliado = pessoa.cumpriu + pessoa.ausente;
+                const taxa = totalAvaliado > 0 ? Math.round((pessoa.cumpriu / totalAvaliado) * 100) : null;
+                
+                let badgeClass = 'verde';
+                if (taxa !== null) {
+                    if (taxa < 50) badgeClass = 'vermelho';
+                    else if (taxa < 80) badgeClass = 'amarelo';
+                }
+                
+                const taxaDisplay = taxa !== null ? `<span class="badge-taxa ${badgeClass}">${taxa}%</span>` : '<span style="color: #999;">-</span>';
+                
+                return `
+                    <tr>
+                        <td style="color: #8B2F87; font-weight: bold;">${index + 1}º</td>
+                        <td>${pessoa.nome}</td>
+                        <td style="text-align: center;">${pessoa.escalado}</td>
+                        <td style="text-align: center; color: #22c55e;">${pessoa.cumpriu}</td>
+                        <td style="text-align: center; color: #ef4444;">${pessoa.ausente}</td>
+                        <td style="text-align: center;">${taxaDisplay}</td>
+                    </tr>
+                `;
+            }).join('');
+            
+            // Renderizar também o resumo visual
+            renderizarResumoEstat();
+        }
+        
+        // Renderizar resumo visual por ministrante (igual ao da página principal)
+        function renderizarResumoEstat() {
+            const mesFiltro = document.getElementById('filtroMesEstat').value;
+            const resumoMap = new Map();
+            
+            // Filtrar escalas por mês se necessário
+            let escalasFiltradas = dados.escala;
+            if (mesFiltro) {
+                escalasFiltradas = dados.escala.filter(item => {
+                    return item.data && item.data.toLowerCase().includes(mesFiltro);
+                });
+            }
+            
+            escalasFiltradas.forEach(item => {
+                // Manhã
+                if (item.manha) {
+                    if (!resumoMap.has(item.manha)) {
+                        resumoMap.set(item.manha, { datas: [], manha: 0, noite: 0 });
+                    }
+                    const info = resumoMap.get(item.manha);
+                    info.datas.push({ data: item.data, periodo: 'manha' });
+                    info.manha++;
+                }
+                
+                // Noite
+                if (item.noite) {
+                    if (!resumoMap.has(item.noite)) {
+                        resumoMap.set(item.noite, { datas: [], manha: 0, noite: 0 });
+                    }
+                    const info = resumoMap.get(item.noite);
+                    info.datas.push({ data: item.data, periodo: 'noite' });
+                    info.noite++;
+                }
+            });
+            
+            const tbody = document.getElementById('resumoEstatBody');
+            
+            if (resumoMap.size === 0) {
+                tbody.innerHTML = '<tr><td colspan="3" style="text-align: center; color: #666;">Nenhum dado encontrado</td></tr>';
+                return;
+            }
+            
+            // Ordenar por total de escalas
+            const sortedResumo = Array.from(resumoMap.entries())
+                .sort((a, b) => (b[1].manha + b[1].noite) - (a[1].manha + a[1].noite));
+            
+            tbody.innerHTML = sortedResumo.map(([nome, info], index) => {
+                const total = info.manha + info.noite;
+                
+                // Formatar datas com ícones
+                const datasHTML = info.datas.map(d => {
+                    const icone = d.periodo === 'manha' ? '☀️' : '🌙';
+                    return `<span class="periodo-badge ${d.periodo === 'manha' ? 'periodo-manha' : 'periodo-noite'}">${icone} ${d.data}</span>`;
+                }).join(' ');
+                
+                // Badges de período
+                let periodoHTML = '';
+                if (info.manha > 0) {
+                    periodoHTML += `<span class="periodo-badge periodo-manha">☀️ Manhã (${info.manha})</span> `;
+                }
+                if (info.noite > 0) {
+                    periodoHTML += `<span class="periodo-badge periodo-noite">🌙 Noite (${info.noite})</span>`;
+                }
+                
+                const bgColor = index % 2 === 0 ? '#D8E9A8' : '#f8f9fa';
+                
+                return `
+                    <tr class="row-resumo">
+                        <td style="background: ${bgColor};">
+                            <div class="ministrante-cell">
+                                <span class="ministrante-nome">${nome}</span>
+                                <span class="qtd-badge">${total}x</span>
+                            </div>
+                        </td>
+                        <td style="background: ${bgColor};">${datasHTML}</td>
+                        <td style="background: ${bgColor};">${periodoHTML}</td>
+                    </tr>
+                `;
+            }).join('');
+        }
+        
+        // Abrir modal de cumprimento
+        function abrirModalCumprimento() {
+            // Preencher select de datas
+            const select = document.getElementById('dataCumprimento');
+            select.innerHTML = '<option value="">Selecione uma data...</option>' +
+                dados.escala.map(item => `<option value="${item.data}">${item.data}</option>`).join('');
+            
+            // Limpar lista
+            document.getElementById('cumprimentoList').innerHTML = '<p style="text-align: center; color: #666;">Selecione uma data acima</p>';
+            document.getElementById('cumprimentoSim').textContent = '0';
+            document.getElementById('cumprimentoNao').textContent = '0';
+            document.getElementById('cumprimentoPendente').textContent = '0';
+            document.getElementById('infoCultoCumprimento').innerHTML = '<span class="data">Selecione uma data para marcar o cumprimento</span>';
+        }
+        
+        // Carregar cumprimento para data selecionada
+        function carregarCumprimento() {
+            const data = document.getElementById('dataCumprimento').value;
+            const turno = document.getElementById('turnoCumprimento').value;
+            
+            if (!data) {
+                document.getElementById('cumprimentoList').innerHTML = '<p style="text-align: center; color: #666;">Selecione uma data acima</p>';
+                return;
+            }
+            
+            // Encontrar escala da data
+            const escala = dados.escala.find(item => item.data === data);
+            if (!escala) {
+                document.getElementById('cumprimentoList').innerHTML = '<p style="text-align: center; color: #666;">Data não encontrada</p>';
+                return;
+            }
+            
+            // Atualizar info
+            document.getElementById('infoCultoCumprimento').innerHTML = `
+                <div class="data">📅 ${data}</div>
+                <div class="turno">${turno === 'manha' ? '☀️ Manhã' : turno === 'noite' ? '🌙 Noite' : '☀️ Manhã + 🌙 Noite'}</div>
+            `;
+            
+            // Carregar cumprimento salvo
+            const chave = data.replace(/\//g, '_');
+            const cumprimentoSalvo = cumprimentosCache[chave] || {};
+            
+            let countSim = 0, countNao = 0, countPendente = 0;
+            let itensHTML = '';
+            
+            // Manhã
+            if ((turno === 'ambos' || turno === 'manha') && escala.manha) {
+                const statusManha = cumprimentoSalvo['manha'] || 'pendente';
+                if (statusManha === 'sim') countSim++;
+                else if (statusManha === 'nao') countNao++;
+                else countPendente++;
+                
+                itensHTML += `
+                    <div class="cumprimento-item" data-turno="manha">
+                        <div class="info">
+                            <div class="nome">${escala.manha}</div>
+                            <div class="atividade">☀️ Manhã - ${escala.tema || 'Livre'}</div>
+                        </div>
+                        <div class="cumprimento-toggle">
+                            <button class="btn-sim ${statusManha === 'sim' ? 'active' : ''}" onclick="toggleCumprimentoEscala('manha', 'sim')">✅</button>
+                            <button class="btn-nao ${statusManha === 'nao' ? 'active' : ''}" onclick="toggleCumprimentoEscala('manha', 'nao')">❌</button>
+                            <button class="btn-pendente ${statusManha === 'pendente' ? 'active' : ''}" onclick="toggleCumprimentoEscala('manha', 'pendente')">⏳</button>
+                        </div>
+                    </div>
+                `;
+            }
+            
+            // Noite
+            if ((turno === 'ambos' || turno === 'noite') && escala.noite) {
+                const statusNoite = cumprimentoSalvo['noite'] || 'pendente';
+                if (statusNoite === 'sim') countSim++;
+                else if (statusNoite === 'nao') countNao++;
+                else countPendente++;
+                
+                itensHTML += `
+                    <div class="cumprimento-item" data-turno="noite">
+                        <div class="info">
+                            <div class="nome">${escala.noite}</div>
+                            <div class="atividade">🌙 Noite - ${escala.tema2 || 'Livre'}</div>
+                        </div>
+                        <div class="cumprimento-toggle">
+                            <button class="btn-sim ${statusNoite === 'sim' ? 'active' : ''}" onclick="toggleCumprimentoEscala('noite', 'sim')">✅</button>
+                            <button class="btn-nao ${statusNoite === 'nao' ? 'active' : ''}" onclick="toggleCumprimentoEscala('noite', 'nao')">❌</button>
+                            <button class="btn-pendente ${statusNoite === 'pendente' ? 'active' : ''}" onclick="toggleCumprimentoEscala('noite', 'pendente')">⏳</button>
+                        </div>
+                    </div>
+                `;
+            }
+            
+            document.getElementById('cumprimentoList').innerHTML = itensHTML || '<p style="text-align: center; color: #666;">Nenhum ministrante neste turno</p>';
+            document.getElementById('cumprimentoSim').textContent = countSim;
+            document.getElementById('cumprimentoNao').textContent = countNao;
+            document.getElementById('cumprimentoPendente').textContent = countPendente;
+        }
+        
+        // Toggle status de cumprimento
+        function toggleCumprimentoEscala(turno, status) {
+            const data = document.getElementById('dataCumprimento').value;
+            if (!data) return;
+            
+            const chave = data.replace(/\//g, '_');
+            
+            // Atualizar cache local
+            if (!cumprimentosCache[chave]) {
+                cumprimentosCache[chave] = {};
+            }
+            cumprimentosCache[chave][turno] = status;
+            
+            // Atualizar visual
+            const item = document.querySelector(`.cumprimento-item[data-turno="${turno}"]`);
+            if (item) {
+                item.querySelectorAll('.cumprimento-toggle button').forEach(btn => btn.classList.remove('active'));
+                item.querySelector(`.btn-${status === 'sim' ? 'sim' : status === 'nao' ? 'nao' : 'pendente'}`).classList.add('active');
+            }
+            
+            // Atualizar contadores
+            atualizarContadoresCumprimento();
+        }
+        
+        // Marcar todos com um status
+        function marcarTodosCumprimento(status) {
+            const data = document.getElementById('dataCumprimento').value;
+            const turno = document.getElementById('turnoCumprimento').value;
+            
+            if (!data) {
+                showMessage('adminMessage', 'Selecione uma data primeiro!', 'error');
+                return;
+            }
+            
+            const chave = data.replace(/\//g, '_');
+            const escala = dados.escala.find(item => item.data === data);
+            
+            if (!cumprimentosCache[chave]) {
+                cumprimentosCache[chave] = {};
+            }
+            
+            if ((turno === 'ambos' || turno === 'manha') && escala.manha) {
+                cumprimentosCache[chave]['manha'] = status;
+            }
+            if ((turno === 'ambos' || turno === 'noite') && escala.noite) {
+                cumprimentosCache[chave]['noite'] = status;
+            }
+            
+            carregarCumprimento();
+            showMessage('adminMessage', status === 'sim' ? 'Todos marcados como cumpridos!' : 'Status resetado!', 'success');
+        }
+        
+        // Atualizar contadores
+        function atualizarContadoresCumprimento() {
+            const data = document.getElementById('dataCumprimento').value;
+            const turno = document.getElementById('turnoCumprimento').value;
+            
+            if (!data) return;
+            
+            const chave = data.replace(/\//g, '_');
+            const cumprimento = cumprimentosCache[chave] || {};
+            const escala = dados.escala.find(item => item.data === data);
+            
+            let countSim = 0, countNao = 0, countPendente = 0;
+            
+            if ((turno === 'ambos' || turno === 'manha') && escala && escala.manha) {
+                const status = cumprimento['manha'] || 'pendente';
+                if (status === 'sim') countSim++;
+                else if (status === 'nao') countNao++;
+                else countPendente++;
+            }
+            
+            if ((turno === 'ambos' || turno === 'noite') && escala && escala.noite) {
+                const status = cumprimento['noite'] || 'pendente';
+                if (status === 'sim') countSim++;
+                else if (status === 'nao') countNao++;
+                else countPendente++;
+            }
+            
+            document.getElementById('cumprimentoSim').textContent = countSim;
+            document.getElementById('cumprimentoNao').textContent = countNao;
+            document.getElementById('cumprimentoPendente').textContent = countPendente;
+        }
+        
+        // Salvar cumprimento no Firebase
+        function salvarCumprimento() {
+            const data = document.getElementById('dataCumprimento').value;
+            
+            if (!data) {
+                showMessage('adminMessage', 'Selecione uma data primeiro!', 'error');
+                return;
+            }
+            
+            const chave = data.replace(/\//g, '_');
+            const cumprimento = cumprimentosCache[chave] || {};
+            
+            cumprimentosRef.child(chave).set(cumprimento)
+                .then(() => {
+                    showMessage('adminMessage', 'Cumprimento salvo com sucesso!', 'success');
+                    closeModal('modalCumprimento');
+                })
+                .catch(err => {
+                    showMessage('adminMessage', 'Erro ao salvar: ' + err.message, 'error');
+                });
+        }
+        
+        // Exportar estatísticas em PDF (usando window.print simplificado)
+        function exportarEstatisticasPDF() {
+            const mesFiltro = document.getElementById('filtroMesEstat').value;
+            const mesesNomes = { 'jan': 'Janeiro', 'fev': 'Fevereiro', 'mar': 'Março', 'abr': 'Abril', 'mai': 'Maio', 'jun': 'Junho', 'jul': 'Julho', 'ago': 'Agosto', 'set': 'Setembro', 'out': 'Outubro', 'nov': 'Novembro', 'dez': 'Dezembro' };
+            const periodo = mesFiltro ? mesesNomes[mesFiltro] : 'Todos';
+            
+            // Capturar dados
+            const totalEscalas = document.getElementById('statTotalEscalas').textContent;
+            const totalCumpridos = document.getElementById('statTotalCumpridos').textContent;
+            const totalAusencias = document.getElementById('statTotalAusencias').textContent;
+            const taxaGeral = document.getElementById('statTaxaGeral').textContent;
+            const rankingHTML = document.getElementById('rankingTable').outerHTML;
+            
+            // Criar janela de impressão
+            const printWindow = window.open('', '_blank');
+            printWindow.document.write(`
+                <!DOCTYPE html>
+                <html>
+                <head>
+                    <title>Estatísticas IDAC - ${periodo}</title>
+                    <style>
+                        body { font-family: Arial, sans-serif; padding: 20px; }
+                        h1 { color: #8B2F87; text-align: center; }
+                        .stats { display: flex; justify-content: space-around; margin: 20px 0; }
+                        .stat-box { text-align: center; padding: 15px 25px; border: 2px solid #8B2F87; border-radius: 10px; }
+                        .stat-box .value { font-size: 28px; font-weight: bold; color: #8B2F87; }
+                        .stat-box .label { font-size: 12px; color: #666; }
+                        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+                        th { background: #8B2F87; color: white; padding: 10px; }
+                        td { padding: 8px; border-bottom: 1px solid #ddd; }
+                        .footer { text-align: center; margin-top: 30px; color: #666; font-size: 11px; }
+                    </style>
+                </head>
+                <body>
+                    <h1>📊 Relatório de Estatísticas - IDAC</h1>
+                    <p style="text-align: center; color: #666;">Período: ${periodo}</p>
+                    
+                    <div class="stats">
+                        <div class="stat-box"><div class="value">${totalEscalas}</div><div class="label">Escalas</div></div>
+                        <div class="stat-box" style="border-color: #22c55e;"><div class="value" style="color: #22c55e;">${totalCumpridos}</div><div class="label">Cumpridos</div></div>
+                        <div class="stat-box" style="border-color: #ef4444;"><div class="value" style="color: #ef4444;">${totalAusencias}</div><div class="label">Ausências</div></div>
+                        <div class="stat-box" style="border-color: #3b82f6;"><div class="value" style="color: #3b82f6;">${taxaGeral}</div><div class="label">Taxa Geral</div></div>
+                    </div>
+                    
+                    <h3 style="color: #8B2F87;">🏆 Ranking de Participação</h3>
+                    ${rankingHTML}
+                    
+                    <div class="footer">
+                        Gerado em ${new Date().toLocaleString('pt-BR')} | Igreja de Deus Águas Claras
+                    </div>
+                </body>
+                </html>
+            `);
+            printWindow.document.close();
+            printWindow.focus();
+            setTimeout(() => printWindow.print(), 500);
+            
+            showMessage('adminMessage', 'Relatório aberto para impressão!', 'success');
+        }
+        
+        // Adicionar handlers para abrir modais de estatísticas e cumprimento
+        const originalOpenModal2 = openModal;
+        openModal = function(modalId) {
+            if (modalId === 'modalEstatisticas') {
+                abrirModalEstatisticas();
+            } else if (modalId === 'modalCumprimento') {
+                abrirModalCumprimento();
+            }
+            originalOpenModal2(modalId);
+            setTimeout(() => centerModal(modalId), 10);
+        };
     </script>
 </body>
 </html>
