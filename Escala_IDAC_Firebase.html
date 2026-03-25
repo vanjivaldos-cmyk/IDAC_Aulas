@@ -2197,9 +2197,9 @@
             const sidebar = document.getElementById('resumoSidebar');
             if (sidebar) {
                 // Cores por cargo
-                const cargoColor = {'Bp.':'#ffd700','Ep.':'#ffd700','Pb.':'#38bdf8','Pr.':'#34d399','Pra.':'#f472b6','Prof.':'#a78bfa','Dc.':'#fb923c','Dca.':'#fb923c'};
+                const cargoColor = {'Dr.':'#60a5fa','Dra.':'#60a5fa','Bp.':'#ffd700','Pr.':'#34d399','Pra.':'#f472b6','Ev.':'#ff7043','Miss.':'#c084fc','Pb.':'#38bdf8','Dc.':'#fb923c','Dca.':'#fb923c','Prof.':'#a78bfa'};
                 const parseNome = n => {
-                    const m = n.match(/^(Bp\.|Ep\.|Pb\.|Pr\.|Pra\.|Prof\.|Dc\.|Dca\.)\s*(.+)/i);
+                    const m = n.match(/^(Dr\\.|Dra\\.|Bp\\.|Pr\\.|Pra\\.|Ev\\.|Miss\\.|Pb\\.|Dc\\.|Dca\\.|Prof\\.)\\s*(.+)/i);
                     if (m) return { titulo: m[1], resto: m[2] };
                     return { titulo: '', resto: n };
                 };
