@@ -18,7 +18,7 @@
             color: #333;
         }
 
-        /* Header — estilo alinhado com o Calendário IDAC */
+        /* Header */
         .header {
             background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
             color: white;
@@ -41,17 +41,17 @@
             height: 100px;
             border-radius: 50%;
             background: transparent;
+            filter: drop-shadow(0 4px 15px rgba(255,215,0,0.4));
             flex-shrink: 0;
             display: flex;
             align-items: center;
             justify-content: center;
             overflow: hidden;
-            filter: drop-shadow(0 4px 15px rgba(255,215,0,0.4));
         }
 
         .header-logo {
-            width: 100px;
-            height: 100px;
+            width: 72px;
+            height: 72px;
             object-fit: contain;
         }
 
@@ -83,6 +83,7 @@
         .header h1 {
             font-size: 1.8rem;
             margin-bottom: 5px;
+            color: #ffd700;
         }
 
         .header p {
@@ -141,60 +142,83 @@
             50% { transform: scale(1.1); }
         }
 
-        /* ===== NOVO LAYOUT CARDS ===== */
-        .escala-container { margin-top: 20px; }
-        .mes-bloco { margin-bottom: 28px; }
-        .mes-header { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
-        .mes-nome { font-size: 15px; font-weight: 600; color: #ffd700; white-space: nowrap; }
-        .mes-linha { flex: 1; height: 1px; background: rgba(255,215,0,0.2); }
-        .mes-count { font-size: 11px; color: #a0a0a0; white-space: nowrap; }
-        .mes-grid { display: grid; grid-template-columns: repeat(4, minmax(0,1fr)); gap: 8px; }
-        @media (max-width: 768px) { .mes-grid { grid-template-columns: repeat(2, minmax(0,1fr)); } }
-        .domingo-card { border: 1px solid rgba(255,255,255,0.1); border-radius: 10px; overflow: hidden; background: rgba(255,255,255,0.04); }
-        .domingo-card-hdr { display: flex; align-items: center; justify-content: space-between; padding: 6px 10px; background: rgba(255,215,0,0.08); border-bottom: 1px solid rgba(255,215,0,0.15); }
-        .domingo-dia { font-size: 20px; font-weight: 600; color: #ffd700; }
-        .domingo-dom { font-size: 10px; color: #a0a0a0; }
-        .domingo-body { padding: 8px; display: flex; flex-direction: column; gap: 6px; }
-        .turno-slot { border-radius: 6px; padding: 6px 8px; }
-        .turno-slot.manha { background: rgba(245,158,11,0.12); border: 1px solid rgba(245,158,11,0.25); }
-        .turno-slot.noite { background: rgba(139,92,246,0.12); border: 1px solid rgba(139,92,246,0.25); }
-        .turno-slot-hdr { font-size: 9px; font-weight: 600; margin-bottom: 3px; }
-        .turno-slot.manha .turno-slot-hdr { color: #f59e0b; }
-        .turno-slot.noite .turno-slot-hdr { color: #8b5cf6; }
-        .turno-slot-nome { font-size: 11px; color: #e0e0e0; }
-        .turno-slot-tema { font-size: 10px; color: #a0a0a0; margin-top: 2px; }
-        .turno-slot-vazio { font-size: 11px; color: #666; font-style: italic; }
-        .resumo-grid { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 12px; }
-        @media (max-width: 600px) { .resumo-grid { grid-template-columns: 1fr; } }
-        .resumo-card { border: 1px solid rgba(255,255,255,0.1); border-radius: 10px; overflow: hidden; background: rgba(255,255,255,0.04); }
-        .resumo-card-nome { padding: 10px 14px; border-bottom: 1px solid rgba(255,255,255,0.08); background: rgba(255,255,255,0.06); font-size: 13px; font-weight: 600; color: #ffd700; }
-        .resumo-card-corpo { display: flex; }
-        .resumo-total { width: 80px; flex-shrink: 0; border-right: 1px solid rgba(255,255,255,0.08); display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 14px 8px; }
-        .resumo-total-num { font-size: 44px; font-weight: 600; color: #fff; line-height: 1; }
-        .resumo-total-lbl { font-size: 10px; color: #888; margin-top: 4px; text-align: center; }
-        .resumo-turnos { flex: 1; display: flex; flex-direction: column; }
-        .resumo-turno { flex: 1; padding: 8px 12px; }
-        .resumo-turno-m { background: rgba(245,158,11,0.08); border-bottom: 1px solid rgba(255,255,255,0.06); }
-        .resumo-turno-n { background: rgba(139,92,246,0.08); }
-        .resumo-turno-top { display: flex; align-items: baseline; gap: 6px; margin-bottom: 6px; }
-        .resumo-turno-num { font-size: 20px; font-weight: 600; line-height: 1; }
-        .resumo-turno-num-m { color: #f59e0b; }
-        .resumo-turno-num-n { color: #8b5cf6; }
-        .resumo-turno-lbl { font-size: 11px; }
-        .resumo-turno-lbl-m { color: #f59e0b; }
-        .resumo-turno-lbl-n { color: #8b5cf6; }
-        .resumo-pills { display: flex; flex-wrap: wrap; gap: 3px; }
-        .resumo-pill { font-size: 10px; padding: 2px 6px; border-radius: 8px; }
-        .resumo-pill-m { background: rgba(245,158,11,0.25); color: #fcd34d; }
-        .resumo-pill-n { background: rgba(139,92,246,0.25); color: #c4b5fd; }
-        .resumo-pill-vazio { font-size: 10px; color: #555; font-style: italic; }
-        .table-container { display: none; }
+        /* Tabela */
+        .table-container {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+            margin-top: 20px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th {
+            background: linear-gradient(135deg, #8B2F87 0%, #5D1A54 100%);
+            color: white;
+            padding: 15px 12px;
+            text-align: center;
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+
+        td {
+            padding: 14px 12px;
+            border-bottom: 1px solid #ddd;
+            text-align: center;
+            font-size: 1.05rem;
+        }
+
+        .data-cell {
+            background: linear-gradient(135deg, #5D1A54 0%, #8B2F87 100%);
+            color: white;
+            font-weight: 700;
+            font-size: 1.2rem;
+            vertical-align: middle;
+            border-right: 3px solid #fff;
+        }
+
+        .row-manha td {
+            background: linear-gradient(135deg, #C76BBF 0%, #A855A0 100%);
+            color: white;
+            font-size: 1.1rem;
+            font-weight: 500;
+        }
+
+        .row-noite td {
+            background: #f8f4f8;
+            color: #333;
+            font-size: 1.1rem;
+            font-weight: 500;
+        }
+
+        .row-noite td.data-cell {
+            background: linear-gradient(135deg, #5D1A54 0%, #8B2F87 100%);
+            color: white;
+        }
+
+        .turno-label {
+            font-weight: 600;
+            font-size: 0.8rem;
+            opacity: 0.9;
+            display: block;
+            margin-bottom: 3px;
+        }
+
+        .row-manha .turno-label { color: #FFD700; }
+        .row-noite .turno-label { color: #8B2F87; }
+
+        tr:hover td { filter: brightness(1.05); }
+        .row-noite td { border-bottom: 3px solid #8B2F87; }
 
         /* Resumo */
         .resumo-container { margin-top: 30px; }
 
         .resumo-titulo {
-            color: #ffd700;
+            color: #FFD700;
             text-align: center;
             margin-bottom: 15px;
             font-size: 1.4rem;
@@ -1003,6 +1027,100 @@
             }
             .table-container { box-shadow: none; break-inside: avoid; }
         }
+        /* ===== NOVO LAYOUT CARDS ===== */
+        .escala-wrapper { display: flex; gap: 0; align-items: flex-start; }
+        .escala-sidebar {
+            width: 68px; flex-shrink: 0;
+            background: rgba(255,255,255,0.04);
+            border-radius: 12px 0 0 12px;
+            border: 1px solid rgba(255,255,255,0.1);
+            border-right: none;
+            position: sticky; top: 10px;
+            overflow: hidden;
+        }
+        .resumo-wrapper { display: flex; gap: 0; align-items: flex-start; margin-top: 30px; }
+        .resumo-sidebar {
+            width: 90px; flex-shrink: 0;
+            background: rgba(255,255,255,0.04);
+            border-radius: 12px 0 0 12px;
+            border: 1px solid rgba(255,255,255,0.1);
+            border-right: none;
+            position: sticky; top: 10px;
+            overflow: hidden;
+        }
+        .sidebar-dica {
+            font-size: 0.55rem; color: #a0a0a0; text-align: center;
+            padding: 5px 3px; border-bottom: 1px solid rgba(255,255,255,0.07);
+            line-height: 1.3;
+        }
+        .sidebar-btn {
+            display: block; width: 100%; padding: 10px 4px;
+            background: transparent; border: none;
+            border-bottom: 1px solid rgba(255,255,255,0.07);
+            color: #a0a0a0; font-size: 0.72rem; font-weight: bold;
+            cursor: pointer; text-align: center; transition: all 0.2s;
+            position: relative;
+        }
+        .sidebar-btn:hover { background: rgba(255,215,0,0.08); color: #ffd700; }
+        .sidebar-btn.active { background: rgba(255,215,0,0.15); color: #ffd700; border-left: 3px solid #ffd700; }
+        .sidebar-check { display: none; }
+        @media (max-width: 768px) {
+            .sidebar-check {
+                display: block; position: absolute; top: 3px; right: 3px;
+                width: 13px; height: 13px; accent-color: #ffd700; cursor: pointer; z-index: 2;
+            }
+        }
+        .escala-main { flex: 1; min-width: 0; padding-left: 10px; }
+        .resumo-main { flex: 1; min-width: 0; padding-left: 10px; }
+        .escala-container { margin-top: 0; }
+        .mes-bloco { margin-bottom: 24px; }
+        .mes-header { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; }
+        .mes-nome { font-size: 15px; font-weight: 600; color: #ffd700; white-space: nowrap; }
+        .mes-linha { flex: 1; height: 1px; background: rgba(255,215,0,0.2); }
+        .mes-count { font-size: 11px; color: #a0a0a0; white-space: nowrap; }
+        .mes-grid { display: grid; grid-template-columns: repeat(4, minmax(0,1fr)); gap: 8px; }
+        @media (max-width: 768px) { .mes-grid { grid-template-columns: repeat(2, minmax(0,1fr)); } }
+        .domingo-card { border: 1px solid rgba(255,255,255,0.1); border-radius: 10px; overflow: hidden; background: rgba(255,255,255,0.04); }
+        .domingo-card-hdr { display: flex; align-items: center; justify-content: space-between; padding: 6px 10px; background: rgba(255,215,0,0.08); border-bottom: 1px solid rgba(255,215,0,0.15); }
+        .domingo-dia { font-size: 20px; font-weight: 600; color: #ffd700; }
+        .domingo-dom { font-size: 10px; color: #a0a0a0; }
+        .domingo-body { padding: 8px; display: flex; flex-direction: column; gap: 6px; }
+        .turno-slot { border-radius: 6px; padding: 6px 8px; }
+        .turno-slot.manha { background: rgba(245,158,11,0.12); border: 1px solid rgba(245,158,11,0.25); }
+        .turno-slot.noite { background: rgba(56,189,248,0.10); border: 1px solid rgba(56,189,248,0.30); }
+        .turno-slot-hdr { font-size: 9px; font-weight: 600; margin-bottom: 3px; }
+        .turno-slot.manha .turno-slot-hdr { color: #f59e0b; }
+        .turno-slot.noite .turno-slot-hdr { color: #38bdf8; }
+        .turno-slot-nome { font-size: 11px; color: #e0e0e0; }
+        .turno-slot-tema { font-size: 10px; color: #a0a0a0; margin-top: 2px; }
+        .turno-slot-vazio { font-size: 11px; color: #666; font-style: italic; }
+        /* Resumo */
+        .resumo-grid { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 12px; }
+        @media (max-width: 600px) { .resumo-grid { grid-template-columns: 1fr; } }
+        .resumo-card { border: 1px solid rgba(255,255,255,0.1); border-radius: 10px; overflow: hidden; background: rgba(255,255,255,0.04); }
+        .resumo-card-nome { padding: 10px 14px; border-bottom: 1px solid rgba(255,255,255,0.08); background: rgba(255,255,255,0.06); font-size: 13px; font-weight: 600; color: #ffd700; }
+        .resumo-card-corpo { display: flex; }
+        .resumo-total { width: 80px; flex-shrink: 0; border-right: 1px solid rgba(255,255,255,0.08); display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 14px 8px; }
+        .resumo-total-num { font-size: 44px; font-weight: 600; color: #fff; line-height: 1; }
+        .resumo-total-lbl { font-size: 10px; color: #888; margin-top: 4px; text-align: center; }
+        .resumo-turnos { flex: 1; display: flex; flex-direction: column; }
+        .resumo-turno { flex: 1; padding: 8px 12px; }
+        .resumo-turno-m { background: rgba(245,158,11,0.08); border-bottom: 1px solid rgba(255,255,255,0.06); }
+        .resumo-turno-n { background: rgba(56,189,248,0.08); }
+        .resumo-turno-top { display: flex; align-items: baseline; gap: 6px; margin-bottom: 6px; }
+        .resumo-turno-num { font-size: 20px; font-weight: 600; line-height: 1; }
+        .resumo-turno-num-m { color: #f59e0b; }
+        .resumo-turno-num-n { color: #38bdf8; }
+        .resumo-turno-lbl { font-size: 11px; }
+        .resumo-turno-lbl-m { color: #f59e0b; }
+        .resumo-turno-lbl-n { color: #38bdf8; }
+        .resumo-pills { display: flex; flex-wrap: wrap; gap: 3px; }
+        .resumo-pill { font-size: 10px; padding: 2px 6px; border-radius: 8px; }
+        .resumo-pill-m { background: rgba(245,158,11,0.25); color: #fcd34d; }
+        .resumo-pill-n { background: rgba(56,189,248,0.20); color: #7dd3fc; }
+        .resumo-pill-vazio { font-size: 10px; color: #555; font-style: italic; }
+        .table-container { display: none; }
+        .resumo-titulo { color: #ffd700; text-align: center; margin-bottom: 15px; font-size: 1.2rem; }
     </style>
 </head>
 <body>
@@ -1080,13 +1198,21 @@
             </div>
         </div>
 
-        <!-- Nova Escala em Cards -->
-        <div class="escala-container" id="escalaBody"></div>
+        <!-- Escala com Sidebar de Meses -->
+        <div class="escala-wrapper">
+            <div class="escala-sidebar" id="escalasSidebar"></div>
+            <div class="escala-main">
+                <div class="escala-container" id="escalaBody"></div>
+            </div>
+        </div>
 
-        <!-- Novo Resumo em Cards -->
-        <div class="resumo-container">
-            <h2 class="resumo-titulo">📊 Resumo por Ministrante</h2>
-            <div class="resumo-grid" id="resumoBody"></div>
+        <!-- Resumo com Sidebar de Ministrantes -->
+        <div class="resumo-wrapper">
+            <div class="resumo-sidebar" id="resumoSidebar"></div>
+            <div class="resumo-main">
+                <h2 class="resumo-titulo">📊 Resumo por Ministrante</h2>
+                <div class="resumo-grid" id="resumoBody"></div>
+            </div>
         </div>
 
         <!-- Botão Imprimir PDF -->
@@ -1598,59 +1724,15 @@
             tipos: ['EBD', 'Celebração'],
             temas: ['Esgotamento Espiritual', 'Livre'],
             escala: [
-                    { data: '04/jan', manha: 'Bp. Vanjivaldo', tema: 'Esgotamento Espiritual', noite: 'Pra. Miguelina', tema2: 'Livre' },
-                    { data: '11/jan', manha: 'Pb. José Dias', tema: 'Família de Deus', noite: 'Pra. Kélia', tema2: 'Livre' },
-                    { data: '18/jan', manha: 'Prof. Paulo', tema: 'Propósito Divino', noite: 'Pra. Maria Pereira', tema2: 'Livre' },
-                    { data: '25/jan', manha: 'Pr. Tadeu', tema: 'Fé que Move', noite: 'Pra. Neucy', tema2: 'Livre' },
-                    { data: '01/fev', manha: 'Pra. Jaqueline', tema: 'Cuidado Pastoral', noite: 'Dc. Júnio', tema2: 'Livre' },
-                    { data: '08/fev', manha: 'Pra. Miguelina', tema: 'Renovação Espiritual', noite: 'Bp. Vanjivaldo', tema2: 'Livre' },
-                    { data: '15/fev', manha: 'Pra. Kélia', tema: 'Missão da Igreja', noite: 'Pb. José Dias', tema2: 'Livre' },
-                    { data: '22/fev', manha: 'Pra. Maria Pereira', tema: 'Graça e Verdade', noite: 'Prof. Paulo', tema2: 'Livre' },
-                    { data: '01/mar', manha: 'Pra. Neucy', tema: 'Santificação', noite: 'Pr. Tadeu', tema2: 'Livre' },
-                    { data: '08/mar', manha: 'Dc. Júnio', tema: 'Livre', noite: 'Pra. Jaqueline', tema2: 'Livre' },
-                    { data: '15/mar', manha: 'Bp. Vanjivaldo', tema: 'Oração e Jejum', noite: 'Pra. Miguelina', tema2: 'Livre' },
-                    { data: '22/mar', manha: 'Pb. José Dias', tema: 'Servir com Amor', noite: 'Pra. Kélia', tema2: 'Livre' },
-                    { data: '29/mar', manha: 'Prof. Paulo', tema: 'Esgotamento Espiritual', noite: 'Pra. Maria Pereira', tema2: 'Livre' },
-                    { data: '05/abr', manha: 'Pr. Tadeu', tema: 'Família de Deus', noite: 'Pra. Neucy', tema2: 'Livre' },
-                    { data: '12/abr', manha: 'Pra. Jaqueline', tema: 'Propósito Divino', noite: 'Dc. Júnio', tema2: 'Livre' },
-                    { data: '19/abr', manha: 'Pra. Miguelina', tema: 'Fé que Move', noite: 'Bp. Vanjivaldo', tema2: 'Livre' },
-                    { data: '26/abr', manha: 'Pra. Kélia', tema: 'Cuidado Pastoral', noite: 'Pb. José Dias', tema2: 'Livre' },
-                    { data: '03/mai', manha: 'Pra. Maria Pereira', tema: 'Renovação Espiritual', noite: 'Prof. Paulo', tema2: 'Livre' },
-                    { data: '10/mai', manha: 'Pra. Neucy', tema: 'Missão da Igreja', noite: 'Pr. Tadeu', tema2: 'Livre' },
-                    { data: '17/mai', manha: 'Dc. Júnio', tema: 'Graça e Verdade', noite: 'Pra. Jaqueline', tema2: 'Livre' },
-                    { data: '24/mai', manha: 'Bp. Vanjivaldo', tema: 'Santificação', noite: 'Pra. Miguelina', tema2: 'Livre' },
-                    { data: '31/mai', manha: 'Pb. José Dias', tema: 'Livre', noite: 'Pra. Kélia', tema2: 'Livre' },
-                    { data: '07/jun', manha: 'Prof. Paulo', tema: 'Oração e Jejum', noite: 'Pra. Maria Pereira', tema2: 'Livre' },
-                    { data: '14/jun', manha: 'Pr. Tadeu', tema: 'Servir com Amor', noite: 'Pra. Neucy', tema2: 'Livre' },
-                    { data: '21/jun', manha: 'Pra. Jaqueline', tema: 'Esgotamento Espiritual', noite: 'Dc. Júnio', tema2: 'Livre' },
-                    { data: '28/jun', manha: 'Pra. Miguelina', tema: 'Família de Deus', noite: 'Bp. Vanjivaldo', tema2: 'Livre' },
-                    { data: '05/jul', manha: 'Pra. Kélia', tema: 'Propósito Divino', noite: 'Pb. José Dias', tema2: 'Livre' },
-                    { data: '12/jul', manha: 'Pra. Maria Pereira', tema: 'Fé que Move', noite: 'Prof. Paulo', tema2: 'Livre' },
-                    { data: '19/jul', manha: 'Pra. Neucy', tema: 'Cuidado Pastoral', noite: 'Pr. Tadeu', tema2: 'Livre' },
-                    { data: '26/jul', manha: 'Dc. Júnio', tema: 'Renovação Espiritual', noite: 'Pra. Jaqueline', tema2: 'Livre' },
-                    { data: '02/ago', manha: 'Bp. Vanjivaldo', tema: 'Missão da Igreja', noite: 'Pra. Miguelina', tema2: 'Livre' },
-                    { data: '09/ago', manha: 'Pb. José Dias', tema: 'Graça e Verdade', noite: 'Pra. Kélia', tema2: 'Livre' },
-                    { data: '16/ago', manha: 'Prof. Paulo', tema: 'Santificação', noite: 'Pra. Maria Pereira', tema2: 'Livre' },
-                    { data: '23/ago', manha: 'Pr. Tadeu', tema: 'Livre', noite: 'Pra. Neucy', tema2: 'Livre' },
-                    { data: '30/ago', manha: 'Pra. Jaqueline', tema: 'Oração e Jejum', noite: 'Dc. Júnio', tema2: 'Livre' },
-                    { data: '06/set', manha: 'Pra. Miguelina', tema: 'Servir com Amor', noite: 'Bp. Vanjivaldo', tema2: 'Livre' },
-                    { data: '13/set', manha: 'Pra. Kélia', tema: 'Esgotamento Espiritual', noite: 'Pb. José Dias', tema2: 'Livre' },
-                    { data: '20/set', manha: 'Pra. Maria Pereira', tema: 'Família de Deus', noite: 'Prof. Paulo', tema2: 'Livre' },
-                    { data: '27/set', manha: 'Pra. Neucy', tema: 'Propósito Divino', noite: 'Pr. Tadeu', tema2: 'Livre' },
-                    { data: '04/out', manha: 'Dc. Júnio', tema: 'Fé que Move', noite: 'Pra. Jaqueline', tema2: 'Livre' },
-                    { data: '11/out', manha: 'Bp. Vanjivaldo', tema: 'Cuidado Pastoral', noite: 'Pra. Miguelina', tema2: 'Livre' },
-                    { data: '18/out', manha: 'Pb. José Dias', tema: 'Renovação Espiritual', noite: 'Pra. Kélia', tema2: 'Livre' },
-                    { data: '25/out', manha: 'Prof. Paulo', tema: 'Missão da Igreja', noite: 'Pra. Maria Pereira', tema2: 'Livre' },
-                    { data: '01/nov', manha: 'Pr. Tadeu', tema: 'Graça e Verdade', noite: 'Pra. Neucy', tema2: 'Livre' },
-                    { data: '08/nov', manha: 'Pra. Jaqueline', tema: 'Santificação', noite: 'Dc. Júnio', tema2: 'Livre' },
-                    { data: '15/nov', manha: 'Pra. Miguelina', tema: 'Livre', noite: 'Bp. Vanjivaldo', tema2: 'Livre' },
-                    { data: '22/nov', manha: 'Pra. Kélia', tema: 'Oração e Jejum', noite: 'Pb. José Dias', tema2: 'Livre' },
-                    { data: '29/nov', manha: 'Pra. Maria Pereira', tema: 'Servir com Amor', noite: 'Prof. Paulo', tema2: 'Livre' },
-                    { data: '06/dez', manha: 'Pra. Neucy', tema: 'Esgotamento Espiritual', noite: 'Pr. Tadeu', tema2: 'Livre' },
-                    { data: '13/dez', manha: 'Dc. Júnio', tema: 'Família de Deus', noite: 'Pra. Jaqueline', tema2: 'Livre' },
-                    { data: '20/dez', manha: 'Bp. Vanjivaldo', tema: 'Propósito Divino', noite: 'Pra. Miguelina', tema2: 'Livre' },
-                    { data: '27/dez', manha: 'Pb. José Dias', tema: 'Fé que Move', noite: 'Pra. Kélia', tema2: 'Livre' }
-                ],
+                { data: '04/jan', manha: 'Pb. José Dias', tema: 'Esgotamento Espiritual', noite: 'Bp. Vanjivaldo', tema2: 'Livre' },
+                { data: '11/jan', manha: 'Prof. Paulo', tema: 'Esgotamento Espiritual', noite: 'Pra. Miguelina', tema2: 'Livre' },
+                { data: '18/jan', manha: 'Pr. Tadeu', tema: 'Esgotamento Espiritual', noite: 'Pra. Kélia', tema2: 'Livre' },
+                { data: '25/jan', manha: 'Pra. Jaqueline', tema: 'Esgotamento Espiritual', noite: 'Pra. Maria Pereira', tema2: 'Livre' },
+                { data: '01/fev', manha: 'Bp. Vanjivaldo', tema: 'Esgotamento Espiritual', noite: 'Pra. Miguelina', tema2: 'Livre' },
+                { data: '08/fev', manha: 'Dc. Júnio', tema: 'Esgotamento Espiritual', noite: 'Pra. Maria Pereira', tema2: 'Livre' },
+                { data: '15/fev', manha: 'Prof. Paulo', tema: 'Esgotamento Espiritual', noite: 'Pra. Neucy', tema2: 'Livre' },
+                { data: '22/fev', manha: 'Pb. José Dias', tema: 'Esgotamento Espiritual', noite: 'Bp. Vanjivaldo', tema2: 'Livre' }
+            ],
             enviados: [] // Controle de mensagens já enviadas
         };
 
@@ -1797,58 +1879,14 @@
                 tipos: ['EBD', 'Celebração'],
                 temas: ['Esgotamento Espiritual', 'Livre'],
                 escala: [
-                    { data: '04/jan', manha: 'Bp. Vanjivaldo', tema: 'Esgotamento Espiritual', noite: 'Pra. Miguelina', tema2: 'Livre' },
-                    { data: '11/jan', manha: 'Pb. José Dias', tema: 'Família de Deus', noite: 'Pra. Kélia', tema2: 'Livre' },
-                    { data: '18/jan', manha: 'Prof. Paulo', tema: 'Propósito Divino', noite: 'Pra. Maria Pereira', tema2: 'Livre' },
-                    { data: '25/jan', manha: 'Pr. Tadeu', tema: 'Fé que Move', noite: 'Pra. Neucy', tema2: 'Livre' },
-                    { data: '01/fev', manha: 'Pra. Jaqueline', tema: 'Cuidado Pastoral', noite: 'Dc. Júnio', tema2: 'Livre' },
-                    { data: '08/fev', manha: 'Pra. Miguelina', tema: 'Renovação Espiritual', noite: 'Bp. Vanjivaldo', tema2: 'Livre' },
-                    { data: '15/fev', manha: 'Pra. Kélia', tema: 'Missão da Igreja', noite: 'Pb. José Dias', tema2: 'Livre' },
-                    { data: '22/fev', manha: 'Pra. Maria Pereira', tema: 'Graça e Verdade', noite: 'Prof. Paulo', tema2: 'Livre' },
-                    { data: '01/mar', manha: 'Pra. Neucy', tema: 'Santificação', noite: 'Pr. Tadeu', tema2: 'Livre' },
-                    { data: '08/mar', manha: 'Dc. Júnio', tema: 'Livre', noite: 'Pra. Jaqueline', tema2: 'Livre' },
-                    { data: '15/mar', manha: 'Bp. Vanjivaldo', tema: 'Oração e Jejum', noite: 'Pra. Miguelina', tema2: 'Livre' },
-                    { data: '22/mar', manha: 'Pb. José Dias', tema: 'Servir com Amor', noite: 'Pra. Kélia', tema2: 'Livre' },
-                    { data: '29/mar', manha: 'Prof. Paulo', tema: 'Esgotamento Espiritual', noite: 'Pra. Maria Pereira', tema2: 'Livre' },
-                    { data: '05/abr', manha: 'Pr. Tadeu', tema: 'Família de Deus', noite: 'Pra. Neucy', tema2: 'Livre' },
-                    { data: '12/abr', manha: 'Pra. Jaqueline', tema: 'Propósito Divino', noite: 'Dc. Júnio', tema2: 'Livre' },
-                    { data: '19/abr', manha: 'Pra. Miguelina', tema: 'Fé que Move', noite: 'Bp. Vanjivaldo', tema2: 'Livre' },
-                    { data: '26/abr', manha: 'Pra. Kélia', tema: 'Cuidado Pastoral', noite: 'Pb. José Dias', tema2: 'Livre' },
-                    { data: '03/mai', manha: 'Pra. Maria Pereira', tema: 'Renovação Espiritual', noite: 'Prof. Paulo', tema2: 'Livre' },
-                    { data: '10/mai', manha: 'Pra. Neucy', tema: 'Missão da Igreja', noite: 'Pr. Tadeu', tema2: 'Livre' },
-                    { data: '17/mai', manha: 'Dc. Júnio', tema: 'Graça e Verdade', noite: 'Pra. Jaqueline', tema2: 'Livre' },
-                    { data: '24/mai', manha: 'Bp. Vanjivaldo', tema: 'Santificação', noite: 'Pra. Miguelina', tema2: 'Livre' },
-                    { data: '31/mai', manha: 'Pb. José Dias', tema: 'Livre', noite: 'Pra. Kélia', tema2: 'Livre' },
-                    { data: '07/jun', manha: 'Prof. Paulo', tema: 'Oração e Jejum', noite: 'Pra. Maria Pereira', tema2: 'Livre' },
-                    { data: '14/jun', manha: 'Pr. Tadeu', tema: 'Servir com Amor', noite: 'Pra. Neucy', tema2: 'Livre' },
-                    { data: '21/jun', manha: 'Pra. Jaqueline', tema: 'Esgotamento Espiritual', noite: 'Dc. Júnio', tema2: 'Livre' },
-                    { data: '28/jun', manha: 'Pra. Miguelina', tema: 'Família de Deus', noite: 'Bp. Vanjivaldo', tema2: 'Livre' },
-                    { data: '05/jul', manha: 'Pra. Kélia', tema: 'Propósito Divino', noite: 'Pb. José Dias', tema2: 'Livre' },
-                    { data: '12/jul', manha: 'Pra. Maria Pereira', tema: 'Fé que Move', noite: 'Prof. Paulo', tema2: 'Livre' },
-                    { data: '19/jul', manha: 'Pra. Neucy', tema: 'Cuidado Pastoral', noite: 'Pr. Tadeu', tema2: 'Livre' },
-                    { data: '26/jul', manha: 'Dc. Júnio', tema: 'Renovação Espiritual', noite: 'Pra. Jaqueline', tema2: 'Livre' },
-                    { data: '02/ago', manha: 'Bp. Vanjivaldo', tema: 'Missão da Igreja', noite: 'Pra. Miguelina', tema2: 'Livre' },
-                    { data: '09/ago', manha: 'Pb. José Dias', tema: 'Graça e Verdade', noite: 'Pra. Kélia', tema2: 'Livre' },
-                    { data: '16/ago', manha: 'Prof. Paulo', tema: 'Santificação', noite: 'Pra. Maria Pereira', tema2: 'Livre' },
-                    { data: '23/ago', manha: 'Pr. Tadeu', tema: 'Livre', noite: 'Pra. Neucy', tema2: 'Livre' },
-                    { data: '30/ago', manha: 'Pra. Jaqueline', tema: 'Oração e Jejum', noite: 'Dc. Júnio', tema2: 'Livre' },
-                    { data: '06/set', manha: 'Pra. Miguelina', tema: 'Servir com Amor', noite: 'Bp. Vanjivaldo', tema2: 'Livre' },
-                    { data: '13/set', manha: 'Pra. Kélia', tema: 'Esgotamento Espiritual', noite: 'Pb. José Dias', tema2: 'Livre' },
-                    { data: '20/set', manha: 'Pra. Maria Pereira', tema: 'Família de Deus', noite: 'Prof. Paulo', tema2: 'Livre' },
-                    { data: '27/set', manha: 'Pra. Neucy', tema: 'Propósito Divino', noite: 'Pr. Tadeu', tema2: 'Livre' },
-                    { data: '04/out', manha: 'Dc. Júnio', tema: 'Fé que Move', noite: 'Pra. Jaqueline', tema2: 'Livre' },
-                    { data: '11/out', manha: 'Bp. Vanjivaldo', tema: 'Cuidado Pastoral', noite: 'Pra. Miguelina', tema2: 'Livre' },
-                    { data: '18/out', manha: 'Pb. José Dias', tema: 'Renovação Espiritual', noite: 'Pra. Kélia', tema2: 'Livre' },
-                    { data: '25/out', manha: 'Prof. Paulo', tema: 'Missão da Igreja', noite: 'Pra. Maria Pereira', tema2: 'Livre' },
-                    { data: '01/nov', manha: 'Pr. Tadeu', tema: 'Graça e Verdade', noite: 'Pra. Neucy', tema2: 'Livre' },
-                    { data: '08/nov', manha: 'Pra. Jaqueline', tema: 'Santificação', noite: 'Dc. Júnio', tema2: 'Livre' },
-                    { data: '15/nov', manha: 'Pra. Miguelina', tema: 'Livre', noite: 'Bp. Vanjivaldo', tema2: 'Livre' },
-                    { data: '22/nov', manha: 'Pra. Kélia', tema: 'Oração e Jejum', noite: 'Pb. José Dias', tema2: 'Livre' },
-                    { data: '29/nov', manha: 'Pra. Maria Pereira', tema: 'Servir com Amor', noite: 'Prof. Paulo', tema2: 'Livre' },
-                    { data: '06/dez', manha: 'Pra. Neucy', tema: 'Esgotamento Espiritual', noite: 'Pr. Tadeu', tema2: 'Livre' },
-                    { data: '13/dez', manha: 'Dc. Júnio', tema: 'Família de Deus', noite: 'Pra. Jaqueline', tema2: 'Livre' },
-                    { data: '20/dez', manha: 'Bp. Vanjivaldo', tema: 'Propósito Divino', noite: 'Pra. Miguelina', tema2: 'Livre' },
-                    { data: '27/dez', manha: 'Pb. José Dias', tema: 'Fé que Move', noite: 'Pra. Kélia', tema2: 'Livre' }
+                    { data: '04/jan', manha: 'Pb. José Dias', tema: 'Esgotamento Espiritual', noite: 'Bp. Vanjivaldo', tema2: 'Livre' },
+                    { data: '11/jan', manha: 'Prof. Paulo', tema: 'Esgotamento Espiritual', noite: 'Pra. Miguelina', tema2: 'Livre' },
+                    { data: '18/jan', manha: 'Pr. Tadeu', tema: 'Esgotamento Espiritual', noite: 'Pra. Kélia', tema2: 'Livre' },
+                    { data: '25/jan', manha: 'Pra. Jaqueline', tema: 'Esgotamento Espiritual', noite: 'Pra. Maria Pereira', tema2: 'Livre' },
+                    { data: '01/fev', manha: 'Bp. Vanjivaldo', tema: 'Esgotamento Espiritual', noite: 'Pra. Miguelina', tema2: 'Livre' },
+                    { data: '08/fev', manha: 'Dc. Júnio', tema: 'Esgotamento Espiritual', noite: 'Pra. Maria Pereira', tema2: 'Livre' },
+                    { data: '15/fev', manha: 'Prof. Paulo', tema: 'Esgotamento Espiritual', noite: 'Pra. Neucy', tema2: 'Livre' },
+                    { data: '22/fev', manha: 'Pb. José Dias', tema: 'Esgotamento Espiritual', noite: 'Bp. Vanjivaldo', tema2: 'Livre' }
                 ],
                 enviados: []
             };
@@ -2053,94 +2091,100 @@
         // ==================== RENDERIZAÇÃO ====================
 
         function renderEscala() {
-            const mesesNomes = {
-                'jan':'Janeiro','fev':'Fevereiro','mar':'Março','abr':'Abril',
-                'mai':'Maio','jun':'Junho','jul':'Julho','ago':'Agosto',
-                'set':'Setembro','out':'Outubro','nov':'Novembro','dez':'Dezembro'
-            };
+            const mesesNomes = {'jan':'Jan','fev':'Fev','mar':'Mar','abr':'Abr','mai':'Mai','jun':'Jun','jul':'Jul','ago':'Ago','set':'Set','out':'Out','nov':'Nov','dez':'Dez'};
+            const mesesCompletos = {'jan':'Janeiro','fev':'Fevereiro','mar':'Março','abr':'Abril','mai':'Maio','jun':'Junho','jul':'Julho','ago':'Agosto','set':'Setembro','out':'Outubro','nov':'Novembro','dez':'Dezembro'};
             const mesesOrdem = ['jan','fev','mar','abr','mai','jun','jul','ago','set','out','nov','dez'];
 
-            // Agrupar por mês
             const porMes = {};
             dados.escala.forEach(item => {
                 if (!item.data) return;
-                // Filtro
-                if (filtroAtivo && filtroAtivo.tipo && filtroAtivo.tipo !== 'todos') {
-                    if (filtroAtivo.tipo === 'mes' && !item.data.toLowerCase().includes(filtroAtivo.valor.toLowerCase())) return;
-                    if (filtroAtivo.tipo === 'ministrante' && item.manha !== filtroAtivo.valor && item.noite !== filtroAtivo.valor) return;
+                if (filtroAtivo && filtroAtivo.tipo === 'ministrante') {
+                    if (item.manha !== filtroAtivo.valor && item.noite !== filtroAtivo.valor) return;
                 }
-                const partes = item.data.split('/');
-                const mes = partes[1];
+                const mes = item.data.split('/')[1];
                 if (!porMes[mes]) porMes[mes] = [];
                 porMes[mes].push(item);
             });
 
+            // Sidebar meses
+            const sidebar = document.getElementById('escalasSidebar');
+            if (sidebar) {
+                sidebar.innerHTML = '<div class="sidebar-dica">☑ multi</div>' +
+                    mesesOrdem.filter(m => porMes[m]).map(m => {
+                        const isActive = activeMeses.has(m);
+                        return '<button class="sidebar-btn' + (isActive ? ' active' : '') + '" id="mes-btn-' + m + '" onclick="activateMes(\'' + m + '\', event.ctrlKey||event.metaKey)">' +
+                            mesesNomes[m] +
+                            '<input type="checkbox" class="sidebar-check" ' + (isActive ? 'checked' : '') +
+                            ' onchange="event.stopPropagation();activateMes(\'' + m + '\',true)" onclick="event.stopPropagation()">' +
+                            '</button>';
+                    }).join('');
+            }
+
+            // Renderizar meses ativos
+            if (activeMeses.size === 0) {
+                const primeiro = mesesOrdem.find(m => porMes[m]);
+                if (primeiro) { activeMeses.add(primeiro); }
+            }
+            const mesesParaMostrar = mesesOrdem.filter(m => activeMeses.has(m) && porMes[m]);
+            const n = mesesParaMostrar.length;
+            const cols = n <= 1 ? 4 : n === 2 ? 2 : 3;
+
             const container = document.getElementById('escalaBody');
-            container.innerHTML = mesesOrdem
-                .filter(m => porMes[m] && porMes[m].length > 0)
-                .map(mes => {
+            if (container) {
+                container.innerHTML = mesesParaMostrar.map(mes => {
                     const domingos = porMes[mes];
                     const cards = domingos.map(item => {
                         const dia = item.data.split('/')[0];
-                        const mostrarManha = !filtroAtivo || filtroAtivo.tipo !== 'periodo' || filtroAtivo.valor === 'manha';
-                        const mostrarNoite = !filtroAtivo || filtroAtivo.tipo !== 'periodo' || filtroAtivo.valor === 'noite';
-                        const slotManha = mostrarManha ? `
-                            <div class="turno-slot manha">
-                                <div class="turno-slot-hdr">☀ manhã ${item.horaManha || '9h30'}</div>
-                                ${item.manha ? `<div class="turno-slot-nome">${item.manha}</div>${item.tema ? `<div class="turno-slot-tema">${item.tema}</div>` : ''}` : '<div class="turno-slot-vazio">a preencher</div>'}
-                            </div>` : '';
-                        const slotNoite = mostrarNoite ? `
-                            <div class="turno-slot noite">
-                                <div class="turno-slot-hdr">☽ noite ${item.horaNoite || '18h'}</div>
-                                ${item.noite ? `<div class="turno-slot-nome">${item.noite}</div>${item.tema2 && item.tema2 !== 'Livre' ? `<div class="turno-slot-tema">${item.tema2}</div>` : ''}` : '<div class="turno-slot-vazio">a preencher</div>'}
-                            </div>` : '';
-                        return `
-                            <div class="domingo-card">
-                                <div class="domingo-card-hdr">
-                                    <span class="domingo-dia">${dia}</span>
-                                    <span class="domingo-dom">dom</span>
-                                </div>
-                                <div class="domingo-body">${slotManha}${slotNoite}</div>
-                            </div>`;
+                        const slotM = '<div class="turno-slot manha"><div class="turno-slot-hdr">☀ manhã ' + (item.horaManha || '9h30') + '</div>' +
+                            (item.manha ? '<div class="turno-slot-nome">' + item.manha + '</div>' + (item.tema ? '<div class="turno-slot-tema">' + item.tema + '</div>' : '') : '<div class="turno-slot-vazio">a preencher</div>') + '</div>';
+                        const slotN = '<div class="turno-slot noite"><div class="turno-slot-hdr">☽ noite ' + (item.horaNoite || '18h') + '</div>' +
+                            (item.noite ? '<div class="turno-slot-nome">' + item.noite + '</div>' + (item.tema2 && item.tema2 !== 'Livre' ? '<div class="turno-slot-tema">' + item.tema2 + '</div>' : '') : '<div class="turno-slot-vazio">a preencher</div>') + '</div>';
+                        return '<div class="domingo-card"><div class="domingo-card-hdr"><span class="domingo-dia">' + dia + '</span><span class="domingo-dom">dom</span></div><div class="domingo-body">' + slotM + slotN + '</div></div>';
                     }).join('');
-                    return `
-                        <div class="mes-bloco">
-                            <div class="mes-header">
-                                <span class="mes-nome">${mesesNomes[mes] || mes}</span>
-                                <div class="mes-linha"></div>
-                                <span class="mes-count">${domingos.length} domingo${domingos.length > 1 ? 's' : ''}</span>
-                            </div>
-                            <div class="mes-grid">${cards}</div>
-                        </div>`;
+                    return '<div class="mes-bloco"><div class="mes-header"><span class="mes-nome">' + mesesCompletos[mes] + '</span><div class="mes-linha"></div><span class="mes-count">' + domingos.length + ' dom.</span></div><div class="mes-grid" style="grid-template-columns:repeat(' + cols + ',minmax(0,1fr))">' + cards + '</div></div>';
                 }).join('');
+            }
+
+            // Sync checkboxes
+            document.querySelectorAll('.sidebar-btn').forEach(btn => {
+                const m = btn.id.replace('mes-btn-','');
+                btn.classList.toggle('active', activeMeses.has(m));
+                const chk = btn.querySelector('.sidebar-check');
+                if (chk) chk.checked = activeMeses.has(m);
+            });
 
             renderResumo();
         }
 
+        const activeMeses = new Set();
+        function activateMes(mes, ctrl) {
+            if (ctrl) {
+                if (activeMeses.has(mes)) activeMeses.delete(mes); else activeMeses.add(mes);
+            } else {
+                activeMeses.clear(); activeMeses.add(mes);
+            }
+            renderEscala();
+        }
+
                 function renderResumo() {
             const resumoMap = new Map();
-
             dados.escala.forEach(item => {
-                let considerarManha = true, considerarNoite = true;
+                let cm = true, cn = true;
                 if (filtroAtivo && filtroAtivo.tipo && filtroAtivo.tipo !== 'todos') {
                     if (filtroAtivo.tipo === 'mes') {
-                        if (!item.data || !item.data.toLowerCase().includes(filtroAtivo.valor.toLowerCase())) {
-                            considerarManha = false; considerarNoite = false;
-                        }
+                        if (!item.data || !item.data.toLowerCase().includes(filtroAtivo.valor.toLowerCase())) { cm = false; cn = false; }
                     } else if (filtroAtivo.tipo === 'ministrante') {
-                        considerarManha = item.manha === filtroAtivo.valor;
-                        considerarNoite = item.noite === filtroAtivo.valor;
+                        cm = item.manha === filtroAtivo.valor; cn = item.noite === filtroAtivo.valor;
                     } else if (filtroAtivo.tipo === 'periodo') {
-                        considerarManha = filtroAtivo.valor === 'manha';
-                        considerarNoite = filtroAtivo.valor === 'noite';
+                        cm = filtroAtivo.valor === 'manha'; cn = filtroAtivo.valor === 'noite';
                     }
                 }
-                if (considerarManha && item.manha && item.manha !== '-') {
-                    if (!resumoMap.has(item.manha)) resumoMap.set(item.manha, { manha: [], noite: [] });
+                if (cm && item.manha && item.manha !== '-') {
+                    if (!resumoMap.has(item.manha)) resumoMap.set(item.manha, { manha:[], noite:[] });
                     resumoMap.get(item.manha).manha.push(item.data);
                 }
-                if (considerarNoite && item.noite && item.noite !== '-') {
-                    if (!resumoMap.has(item.noite)) resumoMap.set(item.noite, { manha: [], noite: [] });
+                if (cn && item.noite && item.noite !== '-') {
+                    if (!resumoMap.has(item.noite)) resumoMap.set(item.noite, { manha:[], noite:[] });
                     resumoMap.get(item.noite).noite.push(item.data);
                 }
             });
@@ -2149,40 +2193,74 @@
                 .map(([nome, p]) => ({ nome, manha: sortDatas(p.manha), noite: sortDatas(p.noite), total: p.manha.length + p.noite.length }))
                 .sort((a, b) => a.nome.localeCompare(b.nome, 'pt-BR', { sensitivity: 'base' }));
 
-            document.getElementById('resumoBody').innerHTML = resumoArray.map(item => {
-                const pillsManha = item.manha.length > 0
-                    ? item.manha.map(d => `<span class="resumo-pill resumo-pill-m">${d}</span>`).join('')
-                    : `<span class="resumo-pill-vazio">nenhuma</span>`;
-                const pillsNoite = item.noite.length > 0
-                    ? item.noite.map(d => `<span class="resumo-pill resumo-pill-n">${d}</span>`).join('')
-                    : `<span class="resumo-pill-vazio">nenhuma</span>`;
-                return `
-                    <div class="resumo-card">
-                        <div class="resumo-card-nome">${item.nome}</div>
-                        <div class="resumo-card-corpo">
-                            <div class="resumo-total">
-                                <div class="resumo-total-num">${item.total}</div>
-                                <div class="resumo-total-lbl">vezes</div>
-                            </div>
-                            <div class="resumo-turnos">
-                                <div class="resumo-turno resumo-turno-m">
-                                    <div class="resumo-turno-top">
-                                        <span class="resumo-turno-num resumo-turno-num-m">${item.manha.length}</span>
-                                        <span class="resumo-turno-lbl resumo-turno-lbl-m">manhãs</span>
-                                    </div>
-                                    <div class="resumo-pills">${pillsManha}</div>
-                                </div>
-                                <div class="resumo-turno resumo-turno-n">
-                                    <div class="resumo-turno-top">
-                                        <span class="resumo-turno-num resumo-turno-num-n">${item.noite.length}</span>
-                                        <span class="resumo-turno-lbl resumo-turno-lbl-n">noites</span>
-                                    </div>
-                                    <div class="resumo-pills">${pillsNoite}</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>`;
-            }).join('');
+            // Sidebar ministrantes
+            const sidebar = document.getElementById('resumoSidebar');
+            if (sidebar) {
+                // Cores por cargo
+                const cargoColor = {'Bp.':'#ffd700','Ep.':'#ffd700','Pb.':'#38bdf8','Pr.':'#34d399','Pra.':'#f472b6','Prof.':'#a78bfa','Dc.':'#fb923c','Dca.':'#fb923c'};
+                const parseNome = n => {
+                    const m = n.match(/^(Bp\.|Ep\.|Pb\.|Pr\.|Pra\.|Prof\.|Dc\.|Dca\.)\s*(.+)/i);
+                    if (m) return { titulo: m[1], resto: m[2] };
+                    return { titulo: '', resto: n };
+                };
+                sidebar.innerHTML = '<div class="sidebar-dica">☑ multi</div>' +
+                    resumoArray.map(item => {
+                        const isActive = activeMinistrantesSet.has(item.nome);
+                        const safeNome = item.nome.replace(/'/g, "\'");
+                        const p = parseNome(item.nome);
+                        const cor = cargoColor[p.titulo] || '#a0a0a0';
+                        const nomeDisplay = p.titulo
+                            ? '<span style="color:' + cor + ';font-size:9px;display:block;font-weight:700">' + p.titulo + '</span>' +
+                              '<span style="font-size:10px;color:#fff">' + p.resto + '</span>'
+                            : '<span style="font-size:10px">' + p.resto + '</span>';
+                        return '<button class="sidebar-btn' + (isActive ? ' active' : '') + '" title="' + item.nome + '" onclick="activateMin(\'' + safeNome + '\', event.ctrlKey||event.metaKey)">' +
+                            nomeDisplay +
+                            '<input type="checkbox" class="sidebar-check" ' + (isActive ? 'checked' : '') +
+                            ' onchange="event.stopPropagation();activateMin(\'' + safeNome + '\',true)" onclick="event.stopPropagation()">' +
+                            '</button>';
+                    }).join('');
+            }
+
+            // Ativar primeiro se nenhum ativo
+            if (activeMinistrantesSet.size === 0 && resumoArray.length > 0) {
+                activeMinistrantesSet.add(resumoArray[0].nome);
+            }
+            const paraMostrar = resumoArray.filter(i => activeMinistrantesSet.has(i.nome));
+
+            const resumoBody = document.getElementById('resumoBody');
+            if (resumoBody) {
+                resumoBody.innerHTML = paraMostrar.map(item => {
+                    const pillsM = item.manha.length > 0 ? item.manha.map(d => '<span class="resumo-pill resumo-pill-m">' + d + '</span>').join('') : '<span class="resumo-pill-vazio">nenhuma</span>';
+                    const pillsN = item.noite.length > 0 ? item.noite.map(d => '<span class="resumo-pill resumo-pill-n">' + d + '</span>').join('') : '<span class="resumo-pill-vazio">nenhuma</span>';
+                    return '<div class="resumo-card">' +
+                        '<div class="resumo-card-nome">' + item.nome + '</div>' +
+                        '<div class="resumo-card-corpo">' +
+                            '<div class="resumo-total"><div class="resumo-total-num">' + item.total + '</div><div class="resumo-total-lbl">vezes</div></div>' +
+                            '<div class="resumo-turnos">' +
+                                '<div class="resumo-turno resumo-turno-m"><div class="resumo-turno-top"><span class="resumo-turno-num resumo-turno-num-m">' + item.manha.length + '</span><span class="resumo-turno-lbl resumo-turno-lbl-m">manhãs</span></div><div class="resumo-pills">' + pillsM + '</div></div>' +
+                                '<div class="resumo-turno resumo-turno-n"><div class="resumo-turno-top"><span class="resumo-turno-num resumo-turno-num-n">' + item.noite.length + '</span><span class="resumo-turno-lbl resumo-turno-lbl-n">noites</span></div><div class="resumo-pills">' + pillsN + '</div></div>' +
+                            '</div>' +
+                        '</div></div>';
+                }).join('');
+            }
+
+            // Sync checkboxes ministrantes
+            document.querySelectorAll('#resumoSidebar .sidebar-btn').forEach(btn => {
+                const nome = btn.getAttribute('title');
+                btn.classList.toggle('active', activeMinistrantesSet.has(nome));
+                const chk = btn.querySelector('.sidebar-check');
+                if (chk) chk.checked = activeMinistrantesSet.has(nome);
+            });
+        }
+
+        const activeMinistrantesSet = new Set();
+        function activateMin(nome, ctrl) {
+            if (ctrl) {
+                if (activeMinistrantesSet.has(nome)) activeMinistrantesSet.delete(nome); else activeMinistrantesSet.add(nome);
+            } else {
+                activeMinistrantesSet.clear(); activeMinistrantesSet.add(nome);
+            }
+            renderResumo();
         }
 
         function getNomePessoa(pessoa) {
