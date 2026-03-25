@@ -141,82 +141,54 @@
             50% { transform: scale(1.1); }
         }
 
-        /* Tabela */
-        .table-container {
-            background: rgba(255,255,255,0.05);
-            border-radius: 15px;
-            overflow: hidden;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.4);
-            margin-top: 20px;
-            border: 1px solid rgba(255,255,255,0.1);
-            backdrop-filter: blur(10px);
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-
-        th {
-            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
-            color: #ffd700;
-            padding: 15px 12px;
-            text-align: center;
-            font-weight: 600;
-            font-size: 1.1rem;
-            border-bottom: 2px solid rgba(255,215,0,0.4);
-        }
-
-        td {
-            padding: 14px 12px;
-            border-bottom: 1px solid #ddd;
-            text-align: center;
-            font-size: 1.05rem;
-        }
-
-        .data-cell {
-            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
-            color: #ffd700;
-            font-weight: 700;
-            font-size: 1.2rem;
-            vertical-align: middle;
-            border-right: 3px solid rgba(255,215,0,0.3);
-        }
-
-        .row-manha td {
-            background: rgba(255,215,0,0.12);
-            color: #fff;
-            font-size: 1.1rem;
-            font-weight: 500;
-            border-bottom: 1px solid rgba(255,215,0,0.15);
-        }
-
-        .row-noite td {
-            background: rgba(255,255,255,0.04);
-            color: #ddd;
-            font-size: 1.1rem;
-            font-weight: 500;
-            border-bottom: 3px solid rgba(255,215,0,0.2);
-        }
-
-        .row-noite td.data-cell {
-            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
-            color: #ffd700;
-        }
-
-        .turno-label {
-            font-weight: 600;
-            font-size: 0.8rem;
-            opacity: 0.9;
-            display: block;
-            margin-bottom: 3px;
-        }
-
-        .row-manha .turno-label { color: #ffd700; }
-        .row-noite .turno-label { color: #a0a0a0; }
-
-        tr:hover td { filter: brightness(1.05); }
-        .row-noite td { border-bottom: 3px solid #8B2F87; }
+        /* ===== NOVO LAYOUT CARDS ===== */
+        .escala-container { margin-top: 20px; }
+        .mes-bloco { margin-bottom: 28px; }
+        .mes-header { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
+        .mes-nome { font-size: 15px; font-weight: 600; color: #ffd700; white-space: nowrap; }
+        .mes-linha { flex: 1; height: 1px; background: rgba(255,215,0,0.2); }
+        .mes-count { font-size: 11px; color: #a0a0a0; white-space: nowrap; }
+        .mes-grid { display: grid; grid-template-columns: repeat(4, minmax(0,1fr)); gap: 8px; }
+        @media (max-width: 768px) { .mes-grid { grid-template-columns: repeat(2, minmax(0,1fr)); } }
+        .domingo-card { border: 1px solid rgba(255,255,255,0.1); border-radius: 10px; overflow: hidden; background: rgba(255,255,255,0.04); }
+        .domingo-card-hdr { display: flex; align-items: center; justify-content: space-between; padding: 6px 10px; background: rgba(255,215,0,0.08); border-bottom: 1px solid rgba(255,215,0,0.15); }
+        .domingo-dia { font-size: 20px; font-weight: 600; color: #ffd700; }
+        .domingo-dom { font-size: 10px; color: #a0a0a0; }
+        .domingo-body { padding: 8px; display: flex; flex-direction: column; gap: 6px; }
+        .turno-slot { border-radius: 6px; padding: 6px 8px; }
+        .turno-slot.manha { background: rgba(245,158,11,0.12); border: 1px solid rgba(245,158,11,0.25); }
+        .turno-slot.noite { background: rgba(139,92,246,0.12); border: 1px solid rgba(139,92,246,0.25); }
+        .turno-slot-hdr { font-size: 9px; font-weight: 600; margin-bottom: 3px; }
+        .turno-slot.manha .turno-slot-hdr { color: #f59e0b; }
+        .turno-slot.noite .turno-slot-hdr { color: #8b5cf6; }
+        .turno-slot-nome { font-size: 11px; color: #e0e0e0; }
+        .turno-slot-tema { font-size: 10px; color: #a0a0a0; margin-top: 2px; }
+        .turno-slot-vazio { font-size: 11px; color: #666; font-style: italic; }
+        .resumo-grid { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 12px; }
+        @media (max-width: 600px) { .resumo-grid { grid-template-columns: 1fr; } }
+        .resumo-card { border: 1px solid rgba(255,255,255,0.1); border-radius: 10px; overflow: hidden; background: rgba(255,255,255,0.04); }
+        .resumo-card-nome { padding: 10px 14px; border-bottom: 1px solid rgba(255,255,255,0.08); background: rgba(255,255,255,0.06); font-size: 13px; font-weight: 600; color: #ffd700; }
+        .resumo-card-corpo { display: flex; }
+        .resumo-total { width: 80px; flex-shrink: 0; border-right: 1px solid rgba(255,255,255,0.08); display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 14px 8px; }
+        .resumo-total-num { font-size: 44px; font-weight: 600; color: #fff; line-height: 1; }
+        .resumo-total-lbl { font-size: 10px; color: #888; margin-top: 4px; text-align: center; }
+        .resumo-turnos { flex: 1; display: flex; flex-direction: column; }
+        .resumo-turno { flex: 1; padding: 8px 12px; }
+        .resumo-turno-m { background: rgba(245,158,11,0.08); border-bottom: 1px solid rgba(255,255,255,0.06); }
+        .resumo-turno-n { background: rgba(139,92,246,0.08); }
+        .resumo-turno-top { display: flex; align-items: baseline; gap: 6px; margin-bottom: 6px; }
+        .resumo-turno-num { font-size: 20px; font-weight: 600; line-height: 1; }
+        .resumo-turno-num-m { color: #f59e0b; }
+        .resumo-turno-num-n { color: #8b5cf6; }
+        .resumo-turno-lbl { font-size: 11px; }
+        .resumo-turno-lbl-m { color: #f59e0b; }
+        .resumo-turno-lbl-n { color: #8b5cf6; }
+        .resumo-pills { display: flex; flex-wrap: wrap; gap: 3px; }
+        .resumo-pill { font-size: 10px; padding: 2px 6px; border-radius: 8px; }
+        .resumo-pill-m { background: rgba(245,158,11,0.25); color: #fcd34d; }
+        .resumo-pill-n { background: rgba(139,92,246,0.25); color: #c4b5fd; }
+        .resumo-pill-vazio { font-size: 10px; color: #555; font-style: italic; }
+        .table-container { display: none; }
 
         /* Resumo */
         .resumo-container { margin-top: 30px; }
@@ -1108,35 +1080,13 @@
             </div>
         </div>
 
-        <!-- Tabela de Visualização -->
-        <div class="table-container">
-            <table id="escalaTable">
-                <thead>
-                    <tr>
-                        <th>Data</th>
-                        <th>Ministrador</th>
-                        <th>Tema</th>
-                    </tr>
-                </thead>
-                <tbody id="escalaBody"></tbody>
-            </table>
-        </div>
+        <!-- Nova Escala em Cards -->
+        <div class="escala-container" id="escalaBody"></div>
 
-        <!-- Tabela de Resumo -->
+        <!-- Novo Resumo em Cards -->
         <div class="resumo-container">
             <h2 class="resumo-titulo">📊 Resumo por Ministrante</h2>
-            <div class="table-container resumo-table">
-                <table id="resumoTable">
-                    <thead>
-                        <tr>
-                            <th>Ministrante</th>
-                            <th>Datas</th>
-                            <th>Período</th>
-                        </tr>
-                    </thead>
-                    <tbody id="resumoBody"></tbody>
-                </table>
-            </div>
+            <div class="resumo-grid" id="resumoBody"></div>
         </div>
 
         <!-- Botão Imprimir PDF -->
@@ -2103,93 +2053,79 @@
         // ==================== RENDERIZAÇÃO ====================
 
         function renderEscala() {
-            const tbody = document.getElementById('escalaBody');
-            
-            tbody.innerHTML = dados.escala.map(item => {
-                // Verificar se deve mostrar este item baseado no filtro
-                let mostrarItem = true;
-                let mostrarManha = true;
-                let mostrarNoite = true;
-                
-                // Só aplicar filtro se existir e não for "todos"
+            const mesesNomes = {
+                'jan':'Janeiro','fev':'Fevereiro','mar':'Março','abr':'Abril',
+                'mai':'Maio','jun':'Junho','jul':'Julho','ago':'Agosto',
+                'set':'Setembro','out':'Outubro','nov':'Novembro','dez':'Dezembro'
+            };
+            const mesesOrdem = ['jan','fev','mar','abr','mai','jun','jul','ago','set','out','nov','dez'];
+
+            // Agrupar por mês
+            const porMes = {};
+            dados.escala.forEach(item => {
+                if (!item.data) return;
+                // Filtro
                 if (filtroAtivo && filtroAtivo.tipo && filtroAtivo.tipo !== 'todos') {
-                    if (filtroAtivo.tipo === 'mes') {
-                        // Filtro por mês - verificar se a data contém o mês
-                        mostrarItem = item.data && item.data.toLowerCase().includes(filtroAtivo.valor.toLowerCase());
-                    } else if (filtroAtivo.tipo === 'ministrante') {
-                        mostrarManha = item.manha === filtroAtivo.valor;
-                        mostrarNoite = item.noite === filtroAtivo.valor;
-                        mostrarItem = mostrarManha || mostrarNoite;
-                    } else if (filtroAtivo.tipo === 'periodo') {
-                        mostrarManha = filtroAtivo.valor === 'manha';
-                        mostrarNoite = filtroAtivo.valor === 'noite';
-                    }
+                    if (filtroAtivo.tipo === 'mes' && !item.data.toLowerCase().includes(filtroAtivo.valor.toLowerCase())) return;
+                    if (filtroAtivo.tipo === 'ministrante' && item.manha !== filtroAtivo.valor && item.noite !== filtroAtivo.valor) return;
                 }
-                
-                // Se item não passa no filtro, não mostrar
-                if (!mostrarItem) return '';
-                
-                // Se ambos ocultos por filtro de ministrante/periodo, não mostrar
-                if (!mostrarManha && !mostrarNoite) return '';
-                
-                // Se mostrar ambos (normal ou filtro por mês)
-                if (mostrarManha && mostrarNoite) {
+                const partes = item.data.split('/');
+                const mes = partes[1];
+                if (!porMes[mes]) porMes[mes] = [];
+                porMes[mes].push(item);
+            });
+
+            const container = document.getElementById('escalaBody');
+            container.innerHTML = mesesOrdem
+                .filter(m => porMes[m] && porMes[m].length > 0)
+                .map(mes => {
+                    const domingos = porMes[mes];
+                    const cards = domingos.map(item => {
+                        const dia = item.data.split('/')[0];
+                        const mostrarManha = !filtroAtivo || filtroAtivo.tipo !== 'periodo' || filtroAtivo.valor === 'manha';
+                        const mostrarNoite = !filtroAtivo || filtroAtivo.tipo !== 'periodo' || filtroAtivo.valor === 'noite';
+                        const slotManha = mostrarManha ? `
+                            <div class="turno-slot manha">
+                                <div class="turno-slot-hdr">☀ manhã ${item.horaManha || '9h30'}</div>
+                                ${item.manha ? `<div class="turno-slot-nome">${item.manha}</div>${item.tema ? `<div class="turno-slot-tema">${item.tema}</div>` : ''}` : '<div class="turno-slot-vazio">a preencher</div>'}
+                            </div>` : '';
+                        const slotNoite = mostrarNoite ? `
+                            <div class="turno-slot noite">
+                                <div class="turno-slot-hdr">☽ noite ${item.horaNoite || '18h'}</div>
+                                ${item.noite ? `<div class="turno-slot-nome">${item.noite}</div>${item.tema2 && item.tema2 !== 'Livre' ? `<div class="turno-slot-tema">${item.tema2}</div>` : ''}` : '<div class="turno-slot-vazio">a preencher</div>'}
+                            </div>` : '';
+                        return `
+                            <div class="domingo-card">
+                                <div class="domingo-card-hdr">
+                                    <span class="domingo-dia">${dia}</span>
+                                    <span class="domingo-dom">dom</span>
+                                </div>
+                                <div class="domingo-body">${slotManha}${slotNoite}</div>
+                            </div>`;
+                    }).join('');
                     return `
-                        <tr class="row-manha">
-                            <td class="data-cell" rowspan="2">${item.data}</td>
-                            <td><span class="turno-label">☀️ Manhã</span>${item.manha || '-'}</td>
-                            <td>${item.tema || '-'}</td>
-                        </tr>
-                        <tr class="row-noite">
-                            <td><span class="turno-label">🌙 Noite</span>${item.noite || '-'}</td>
-                            <td>${item.tema2 || '-'}</td>
-                        </tr>
-                    `;
-                }
-                
-                // Se mostrar só manhã
-                if (mostrarManha) {
-                    return `
-                        <tr class="row-manha">
-                            <td class="data-cell">${item.data}</td>
-                            <td><span class="turno-label">☀️ Manhã</span>${item.manha || '-'}</td>
-                            <td>${item.tema || '-'}</td>
-                        </tr>
-                    `;
-                }
-                
-                // Se mostrar só noite
-                if (mostrarNoite) {
-                    return `
-                        <tr class="row-noite">
-                            <td class="data-cell">${item.data}</td>
-                            <td><span class="turno-label">🌙 Noite</span>${item.noite || '-'}</td>
-                            <td>${item.tema2 || '-'}</td>
-                        </tr>
-                    `;
-                }
-                
-                return '';
-            }).join('');
-            
+                        <div class="mes-bloco">
+                            <div class="mes-header">
+                                <span class="mes-nome">${mesesNomes[mes] || mes}</span>
+                                <div class="mes-linha"></div>
+                                <span class="mes-count">${domingos.length} domingo${domingos.length > 1 ? 's' : ''}</span>
+                            </div>
+                            <div class="mes-grid">${cards}</div>
+                        </div>`;
+                }).join('');
+
             renderResumo();
         }
 
-        function renderResumo() {
+                function renderResumo() {
             const resumoMap = new Map();
-            
+
             dados.escala.forEach(item => {
-                // Verificar se deve considerar manhã e/ou noite baseado no filtro
-                let considerarManha = true;
-                let considerarNoite = true;
-                
+                let considerarManha = true, considerarNoite = true;
                 if (filtroAtivo && filtroAtivo.tipo && filtroAtivo.tipo !== 'todos') {
                     if (filtroAtivo.tipo === 'mes') {
-                        // Filtro por mês - verificar se a data contém o mês
-                        const passaFiltroMes = item.data && item.data.toLowerCase().includes(filtroAtivo.valor.toLowerCase());
-                        if (!passaFiltroMes) {
-                            considerarManha = false;
-                            considerarNoite = false;
+                        if (!item.data || !item.data.toLowerCase().includes(filtroAtivo.valor.toLowerCase())) {
+                            considerarManha = false; considerarNoite = false;
                         }
                     } else if (filtroAtivo.tipo === 'ministrante') {
                         considerarManha = item.manha === filtroAtivo.valor;
@@ -2199,7 +2135,6 @@
                         considerarNoite = filtroAtivo.valor === 'noite';
                     }
                 }
-                
                 if (considerarManha && item.manha && item.manha !== '-') {
                     if (!resumoMap.has(item.manha)) resumoMap.set(item.manha, { manha: [], noite: [] });
                     resumoMap.get(item.manha).manha.push(item.data);
@@ -2211,36 +2146,42 @@
             });
 
             const resumoArray = Array.from(resumoMap.entries())
-                .map(([nome, periodos]) => ({
-                    nome,
-                    manha: sortDatas(periodos.manha),
-                    noite: sortDatas(periodos.noite),
-                    total: periodos.manha.length + periodos.noite.length
-                }))
+                .map(([nome, p]) => ({ nome, manha: sortDatas(p.manha), noite: sortDatas(p.noite), total: p.manha.length + p.noite.length }))
                 .sort((a, b) => a.nome.localeCompare(b.nome, 'pt-BR', { sensitivity: 'base' }));
 
-            const tbody = document.getElementById('resumoBody');
-            tbody.innerHTML = resumoArray.map(item => {
-                const datasFormatadas = [];
-                item.manha.forEach(d => datasFormatadas.push({ data: d, tipo: 'manha' }));
-                item.noite.forEach(d => datasFormatadas.push({ data: d, tipo: 'noite' }));
-                datasFormatadas.sort((a, b) => compararDatas(a.data, b.data));
-
-                const datasHtml = datasFormatadas.map(d => 
-                    `<span class="periodo-badge periodo-${d.tipo}">${d.tipo === 'manha' ? '☀️' : '🌙'} ${d.data}</span>`
-                ).join(' ');
-
-                const periodos = [];
-                if (item.manha.length > 0) periodos.push(`<span class="periodo-badge periodo-manha">☀️ Manhã (${item.manha.length})</span>`);
-                if (item.noite.length > 0) periodos.push(`<span class="periodo-badge periodo-noite">🌙 Noite (${item.noite.length})</span>`);
-
+            document.getElementById('resumoBody').innerHTML = resumoArray.map(item => {
+                const pillsManha = item.manha.length > 0
+                    ? item.manha.map(d => `<span class="resumo-pill resumo-pill-m">${d}</span>`).join('')
+                    : `<span class="resumo-pill-vazio">nenhuma</span>`;
+                const pillsNoite = item.noite.length > 0
+                    ? item.noite.map(d => `<span class="resumo-pill resumo-pill-n">${d}</span>`).join('')
+                    : `<span class="resumo-pill-vazio">nenhuma</span>`;
                 return `
-                    <tr class="row-resumo">
-                        <td><div class="ministrante-cell"><span class="ministrante-nome">${item.nome}</span><span class="qtd-badge">${item.total}x</span></div></td>
-                        <td class="datas-list">${datasHtml}</td>
-                        <td>${periodos.join(' ')}</td>
-                    </tr>
-                `;
+                    <div class="resumo-card">
+                        <div class="resumo-card-nome">${item.nome}</div>
+                        <div class="resumo-card-corpo">
+                            <div class="resumo-total">
+                                <div class="resumo-total-num">${item.total}</div>
+                                <div class="resumo-total-lbl">vezes</div>
+                            </div>
+                            <div class="resumo-turnos">
+                                <div class="resumo-turno resumo-turno-m">
+                                    <div class="resumo-turno-top">
+                                        <span class="resumo-turno-num resumo-turno-num-m">${item.manha.length}</span>
+                                        <span class="resumo-turno-lbl resumo-turno-lbl-m">manhãs</span>
+                                    </div>
+                                    <div class="resumo-pills">${pillsManha}</div>
+                                </div>
+                                <div class="resumo-turno resumo-turno-n">
+                                    <div class="resumo-turno-top">
+                                        <span class="resumo-turno-num resumo-turno-num-n">${item.noite.length}</span>
+                                        <span class="resumo-turno-lbl resumo-turno-lbl-n">noites</span>
+                                    </div>
+                                    <div class="resumo-pills">${pillsNoite}</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>`;
             }).join('');
         }
 
